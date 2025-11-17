@@ -26,6 +26,8 @@ require('./app/routes/book.route')(app);
 
 require('./app/routes/borrowing.route')(app);
 
+require('./app/routes/auth.route')(app);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy trên cổng ${PORT}.`);

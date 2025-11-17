@@ -1,5 +1,6 @@
 const Staff = require('../models/staff.model');
 const getNextSequenceValue = require('../utils/getNextSequence');
+const bcrypt = require('bcrypt');
 
 exports.create = async (req, res) => {
     if (!req.body.hoTenNV || !req.body.password) {
@@ -7,13 +8,16 @@ exports.create = async (req, res) => {
     }
     
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
         const nextMSNV = await getNextSequenceValue("msnv");
         const formattedMSNV = "NV" + String(nextMSNV).padStart(3, '0');
 
         const staff = new Staff({
             msnv: formattedMSNV,
             hoTenNV: req.body.hoTenNV,
-            password: req.body.password, 
+            password: hashedPassword, 
             chucVu: req.body.chucVu,
             diaChi: req.body.diaChi,
             soDienThoai: req.body.soDienThoai
