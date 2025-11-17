@@ -3,11 +3,11 @@ module.exports = (app) => {
 
     const router = require('express').Router();
 
-    // Tạo nhân viên mới
     router.post('/', staffController.create);
-
-    // Lấy tất cả nhân viên
     router.get('/', staffController.findAll);
+    router.get('/:id', staffController.findOne);
+    router.put('/:id', staffController.update);
+    router.delete('/:id', staffController.delete);
     
     app.use('/api/staff', router); 
 };
