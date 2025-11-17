@@ -22,6 +22,8 @@ require('./app/routes/reader.route')(app);
 
 require('./app/routes/publisher.route')(app);
 
+require('./app/routes/book.route')(app);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy trên cổng ${PORT}.`);
