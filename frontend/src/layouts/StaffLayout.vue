@@ -30,6 +30,11 @@
                       <font-awesome-icon icon="users" class="me-2" /> Quản Lý Độc Giả
                     </router-link>
                 </li>
+                <li class="nav-item mb-2">
+                    <router-link to="/staff/accounts" class="nav-link text-white">
+                      <font-awesome-icon icon="user-tie" class="me-2" /> Nhân Sự
+                    </router-link>
+                </li>
                 
                 <li class="nav-item mt-auto">
                      <button @click="logout" class="btn btn-danger w-100 mt-4">

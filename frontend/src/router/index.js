@@ -11,6 +11,7 @@ import BookManage from '@/views/staff/BookManage.vue'
 import PublisherManage from '@/views/staff/PublisherManage.vue'
 import BookDetail from '@/views/reader/BookDetail.vue'
 import ReaderManage from '@/views/staff/ReaderManage.vue'
+import StaffManage from '@/views/staff/StaffManage.vue'
 
 const routes = [
   {
@@ -70,6 +71,12 @@ const routes = [
     path: '/staff/readers',
     name: 'reader-manage',
     component: ReaderManage,
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
+  },
+  {
+    path: '/staff/accounts',
+    name: 'staff-manage',
+    component: StaffManage,
     meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {
