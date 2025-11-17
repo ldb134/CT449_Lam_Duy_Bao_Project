@@ -5,7 +5,7 @@
                 <h4 class="mb-0">Quản Lý Thư Viện</h4>
                 <small class="text-info">
                     <font-awesome-icon icon="user-shield" />
-                    Chào, {{ authStore.user?.name || 'Nhân viên' }}
+                    Chào, {{ authStore.user?.hoTenNV }}
                 </small>
             </div>
             
@@ -15,10 +15,10 @@
                         <font-awesome-icon icon="chart-line" class="me-2" /> Tổng Quan
                     </router-link>
                 </li>
-                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-white-50">
+                <li class="nav-item mb-2">
+                    <router-link to="/staff/books" class="nav-link text-white">
                       <font-awesome-icon icon="book" class="me-2" /> Quản Lý Sách
-                    </a>
+                    </router-link>
                 </li>
                 
                 <li class="nav-item mt-auto">

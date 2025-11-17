@@ -7,6 +7,7 @@ import Register from '@/views/auth/Register.vue'
 import ReaderHome from '@/views/reader/ReaderHome.vue'
 import StaffDashboard from '@/views/staff/StaffDashboard.vue'
 import BorrowHistory from '@/views/reader/BorrowHistory.vue'
+import BookManage from '@/views/staff/BookManage.vue'
 
 const routes = [
   {
@@ -49,6 +50,12 @@ const routes = [
       requiresAuth: true, 
       isStaff: true       
     }
+  },
+  {
+    path: '/staff/books',
+    name: 'book-manage',
+    component: BookManage,
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {
       path: '/:pathMatch(.*)*',
