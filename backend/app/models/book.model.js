@@ -29,7 +29,11 @@ const BookSchema = new mongoose.Schema({
     tacGia: { 
         type: String, 
         required: true 
-    }
+    },
+    anh: {
+        type: String, 
+        default: 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q', // Ảnh test
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Sach', BookSchema, 'Sach');

@@ -32,6 +32,7 @@ exports.registerReader = async (req, res) => {
     }
 };
 
+// ĐĂNG NHẬP ĐỘC GIẢ
 exports.loginReader = async (req, res) => {
     try {
         const reader = await Reader.findOne({ dienThoai: req.body.dienThoai });
@@ -43,19 +44,26 @@ exports.loginReader = async (req, res) => {
         const token = jwt.sign(
             { id: reader._id, role: 'reader', madocgia: reader.madocgia }, 
             SECRET_KEY, 
-            { expiresIn: '1d' } 
+            { expiresIn: '1d' }
         );
 
         res.send({ 
             message: "Đăng nhập thành công", 
             token: token, 
-            user: { name: reader.hoTen, role: 'reader' } 
+            user: { 
+                _id: reader._id,
+                madocgia: reader.madocgia,
+                hoTen: reader.hoTen, 
+                ten: reader.ten,
+                role: 'reader' 
+            } 
         });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
 };
 
+// ĐĂNG NHẬP NHÂN VIÊN
 exports.loginStaff = async (req, res) => {
     try {
         const staff = await Staff.findOne({ msnv: req.body.msnv });
@@ -73,7 +81,12 @@ exports.loginStaff = async (req, res) => {
         res.send({ 
             message: "Đăng nhập thành công", 
             token: token, 
-            user: { name: staff.hoTenNV, role: staff.chucVu }
+            user: { 
+                _id: staff._id,
+                msnv: staff.msnv,
+                hoTenNV: staff.hoTenNV,
+                role: staff.chucVu 
+            }
         });
     } catch (err) {
         res.status(500).send({ message: err.message });

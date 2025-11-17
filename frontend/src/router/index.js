@@ -6,6 +6,7 @@ import StaffLogin from '@/views/auth/StaffLogin.vue'
 import Register from '@/views/auth/Register.vue'
 import ReaderHome from '@/views/reader/ReaderHome.vue'
 import StaffDashboard from '@/views/staff/StaffDashboard.vue'
+import BorrowHistory from '@/views/reader/BorrowHistory.vue'
 
 const routes = [
   {
@@ -13,6 +14,12 @@ const routes = [
     name: 'reader-home',
     component: ReaderHome,
     meta: { layout: 'reader' } 
+  },
+  {
+    path: '/history',
+    name: 'borrow-history',
+    component: BorrowHistory,
+    meta: { layout: 'reader', requiresAuth: true } 
   },
   {
     path: '/login',
