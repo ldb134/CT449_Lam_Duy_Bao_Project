@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4 mb-4">
           <h5 class="text-uppercase mb-3 text-primary fw-bold">
-            <font-awesome-icon icon="book-open" class="me-2" />Thư Viện MEVN
+            <font-awesome-icon icon="book-open" class="me-2" />Thư Viện
           </h5>
           <p class="text-white-50 small">
             Hệ thống quản lý thư viện trực tuyến hiện đại, giúp bạn tra cứu và mượn sách dễ dàng, nhanh chóng mọi lúc mọi nơi.
@@ -48,7 +48,7 @@
       <hr class="border-secondary my-4">
 
       <div class="text-center text-white-50 small">
-        &copy; 2025 Thư Viện MEVN. All rights reserved. Designed by You.
+        &copy; 2025 Thư Viện. All rights reserved. Designed by You.
       </div>
     </div>
   </footer>

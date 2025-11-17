@@ -1,76 +1,196 @@
 <template>
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div v-if="!authStore.isLoggedIn">
-        <router-link to="/login" class="btn btn-outline-primary me-2">Đăng Nhập</router-link>
-        <router-link to="/register" class="btn btn-primary">Đăng Ký</router-link>
+  <div class="container mt-3">
+    
+    <div id="libraryCarousel" class="carousel slide shadow-sm rounded overflow-hidden mb-5" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="2"></button>
       </div>
-    </div>
-
-    <div class="input-group mb-4 shadow-sm">
-      <input 
-        type="text" 
-        class="form-control" 
-        placeholder="Tìm kiếm sách yêu thích..." 
-        v-model="searchText"
-      >
-      <button class="btn btn-primary">
-        <font-awesome-icon icon="search" /> Tìm kiếm
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 1" style="height: 400px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+            <h5>Chào mừng đến với Thư Viện</h5>
+            <p>Khám phá kho tàng tri thức vô tận ngay hôm nay.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 2" style="height: 400px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+            <h5>Không gian đọc sách lý tưởng</h5>
+            <p>Mượn sách dễ dàng, nhanh chóng và tiện lợi.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 3" style="height: 400px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+            <h5>Cập nhật sách mới liên tục</h5>
+            <p>Hàng ngàn đầu sách mới đang chờ đón bạn.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#libraryCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#libraryCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
       </button>
     </div>
 
-    <div v-if="loading" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <p class="mt-2">Đang tải sách...</p>
-    </div>
-
-    <div v-else class="row">
-      <div v-if="filteredBooks.length === 0" class="col-12 text-center py-5 text-muted">
-        <font-awesome-icon icon="box-open" size="3x" class="mb-3" />
-        <h4>Không tìm thấy cuốn sách nào.</h4>
-      </div>
-
-      <div class="col-md-3 mb-4" v-for="book in filteredBooks" :key="book._id">
-        <div class="card h-100 shadow-sm border-0 book-card">
-          
-          <div class="card-body text-center d-flex flex-column cursor-pointer" @click="goToDetail(book.masach)">
-            <div class="image-container mb-3 position-relative">
-              <img 
-                :src="book.anh" 
-                :alt="book.tenSach" 
-                class="book-cover img-fluid rounded" 
-                @error="setDefaultImage"
-              >
-              <span class="position-absolute top-0 end-0 badge rounded-pill m-2" 
-                :class="book.soQuyen > 0 ? 'bg-success' : 'bg-secondary'">
-                Còn: {{ book.soQuyen }}
-              </span>
-            </div>
-
-            <h5 class="card-title fw-bold text-truncate mb-1 text-primary" :title="book.tenSach">
-              {{ book.tenSach }}
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-white py-3">
+            <h5 class="mb-0 text-primary fw-bold">
+              <font-awesome-icon icon="filter" class="me-2" /> Nhà Xuất Bản
             </h5>
-            <p class="card-text text-muted small flex-grow-1">
-              <font-awesome-icon icon="pen-nib" class="me-1" /> {{ book.tacGia }}
-            </p>
-            <h6 class="text-primary fw-bold mt-2">
-              {{ formatPrice(book.donGia) }}
-            </h6>
           </div>
-          <div class="card-footer bg-white border-top-0 pb-3">
+          <div class="list-group list-group-flush">
             <button 
-              class="btn w-100 rounded-pill" 
-              :class="book.soQuyen > 0 ? 'btn-success' : 'btn-secondary'"
-              :disabled="book.soQuyen <= 0"
-              @click="borrowBook(book)"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedNXB === '' }"
+              @click="selectedNXB = ''"
             >
-              <font-awesome-icon icon="plus-circle" class="me-1" />
-              {{ book.soQuyen > 0 ? 'Mượn Sách' : 'Hết Hàng' }}
+              <span>Tất cả</span>
+            </button>
+            
+            <button 
+              v-for="pub in publishers" 
+              :key="pub._id"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedNXB === pub.manxb }"
+              @click="selectedNXB = pub.manxb"
+            >
+              <span>{{ pub.tenNXB }}</span>
+              <span class="badge bg-light text-dark rounded-pill border">
+                {{ countBooksByPub(pub.manxb) }}
+              </span>
             </button>
           </div>
         </div>
+
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white py-3">
+            <h5 class="mb-0 text-primary fw-bold">
+              <font-awesome-icon icon="calendar-alt" class="me-2" /> Năm Xuất Bản
+            </h5>
+          </div>
+          <div class="list-group list-group-flush scrollable-list" style="max-height: 300px; overflow-y: auto;">
+            <button 
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedYear === '' }"
+              @click="selectedYear = ''"
+            >
+              <span>Tất cả các năm</span>
+            </button>
+            
+            <button 
+              v-for="year in uniqueYears" 
+              :key="year"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedYear === year }"
+              @click="selectedYear = year"
+            >
+              <span>Năm {{ year }}</span>
+              <span class="badge bg-light text-dark rounded-pill border">
+                {{ countBooksByYear(year) }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+           <h4 class="fw-bold text-dark mb-0">
+             <font-awesome-icon icon="book" class="me-2 text-primary" /> 
+             Danh Sách Sách
+           </h4>
+           
+           <div class="input-group w-50 shadow-sm">
+              <input 
+                type="text" 
+                class="form-control border-end-0" 
+                placeholder="Tìm tên sách, tác giả..." 
+                v-model="searchText"
+              >
+              <span class="input-group-text bg-white border-start-0 text-muted">
+                <font-awesome-icon icon="search" />
+              </span>
+           </div>
+        </div>
+
+        <div v-if="selectedNXB || selectedYear" class="mb-3">
+            <span class="text-muted me-2">Đang lọc theo:</span>
+            <span v-if="selectedNXB" class="badge bg-primary me-2 p-2">
+                NXB: {{ getPublisherName(selectedNXB) }} 
+                <font-awesome-icon icon="times" class="ms-2 cursor-pointer" @click="selectedNXB = ''" />
+            </span>
+            <span v-if="selectedYear" class="badge bg-info text-dark p-2">
+                Năm: {{ selectedYear }}
+                <font-awesome-icon icon="times" class="ms-2 cursor-pointer" @click="selectedYear = ''" />
+            </span>
+            <button class="btn btn-link btn-sm text-decoration-none text-danger" @click="clearFilters">Xóa hết lọc</button>
+        </div>
+
+        <div v-if="loading" class="text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2 text-muted">Đang tải dữ liệu...</p>
+        </div>
+
+        <div v-else class="row">
+          <div v-if="filteredBooks.length === 0" class="col-12 text-center py-5 text-muted bg-light rounded">
+            <font-awesome-icon icon="box-open" size="4x" class="mb-3 opacity-50" />
+            <h5>Không tìm thấy cuốn sách nào phù hợp.</h5>
+          </div>
+
+          <div class="col-md-4 mb-4" v-for="book in filteredBooks" :key="book._id">
+            <div class="card h-100 shadow-sm border-0 book-card">
+              <div class="card-body text-center d-flex flex-column cursor-pointer p-3" @click="goToDetail(book.masach)">
+                
+                <div class="image-container mb-3 position-relative rounded overflow-hidden">
+                  <img 
+                    :src="book.anh" 
+                    :alt="book.tenSach" 
+                    class="book-cover" 
+                    @error="setDefaultImage"
+                  >
+                  <span class="position-absolute top-0 end-0 badge m-2 shadow-sm" 
+                    :class="book.soQuyen > 0 ? 'bg-success' : 'bg-secondary'">
+                    <small>{{ book.soQuyen > 0 ? 'Còn hàng' : 'Hết' }}</small>
+                  </span>
+                </div>
+
+                <h6 class="card-title fw-bold text-truncate text-dark mb-1" :title="book.tenSach">
+                  {{ book.tenSach }}
+                </h6>
+                <p class="card-text text-muted small mb-1">
+                  {{ book.tacGia }}
+                </p>
+                <small class="text-muted mb-2">Năm: {{ book.namXuatBan }}</small>
+                
+                <div class="mt-auto">
+                   <h5 class="text-primary fw-bold mb-0">{{ formatPrice(book.donGia) }}</h5>
+                </div>
+              </div>
+              
+              <div class="card-footer bg-white border-top-0 p-3 pt-0">
+                <button 
+                  class="btn w-100 rounded-pill fw-bold shadow-sm btn-borrow" 
+                  :class="book.soQuyen > 0 ? 'btn-outline-primary' : 'btn-secondary disabled'"
+                  @click="borrowBook(book)"
+                >
+                  <font-awesome-icon icon="file-import" class="me-2" />
+                  {{ book.soQuyen > 0 ? 'Mượn Ngay' : 'Tạm Hết' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -80,6 +200,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import BookService from '@/services/book.service';
+import PublisherService from '@/services/publisher.service'; 
 import BorrowingService from '@/services/borrowing.service'; 
 import { useRouter } from 'vue-router';
 
@@ -87,6 +208,9 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const books = ref([]);
+const publishers = ref([]);
+const selectedNXB = ref('');
+const selectedYear = ref(''); 
 const searchText = ref('');
 const loading = ref(false);
 
@@ -98,23 +222,66 @@ const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 };
 
-const fetchBooks = async () => {
+const fetchData = async () => {
     loading.value = true;
     try {
-        books.value = await BookService.getAll();
+        const [booksData, pubsData] = await Promise.all([
+            BookService.getAll(),
+            PublisherService.getAll()
+        ]);
+        books.value = booksData;
+        publishers.value = pubsData;
     } catch (error) {
-        console.error("Lỗi khi lấy sách:", error);
+        console.error("Lỗi tải dữ liệu:", error);
     } finally {
         loading.value = false;
     }
 };
 
+const countBooksByPub = (manxb) => {
+    return books.value.filter(b => b.manxb === manxb).length;
+};
+
+const countBooksByYear = (year) => {
+    return books.value.filter(b => b.namXuatBan == year).length; 
+};
+
+const uniqueYears = computed(() => {
+    const years = books.value.map(b => b.namXuatBan).filter(y => y); 
+    return [...new Set(years)].sort((a, b) => b - a); 
+});
+
+const getPublisherName = (manxb) => {
+    const pub = publishers.value.find(p => p.manxb === manxb);
+    return pub ? pub.tenNXB : manxb;
+};
+
+const clearFilters = () => {
+    selectedNXB.value = '';
+    selectedYear.value = '';
+    searchText.value = '';
+};
+
 const filteredBooks = computed(() => {
-    if (!searchText.value) return books.value;
-    return books.value.filter(book => 
-        book.tenSach.toLowerCase().includes(searchText.value.toLowerCase()) ||
-        book.tacGia.toLowerCase().includes(searchText.value.toLowerCase())
-    );
+    let result = books.value;
+
+    if (selectedNXB.value) {
+        result = result.filter(book => book.manxb === selectedNXB.value);
+    }
+
+    if (selectedYear.value) {
+        result = result.filter(book => book.namXuatBan == selectedYear.value);
+    }
+
+    if (searchText.value) {
+        const lower = searchText.value.toLowerCase();
+        result = result.filter(book => 
+            book.tenSach.toLowerCase().includes(lower) ||
+            book.tacGia.toLowerCase().includes(lower)
+        );
+    }
+
+    return result;
 });
 
 const borrowBook = async (book) => {
@@ -126,55 +293,79 @@ const borrowBook = async (book) => {
     
     if (confirm(`Bạn muốn gửi yêu cầu mượn sách: "${book.tenSach}"?`)) {
         try {
-            const borrowData = {
+            await BorrowingService.create({
                 madocgia: authStore.user.madocgia,
                 masach: book.masach
-            };
-
-            await BorrowingService.create(borrowData);
-            alert("Gửi yêu cầu thành công! Vui lòng chờ nhân viên duyệt.");
-
+            });
+            alert("Gửi yêu cầu thành công! Vui lòng chờ duyệt.");
         } catch (error) {
-            console.log(error);
             alert(error.response?.data?.message || "Có lỗi xảy ra khi mượn sách.");
         }
     }
 };
 
 const setDefaultImage = (event) => {
-    event.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; // Ảnh test
+    event.target.src = 'https://via.placeholder.com/200x300?text=No+Image';
 };
 
 onMounted(() => {
-    fetchBooks();
+    fetchData();
 });
 </script>
 
 <style scoped>
 .book-card {
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0 !important;
 }
 .book-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    border-color: #cce5ff !important;
 }
+
 .image-container {
-    height: 240px;
+    height: 220px;
+    background-color: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; 
-    background-color: #f8f9fa; 
 }
 .book-cover {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; 
-    width: auto; 
-    height: auto; 
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+.book-card:hover .book-cover {
+    transform: scale(1.05);
+}
+
+.btn-borrow:hover {
+    background-color: #0d6efd;
+    color: white;
 }
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.list-group-item.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.scrollable-list::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollable-list::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: #ccc; 
+    border-radius: 3px;
+}
+.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: #aaa; 
 }
 </style>
