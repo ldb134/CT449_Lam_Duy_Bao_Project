@@ -1,11 +1,27 @@
-<script setup></script>
+<script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import ReaderLayout from '@/layouts/ReaderLayout.vue';
+import StaffLayout from '@/layouts/StaffLayout.vue';
+import BlankLayout from '@/layouts/BlankLayout.vue'; 
+
+const route = useRoute();
+
+const layout = computed(() => {
+  if (route.meta.layout === 'staff') return StaffLayout;
+  if (route.meta.layout === 'blank') return BlankLayout; 
+  
+  return ReaderLayout; 
+});
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <component :is="layout">
+    <RouterView />
+  </component>
 </template>
 
-<style scoped></style>
+<style>
+body { background-color: #f8f9fa; }
+</style>
