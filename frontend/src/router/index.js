@@ -12,6 +12,8 @@ import PublisherManage from '@/views/staff/PublisherManage.vue'
 import BookDetail from '@/views/reader/BookDetail.vue'
 import ReaderManage from '@/views/staff/ReaderManage.vue'
 import StaffManage from '@/views/staff/StaffManage.vue'
+import ChangePassword from '@/views/staff/ChangePassword.vue'
+import ReaderProfile from '@/views/reader/ReaderProfile.vue'
 
 const routes = [
   {
@@ -44,7 +46,12 @@ const routes = [
     component: Register,
     meta: { layout: 'reader' }
   },
-
+  {
+    path: '/profile',
+    name: 'reader-profile',
+    component: ReaderProfile,
+    meta: { layout: 'reader', requiresAuth: true }
+  },
   {
     path: '/staff/login',
     name: 'staff-login',
@@ -77,6 +84,12 @@ const routes = [
     path: '/staff/accounts',
     name: 'staff-manage',
     component: StaffManage,
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
+  },
+  {
+    path: '/staff/profile',
+    name: 'staff-profile',
+    component: ChangePassword,
     meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {

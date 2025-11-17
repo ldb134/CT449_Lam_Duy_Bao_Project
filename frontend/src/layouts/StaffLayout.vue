@@ -35,6 +35,11 @@
                       <font-awesome-icon icon="user-tie" class="me-2" /> Nhân Sự
                     </router-link>
                 </li>
+                <li class="nav-item mb-2">
+                    <router-link to="/staff/profile" class="nav-link text-white">
+                      <font-awesome-icon icon="key" class="me-2" /> Đổi Mật Khẩu
+                    </router-link>
+                </li>
                 
                 <li class="nav-item mt-auto">
                      <button @click="logout" class="btn btn-danger w-100 mt-4">

@@ -92,3 +92,43 @@ exports.loginStaff = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+// ĐỔI MẬT KHẨU 
+exports.changePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const userId = req.user.id; 
+        const role = req.user.role; 
+
+        let user = null;
+
+        if (role === 'reader') {
+            user = await Reader.findById(userId);
+        } else if (role === 'staff') {
+            user = await Staff.findById(userId);
+        }
+
+        if (!user) {
+            return res.status(404).send({ message: "Tài khoản không tồn tại!" });
+        }
+
+        // Kiểm tra mật khẩu cũ có đúng không
+        const isValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isValid) {
+            return res.status(400).send({ message: "Mật khẩu cũ không chính xác!" });
+        }
+
+        // Mã hóa mật khẩu mới
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // Lưu mật khẩu mới
+        user.password = hashedPassword;
+        await user.save();
+
+        res.send({ message: "Đổi mật khẩu thành công!" });
+
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi server: " + err.message });
+    }
+};

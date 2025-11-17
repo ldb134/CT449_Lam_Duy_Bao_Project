@@ -8,18 +8,17 @@
                 
                 <div class="ms-auto">
                     <div v-if="authStore.isLoggedIn" class="d-flex align-items-center">
-                        <router-link to="/history" class="btn btn-link text-decoration-none me-3">
-                            <font-awesome-icon icon="history" /> Lịch sử mượn
-                        </router-link>
+                    <router-link to="/profile" class="text-decoration-none me-3 fw-bold text-dark d-flex align-items-center">
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-2 text-primary border" style="width: 35px; height: 35px;">
+                            <font-awesome-icon icon="user" />
+                        </div>
+                        <span>Xin chào, {{ authStore.user?.ten || 'Bạn' }}</span>
+                    </router-link>
 
-                        <span class="me-3 fw-bold text-dark">
-                            <font-awesome-icon icon="user" class="me-1" />
-                            Xin chào, {{ authStore.user?.ten }}
-                        </span>
-                        <button @click="logout" class="btn btn-outline-danger btn-sm">
-                            <font-awesome-icon icon="sign-out-alt" /> Đăng Xuất
-                        </button>
-                    </div>
+                    <button @click="logout" class="btn btn-outline-danger btn-sm">
+                        <font-awesome-icon icon="sign-out-alt" /> Đăng Xuất
+                    </button>
+                </div>
                     
                     <div v-else>
                         <router-link to="/login" class="btn btn-outline-primary btn-sm me-2">Đăng Nhập</router-link>

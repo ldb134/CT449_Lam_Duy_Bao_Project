@@ -13,6 +13,10 @@ class AuthService {
         const endpoint = role === 'staff' ? '/login/staff' : '/login/reader';
         return (await this.api.post(endpoint, credentials)).data;
     }
+
+    async changePassword(data) {
+        return (await this.api.post("/change-password", data)).data;
+    }
 }
 
 export default new AuthService();

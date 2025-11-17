@@ -11,7 +11,7 @@
 
         <div v-else-if="book" class="row shadow-sm p-4 bg-white rounded">
             <div class="col-md-4 text-center mb-4 mb-md-0">
-                <div class="book-cover-wrapper bg-light rounded p-3">
+                <div class="bg-light rounded p-3 h-100 d-flex align-items-center justify-content-center">
                     <img 
                         :src="book.anh" 
                         :alt="book.tenSach" 
@@ -23,13 +23,15 @@
             </div>
 
             <div class="col-md-8">
-                <h2 class="fw-bold text-primary mb-1">{{ book.tenSach }}</h2>
-                <p class="text-muted fst-italic mb-3">
-                    <font-awesome-icon icon="pen-nib" class="me-1" /> Tác giả: {{ book.tacGia }}
-                </p>
-
-                <div class="badge bg-info text-dark mb-3 fs-6">
-                    Mã sách: {{ book.masach }}
+                <h2 class="fw-bold text-primary mb-2">{{ book.tenSach }}</h2>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <span class="badge bg-info text-dark me-2">
+                        <font-awesome-icon icon="barcode" class="me-1" /> {{ book.masach }}
+                    </span>
+                    <span class="text-muted fst-italic">
+                        <font-awesome-icon icon="pen-nib" class="me-1" /> Tác giả: {{ book.tacGia }}
+                    </span>
                 </div>
 
                 <h3 class="text-danger fw-bold mb-4">
@@ -38,29 +40,30 @@
 
                 <div class="card bg-light border-0 mb-4">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-6 mb-2">
-                                <strong>Năm xuất bản:</strong> {{ book.namXuatBan }}
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <strong><font-awesome-icon icon="calendar-alt" class="me-1" /> Năm xuất bản:</strong> {{ book.namXuatBan }}
                             </div>
-                            <div class="col-6 mb-2">
-                                <strong>Nhà xuất bản:</strong> {{ book.manxb }}
-                                </div>
-                            <div class="col-6">
-                                <strong>Tình trạng:</strong> 
-                                <span :class="book.soQuyen > 0 ? 'text-success' : 'text-danger'">
+                            <div class="col-sm-6">
+                                <strong><font-awesome-icon icon="building" class="me-1" /> Nhà xuất bản:</strong> 
+                                {{ getPublisherName(book.manxb) }}
+                            </div>
+                            <div class="col-sm-6">
+                                <strong><font-awesome-icon icon="box" class="me-1" /> Tình trạng:</strong> 
+                                <span :class="book.soQuyen > 0 ? 'text-success fw-bold' : 'text-danger fw-bold'">
                                     {{ book.soQuyen > 0 ? 'Còn hàng' : 'Hết hàng' }}
                                 </span>
                             </div>
-                            <div class="col-6">
-                                <strong>Số lượng kho:</strong> {{ book.soQuyen }}
+                            <div class="col-sm-6">
+                                <strong><font-awesome-icon icon="layer-group" class="me-1" /> Số lượng kho:</strong> {{ book.soQuyen }}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="d-flex gap-3">
+                <div class="d-grid gap-2 d-md-block">
                     <button 
-                        class="btn btn-success btn-lg flex-grow-1" 
+                        class="btn btn-success btn-lg px-5" 
                         :disabled="book.soQuyen <= 0"
                         @click="borrowBook"
                     >
@@ -71,8 +74,9 @@
             </div>
         </div>
 
-        <div v-else class="alert alert-warning text-center">
-            Không tìm thấy thông tin cuốn sách này.
+        <div v-else class="alert alert-warning text-center mt-5">
+            <h3><font-awesome-icon icon="exclamation-triangle" class="me-2" /> Không tìm thấy thông tin cuốn sách này.</h3>
+            <router-link to="/" class="btn btn-primary mt-3">Về trang chủ</router-link>
         </div>
     </div>
 </template>
@@ -82,6 +86,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import BookService from '@/services/book.service';
 import BorrowingService from '@/services/borrowing.service';
+import PublisherService from '@/services/publisher.service'; 
 import { useAuthStore } from '@/stores/auth.store';
 
 const route = useRoute();
@@ -89,15 +94,37 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const book = ref(null);
+const publishers = ref([]); 
 const loading = ref(false);
 
-const fetchBookDetail = async () => {
+const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+};
+
+const setDefaultImage = (e) => {
+    e.target.src = 'https://via.placeholder.com/300x450?text=No+Image';
+};
+
+const getPublisherName = (manxb) => {
+    const pub = publishers.value.find(p => p.manxb === manxb);
+    return pub ? pub.tenNXB : manxb; 
+};
+
+const fetchData = async () => {
     loading.value = true;
     try {
-        const id = route.params.id; 
-        book.value = await BookService.get(id);
+        const id = route.params.id;
+        
+        const [bookData, publisherData] = await Promise.all([
+            BookService.get(id),
+            PublisherService.getAll()
+        ]);
+
+        book.value = bookData;
+        publishers.value = publisherData;
+
     } catch (error) {
-        console.error("Lỗi:", error);
+        console.error("Lỗi tải dữ liệu:", error);
     } finally {
         loading.value = false;
     }
@@ -123,15 +150,7 @@ const borrowBook = async () => {
     }
 };
 
-const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
-};
-
-const setDefaultImage = (e) => {
-    e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
-};
-
 onMounted(() => {
-    fetchBookDetail();
+    fetchData();
 });
 </script>
