@@ -9,6 +9,8 @@ import StaffDashboard from '@/views/staff/StaffDashboard.vue'
 import BorrowHistory from '@/views/reader/BorrowHistory.vue'
 import BookManage from '@/views/staff/BookManage.vue'
 import PublisherManage from '@/views/staff/PublisherManage.vue'
+import BookDetail from '@/views/reader/BookDetail.vue'
+import ReaderManage from '@/views/staff/ReaderManage.vue'
 
 const routes = [
   {
@@ -16,6 +18,12 @@ const routes = [
     name: 'reader-home',
     component: ReaderHome,
     meta: { layout: 'reader' } 
+  },
+  {
+    path: '/books/:id', 
+    name: 'book-detail',
+    component: BookDetail,
+    meta: { layout: 'reader' }
   },
   {
     path: '/history',
@@ -56,6 +64,12 @@ const routes = [
     path: '/staff/books',
     name: 'book-manage',
     component: BookManage,
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
+  },
+  {
+    path: '/staff/readers',
+    name: 'reader-manage',
+    component: ReaderManage,
     meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {

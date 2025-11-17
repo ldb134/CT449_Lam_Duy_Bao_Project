@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">     
+    <div class="d-flex justify-content-between align-items-center mb-4">
       <div v-if="!authStore.isLoggedIn">
         <router-link to="/login" class="btn btn-outline-primary me-2">Đăng Nhập</router-link>
         <router-link to="/register" class="btn btn-primary">Đăng Ký</router-link>
@@ -34,7 +34,8 @@
 
       <div class="col-md-3 mb-4" v-for="book in filteredBooks" :key="book._id">
         <div class="card h-100 shadow-sm border-0 book-card">
-          <div class="card-body text-center d-flex flex-column">
+          
+          <div class="card-body text-center d-flex flex-column cursor-pointer" @click="goToDetail(book.masach)">
             <div class="image-container mb-3 position-relative">
               <img 
                 :src="book.anh" 
@@ -48,7 +49,7 @@
               </span>
             </div>
 
-            <h5 class="card-title fw-bold text-truncate mb-1" :title="book.tenSach">
+            <h5 class="card-title fw-bold text-truncate mb-1 text-primary" :title="book.tenSach">
               {{ book.tenSach }}
             </h5>
             <p class="card-text text-muted small flex-grow-1">
@@ -58,7 +59,6 @@
               {{ formatPrice(book.donGia) }}
             </h6>
           </div>
-          
           <div class="card-footer bg-white border-top-0 pb-3">
             <button 
               class="btn w-100 rounded-pill" 
@@ -89,6 +89,10 @@ const router = useRouter();
 const books = ref([]);
 const searchText = ref('');
 const loading = ref(false);
+
+const goToDetail = (masach) => {
+    router.push({ name: 'book-detail', params: { id: masach } });
+};
 
 const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
@@ -168,5 +172,9 @@ onMounted(() => {
     object-fit: contain; 
     width: auto; 
     height: auto; 
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 </style>

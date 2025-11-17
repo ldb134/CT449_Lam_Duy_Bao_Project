@@ -25,6 +25,11 @@
                       <font-awesome-icon icon="building" class="me-2" /> Nhà Xuất Bản
                     </router-link>
                 </li>
+                <li class="nav-item mb-2">
+                    <router-link to="/staff/readers" class="nav-link text-white">
+                      <font-awesome-icon icon="users" class="me-2" /> Quản Lý Độc Giả
+                    </router-link>
+                </li>
                 
                 <li class="nav-item mt-auto">
                      <button @click="logout" class="btn btn-danger w-100 mt-4">
