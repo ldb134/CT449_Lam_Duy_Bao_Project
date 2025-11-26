@@ -70,13 +70,11 @@ exports.update = async (req, res) => {
     const id = req.params.id; // Đây là madocgia (ví dụ: DG005)
 
     try {
-        // *** THÊM ĐOẠN LOGIC NÀY ***
         // Nếu có gửi password lên (trường hợp cập nhật lần đầu từ Google)
         if (req.body.password) {
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt);
         }
-        // ****************************
 
         const data = await Reader.findOneAndUpdate({ madocgia: id }, req.body, { useFindAndModify: false, new: true });
         

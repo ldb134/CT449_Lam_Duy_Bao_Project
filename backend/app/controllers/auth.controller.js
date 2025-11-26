@@ -38,6 +38,10 @@ exports.loginReader = async (req, res) => {
         const reader = await Reader.findOne({ dienThoai: req.body.dienThoai });
         if (!reader) return res.status(404).send({ message: "Số điện thoại chưa đăng ký!" });
 
+        if (reader.trangThai === 'Bị khóa') {
+            return res.status(403).send({ message: "Tài khoản của bạn đã bị vô hiệu hóa do vi phạm quy định. Vui lòng liên hệ thủ thư!" });
+        }
+
         const validPass = await bcrypt.compare(req.body.password, reader.password);
         if (!validPass) return res.status(400).send({ message: "Sai mật khẩu!" });
 
@@ -157,7 +161,6 @@ exports.loginSocial = async (req, res) => {
                 ten = nameParts.pop(); // Lấy từ cuối cùng làm Tên
                 hoLot = nameParts.join(' '); // Phần còn lại là Họ lót
             }
-            // ----------------------------------------------------------------
 
             const nextMaDocGia = await getNextSequenceValue("madocgia");
             const formattedMaDocGia = "DG" + String(nextMaDocGia).padStart(3, '0');
@@ -173,6 +176,9 @@ exports.loginSocial = async (req, res) => {
             });
 
             await reader.save();
+        }
+        if (reader && reader.trangThai === 'Bị khóa') {
+             return res.status(403).send({ message: "Tài khoản Google này đã bị vô hiệu hóa trong hệ thống!" });
         }
 
         // ... (Tạo token và trả về response giữ nguyên)
@@ -202,7 +208,6 @@ exports.loginSocial = async (req, res) => {
              // Thường xảy ra khi trường 'ten' bị trống dù đã cố gắng xử lý
              return res.status(400).send({ message: "Lỗi Validation: Vui lòng kiểm tra lại cấu hình tên." });
         } else if (err.code === 11000) { 
-             // Lỗi trùng lặp key (ví dụ email đã tồn tại, nhưng bạn đã fix lỗi này rồi)
              return res.status(400).send({ message: "Lỗi trùng lặp thông tin." });
         }
         

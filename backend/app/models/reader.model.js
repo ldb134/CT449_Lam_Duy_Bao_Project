@@ -8,40 +8,37 @@ const ReaderSchema = new mongoose.Schema({
     },
     hoLot: {
         type: String,
-        // Bỏ required để tránh lỗi nếu tên Google chỉ có 1 chữ
     },
     ten: {
         type: String,
         required: true
     },
-    // *** THÊM EMAIL VÀO ĐÂY ***
     email: {
         type: String,
         unique: true,
-        sparse: true // Cho phép null (nếu tạo bằng cách thường thì ko có email)
+        sparse: true 
     },
-    // **************************
     ngaySinh: {
         type: Date,
-        // Bỏ required để update sau
     },
     phai: {
         type: String,
-        // Bỏ required
     },
     diaChi: {
         type: String,
-        // Bỏ required
     },
     dienThoai: {
         type: String,
-        // *** BỎ REQUIRED ***
         unique: true,
-        sparse: true // Quan trọng: Cho phép nhiều người cùng không có SĐT (null)
+        sparse: true 
+    },
+    trangThai: {
+        type: String,
+        enum: ['Hoạt động', 'Bị khóa'],
+        default: 'Hoạt động'
     },
     password: { 
         type: String, 
-        // *** BỎ REQUIRED *** (Vì Google login không có pass)
     }
 
 }, { timestamps: true });
