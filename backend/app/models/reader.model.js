@@ -37,6 +37,10 @@ const ReaderSchema = new mongoose.Schema({
         enum: ['Hoạt động', 'Bị khóa'],
         default: 'Hoạt động'
     },
+    soLanTreHan: {
+        type: Number,
+        default: 0
+    },
     password: { 
         type: String, 
     }

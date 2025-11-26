@@ -9,6 +9,9 @@ db.connect();
 
 const app = express();
 
+const startCronJobs = require('./app/utils/cronJob');
+startCronJobs(); 
+
 app.use(cors()); 
 app.use(express.json()); 
 

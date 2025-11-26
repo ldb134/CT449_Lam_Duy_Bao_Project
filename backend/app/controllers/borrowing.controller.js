@@ -120,14 +120,42 @@ exports.returnBook = async (req, res) => {
             await book.save();
         }
 
-        borrowing.ngayTra = new Date(); 
+        const ngayTraThucTe = new Date();
+        borrowing.ngayTra = ngayTraThucTe;
         borrowing.trangThai = 'Đã trả';
 
+        const hanTra = new Date(borrowing.ngayHetHan);
+        ngayTraThucTe.setHours(0,0,0,0);
+        hanTra.setHours(0,0,0,0);
+
+        let messageThem = "";
+
+        if (ngayTraThucTe > hanTra) {
+            const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
+            
+            if (reader) {
+                reader.soLanTreHan = (reader.soLanTreHan || 0) + 1;
+
+                if (reader.soLanTreHan >= 3) {
+                    reader.trangThai = 'Bị khóa';
+                    messageThem = ` Tài khoản độc giả đã bị KHÓA TỰ ĐỘNG do trễ hạn quá 3 lần (${reader.soLanTreHan}/3).`;
+                } else {
+                    messageThem = ` Đã ghi nhận trễ hạn lần thứ ${reader.soLanTreHan}/3.`;
+                }
+                
+                await reader.save();
+            }
+        }
+
         await borrowing.save();
-        res.send({ message: "Trả sách thành công! Đã hoàn lại kho.", data: borrowing });
+        
+        res.send({ 
+            message: "Trả sách thành công!" + messageThem, 
+            data: borrowing 
+        });
 
     } catch (err) {
-        res.status(500).send({ message: "Lỗi khi trả sách." });
+        res.status(500).send({ message: "Lỗi khi trả sách: " + err.message });
     }
 };
 
