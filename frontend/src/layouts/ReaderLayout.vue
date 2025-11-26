@@ -6,6 +6,19 @@
                     <font-awesome-icon icon="book-open" class="me-2" /> Thư Viện
                 </a>
                 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-4">
+                    <li class="nav-item">
+                    <router-link to="/" class="nav-link fw-bold" active-class="text-primary active">Trang Chủ</router-link>
+                    </li>
+                    <li class="nav-item">
+                    <router-link to="/library" class="nav-link fw-bold" active-class="text-primary active">Danh Mục Sách</router-link>
+                    </li>
+                </ul>
+                </div>
                 <div class="ms-auto">
                     <div v-if="authStore.isLoggedIn" class="d-flex align-items-center">
                         
@@ -96,7 +109,9 @@ const readNoti = async (noti) => {
         try {
             await NotificationService.markRead(noti._id);
             noti.daXem = true; 
-        } catch (e) {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 };
 

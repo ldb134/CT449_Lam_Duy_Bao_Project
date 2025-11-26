@@ -1,6 +1,7 @@
 const Book = require('../models/book.model');
 const Publisher = require('../models/publisher.model')
 const getNextSequenceValue = require('../utils/getNextSequence');
+const Borrowing = require('../models/borrowing.model');
 
 exports.create = async (req, res) => {
     // Kiểm tra các trường bắt buộc
@@ -87,5 +88,43 @@ exports.delete = async (req, res) => {
         res.send({ message: "Xóa sách thành công!" });
     } catch (err) {
         res.status(500).send({ message: "Lỗi khi xóa sách mã " + id });
+    }
+};
+
+exports.findTopBorrowed = async (req, res) => {
+    try {
+        const result = await Borrowing.aggregate([
+            { 
+                $group: { 
+                    _id: "$masach", 
+                    count: { $sum: 1 } 
+                } 
+            },
+            { $sort: { count: -1 } },
+            { $limit: 8 },
+            {
+                $lookup: {
+                    from: "Sach",       
+                    localField: "_id", 
+                    foreignField: "masach", 
+                    as: "bookInfo"
+                }
+            },
+            { $unwind: "$bookInfo" },
+            { $replaceRoot: { newRoot: "$bookInfo" } }
+        ]);
+
+        res.send(result);
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi lấy sách mượn nhiều: " + err.message });
+    }
+};
+
+exports.findNew = async (req, res) => {
+    try {
+        const data = await Book.find().sort({ createdAt: -1 }).limit(8);
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi lấy sách mới: " + err.message });
     }
 };

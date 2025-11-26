@@ -24,6 +24,12 @@ const routes = [
     meta: { layout: 'reader' } 
   },
   {
+    path: '/library',
+    name: 'library-page',
+    component: () => import('@/views/reader/Library.vue'),
+    meta: { layout: 'reader' }
+  },
+  {
     path: '/rules',
     name: 'library-rules',
     component: LibraryRules,

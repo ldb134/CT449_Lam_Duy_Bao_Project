@@ -9,6 +9,14 @@ class BookService {
         return (await this.api.get("/")).data;
     }
 
+    async getTopBorrowed() {
+        return (await this.api.get("/top-borrowed")).data;
+    }
+
+    async getNew() {
+        return (await this.api.get("/new")).data;
+    }
+
     async get(id) {
         return (await this.api.get(`/${id}`)).data;
     }
