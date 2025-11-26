@@ -4,9 +4,14 @@
             <h2 class="text-primary fw-bold">
                 <font-awesome-icon icon="book" class="me-2" /> Quản Lý Sách
             </h2>
-            <button class="btn btn-primary" @click="openAddModal">
-                <font-awesome-icon icon="plus" /> Thêm Sách Mới
-            </button>
+            <div>
+                <button class="btn btn-outline-secondary me-2" @click="fetchData">
+                    <font-awesome-icon icon="sync" /> Làm mới
+                </button>
+                <button class="btn btn-primary" @click="openAddModal">
+                    <font-awesome-icon icon="plus" /> Thêm Sách Mới
+                </button>
+            </div>
         </div>
 
         <div class="mb-4 bg-white p-3 rounded shadow-sm">

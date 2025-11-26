@@ -4,6 +4,9 @@
             <h2 class="text-primary fw-bold">
                 <font-awesome-icon icon="users" class="me-2" /> Quản Lý Độc Giả
             </h2>
+            <button class="btn btn-outline-secondary" @click="fetchData">
+                <font-awesome-icon icon="sync" /> Làm mới
+            </button>
         </div>
 
         <div class="mb-4 bg-white p-3 rounded shadow-sm">

@@ -4,9 +4,14 @@
             <h2 class="text-primary fw-bold">
                 <font-awesome-icon icon="user-tie" class="me-2" /> Quản Lý Nhân Viên
             </h2>
-            <button class="btn btn-primary" @click="openAddModal">
-                <font-awesome-icon icon="plus" /> Thêm Nhân Viên
-            </button>
+            <div>
+                <button class="btn btn-outline-secondary me-2" @click="fetchData">
+                    <font-awesome-icon icon="sync" /> Làm mới
+                </button>
+                <button class="btn btn-primary" @click="openAddModal">
+                    <font-awesome-icon icon="plus" /> Thêm Nhân Viên
+                </button>
+            </div>
         </div>
 
         <div class="card shadow-sm border-0">
