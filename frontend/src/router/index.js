@@ -36,6 +36,12 @@ const routes = [
     meta: { layout: 'reader' } 
   },
   {
+    path: '/about',
+    name: 'about-page',
+    component: () => import('@/views/reader/About.vue'),
+    meta: { layout: 'reader' }
+  },
+  {
     path: '/books/:id', 
     name: 'book-detail',
     component: BookDetail,

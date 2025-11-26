@@ -129,16 +129,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import BookService from '@/services/book.service';
 import PublisherService from '@/services/publisher.service'; 
 import BorrowingService from '@/services/borrowing.service'; 
 import BorrowModal from '@/components/BorrowModal.vue'; 
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 const books = ref([]);
 const publishers = ref([]);
 const selectedNXB = ref('');
@@ -222,6 +223,14 @@ const handleBorrowConfirm = async (date) => {
         showBorrowModal.value = false; 
     } catch (error) { alert(error.response?.data?.message || "Lỗi."); }
 };
+
+watch(() => route.query.q, (newQuery) => {
+    if (newQuery) {
+        searchText.value = newQuery;
+    } else {
+        searchText.value = '';
+    }
+}, { immediate: true }); 
 
 onMounted(() => fetchData());
 </script>
