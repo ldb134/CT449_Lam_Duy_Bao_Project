@@ -1,5 +1,6 @@
 const Reader = require('../models/reader.model');
 const getNextSequenceValue = require('../utils/getNextSequence');
+const bcrypt = require('bcrypt');
 
 exports.create = async (req, res) => {
     // Validate 
@@ -60,14 +61,23 @@ exports.findOne = async (req, res) => {
     }
 };
 
+// Cập nhật độc giả
 exports.update = async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: "Dữ liệu cập nhật không được để trống!" });
     }
 
-    const id = req.params.id; 
+    const id = req.params.id; // Đây là madocgia (ví dụ: DG005)
 
     try {
+        // *** THÊM ĐOẠN LOGIC NÀY ***
+        // Nếu có gửi password lên (trường hợp cập nhật lần đầu từ Google)
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+        // ****************************
+
         const data = await Reader.findOneAndUpdate({ madocgia: id }, req.body, { useFindAndModify: false, new: true });
         
         if (!data) {

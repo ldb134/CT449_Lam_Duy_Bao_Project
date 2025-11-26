@@ -37,11 +37,29 @@
 
                             <div class="d-grid">
                                 <button class="btn btn-primary btn-lg" type="submit" :disabled="loading">
-                                    {{ loading ? 'Đang xử lý...' : 'Đăng Nhập' }}
+                                    <span v-if="loading && loginMethod === 'normal'" class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ loading && loginMethod === 'normal' ? 'Đang xử lý...' : 'Đăng Nhập' }}
                                 </button>
                             </div>
                         </form>
-                    </div>
+
+                        <div class="text-center mt-4">
+                            <p class="text-muted small position-relative">
+                                <span class="bg-white px-2 position-relative" style="z-index: 1;">--- Hoặc đăng nhập bằng ---</span>
+                                <span class="position-absolute top-50 start-0 w-100 border-bottom" style="z-index: 0;"></span>
+                            </p>
+                            <div class="d-grid">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-danger" 
+                                    @click="loginGoogle"
+                                    :disabled="loading"
+                                >
+                                    <font-awesome-icon :icon="['fab', 'google']" class="me-2" /> Đăng nhập với Google
+                                </button>
+                            </div>
+                        </div>
+                        </div>
                     <div class="card-footer text-center bg-white py-3 border-top-0">
                         <small>Chưa có tài khoản? <router-link to="/register" class="text-decoration-none">Đăng ký ngay</router-link></small>
                     </div>
@@ -56,6 +74,9 @@ import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
 
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "@/config/firebase"; 
+
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -63,9 +84,12 @@ const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
+const loginMethod = ref(''); 
 
+// Đăng nhập thường (SĐT + Pass)
 async function handleLogin() {
     loading.value = true;
+    loginMethod.value = 'normal';
     errorMessage.value = '';
     
     try {
@@ -75,6 +99,39 @@ async function handleLogin() {
         errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại.';
     } finally {
         loading.value = false;
+        loginMethod.value = '';
     }
 }
+
+// Đăng nhập Google
+const loginGoogle = async () => {
+    loading.value = true;
+    loginMethod.value = 'google';
+    errorMessage.value = '';
+
+    try {
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        
+        const response = await authStore.loginWithSocial({
+            email: user.email,
+            displayName: user.displayName,
+            photoUrl: user.photoURL
+        });
+        
+        if (response.isNewUser) {
+            alert("Chào mừng thành viên mới! Vui lòng cập nhật Số điện thoại và Mật khẩu để hoàn tất hồ sơ.");
+            router.push('/profile'); 
+        } else {
+            router.push('/'); 
+        }
+        
+    } catch (error) {
+        console.error(error);
+        errorMessage.value = "Lỗi đăng nhập Google: " + error.message;
+    } finally {
+        loading.value = false;
+        loginMethod.value = '';
+    }
+};
 </script>

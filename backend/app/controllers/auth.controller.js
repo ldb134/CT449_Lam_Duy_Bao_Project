@@ -132,3 +132,81 @@ exports.changePassword = async (req, res) => {
         res.status(500).send({ message: "Lỗi server: " + err.message });
     }
 };
+
+exports.loginSocial = async (req, res) => {
+    try {
+        const { email, displayName } = req.body;
+
+        if (!email) {
+            return res.status(400).send({ message: "Không tìm thấy email từ tài khoản mạng xã hội!" });
+        }
+
+        let reader = await Reader.findOne({ email: email });
+        let isNewUser = false; 
+
+        // Nếu chưa có thì tạo mới (Tự động Đăng ký)
+        if (!reader) {
+            isNewUser = true; 
+
+            // --- TÁCH TÊN AN TOÀN (Phòng trường hợp displayName bị trống) ---
+            let hoLot = '';
+            let ten = 'Người Dùng';
+            
+            if (displayName && displayName.trim().length > 0) {
+                const nameParts = displayName.trim().split(' ');
+                ten = nameParts.pop(); // Lấy từ cuối cùng làm Tên
+                hoLot = nameParts.join(' '); // Phần còn lại là Họ lót
+            }
+            // ----------------------------------------------------------------
+
+            const nextMaDocGia = await getNextSequenceValue("madocgia");
+            const formattedMaDocGia = "DG" + String(nextMaDocGia).padStart(3, '0');
+
+            reader = new Reader({
+                madocgia: formattedMaDocGia,
+                hoLot: hoLot,
+                ten: ten,
+                email: email,
+                diaChi: "", 
+                phai: "Nam", 
+                ngaySinh: new Date(),
+            });
+
+            await reader.save();
+        }
+
+        // ... (Tạo token và trả về response giữ nguyên)
+        const token = jwt.sign(
+            { id: reader._id, role: 'reader', madocgia: reader.madocgia }, 
+            SECRET_KEY, 
+            { expiresIn: '1d' }
+        );
+
+        res.send({ 
+            message: "Đăng nhập mạng xã hội thành công", 
+            token: token, 
+            isNewUser: isNewUser, 
+            user: { 
+                _id: reader._id,
+                madocgia: reader.madocgia,
+                hoTen: `${reader.hoLot} ${reader.ten}`,
+                ten: reader.ten,
+                role: 'reader',
+                email: reader.email
+            } 
+        });
+
+    } catch (err) {
+        // Bắt lỗi Mongoose Validation và trả về 400
+        if (err.name === 'ValidationError') {
+             // Thường xảy ra khi trường 'ten' bị trống dù đã cố gắng xử lý
+             return res.status(400).send({ message: "Lỗi Validation: Vui lòng kiểm tra lại cấu hình tên." });
+        } else if (err.code === 11000) { 
+             // Lỗi trùng lặp key (ví dụ email đã tồn tại, nhưng bạn đã fix lỗi này rồi)
+             return res.status(400).send({ message: "Lỗi trùng lặp thông tin." });
+        }
+        
+        console.log("SERVER ERROR:", err);
+        res.status(500).send({ message: "Lỗi server không xác định: " + err.message });
+    }
+};

@@ -42,6 +42,12 @@
             
             <div v-if="activeTab === 'info'">
               <h4 class="mb-4 fw-bold text-primary">Cập nhật thông tin</h4>
+
+              <div v-if="isMissingInfo" class="alert alert-warning">
+                  <font-awesome-icon icon="exclamation-circle" class="me-2"/>
+                  Vui lòng cập nhật <strong>Số điện thoại</strong>, <strong>Mật khẩu</strong> và <strong>Địa chỉ</strong> để hoàn tất hồ sơ.
+              </div>
+
               <form @submit.prevent="updateProfile">
                 <div class="row">
                   <div class="col-md-6 mb-3">
@@ -70,10 +76,32 @@
 
                 <div class="mb-3">
                   <label class="form-label fw-bold">Số điện thoại</label>
-                  <input type="tel" class="form-control" v-model="formData.dienThoai" required readonly disabled title="Không thể sửa SĐT">
-                  <div class="form-text text-muted">Số điện thoại là tài khoản đăng nhập, không thể thay đổi.</div>
+                  <input 
+                    type="tel" 
+                    class="form-control" 
+                    v-model="formData.dienThoai" 
+                    required 
+                    :readonly="!isPhoneEmpty" 
+                    :disabled="!isPhoneEmpty"
+                    :title="!isPhoneEmpty ? 'Liên hệ quản trị viên để đổi SĐT' : 'Nhập SĐT của bạn'"
+                  >
+                  <div class="form-text text-muted" v-if="!isPhoneEmpty">
+                    Số điện thoại là tài khoản đăng nhập, không thể thay đổi.
+                  </div>
                 </div>
 
+                <div class="mb-3" v-if="isPhoneEmpty">
+                  <label class="form-label fw-bold text-primary">Tạo mật khẩu đăng nhập</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    v-model="formData.password" 
+                    required 
+                    placeholder="Nhập mật khẩu để dùng cho lần đăng nhập sau"
+                    minlength="6"
+                  >
+                  <div class="form-text text-muted">Mật khẩu này dùng để đăng nhập bằng Số điện thoại.</div>
+                </div>
                 <div class="mb-4">
                   <label class="form-label fw-bold">Địa chỉ</label>
                   <input type="text" class="form-control" v-model="formData.diaChi" required>
@@ -101,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import ReaderService from '@/services/reader.service';
 import BorrowHistory from './BorrowHistory.vue';
@@ -117,7 +145,16 @@ const formData = reactive({
   phai: 'Nam',
   diaChi: '',
   dienThoai: '',
-  madocgia: ''
+  madocgia: '',
+  password: '' 
+});
+
+// Biến kiểm tra xem SĐT có trống không
+const isPhoneEmpty = ref(false);
+
+// Computed để hiện cảnh báo vàng
+const isMissingInfo = computed(() => {
+    return !formData.dienThoai || !formData.diaChi;
 });
 
 const getAvatarChar = (name) => {
@@ -140,8 +177,15 @@ const fetchProfile = async () => {
     const data = await ReaderService.get(authStore.user.madocgia);
     
     Object.assign(formData, data);
+    // Reset password field vì không muốn hiện hash pass cũ
+    formData.password = ''; 
     
     formData.ngaySinh = formatDateForInput(data.ngaySinh);
+
+    // Kiểm tra nếu SĐT chưa có (do login Google)
+    if (!formData.dienThoai) {
+        isPhoneEmpty.value = true;
+    }
     
   } catch (error) {
     console.error("Lỗi tải thông tin:", error);
@@ -156,6 +200,12 @@ const updateProfile = async () => {
     authStore.user.ten = formData.ten;
     authStore.user.hoTen = `${formData.hoLot} ${formData.ten}`;
     localStorage.setItem("user", JSON.stringify(authStore.user));
+
+    // Sau khi cập nhật xong, khóa SĐT lại và ẩn ô mật khẩu
+    if (formData.dienThoai) {
+        isPhoneEmpty.value = false;
+    }
+    formData.password = ''; // Xóa mật khẩu khỏi form sau khi lưu
 
   } catch (error) {
     alert("Lỗi cập nhật: " + (error.response?.data?.message || error.message));

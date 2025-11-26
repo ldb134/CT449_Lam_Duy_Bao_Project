@@ -17,6 +17,10 @@ class AuthService {
     async changePassword(data) {
         return (await this.api.post("/change-password", data)).data;
     }
+
+    async loginSocial(data) {
+        return (await this.api.post("/login/social", data)).data;
+    }
 }
 
 export default new AuthService();

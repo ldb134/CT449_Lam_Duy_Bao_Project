@@ -10,5 +10,7 @@ module.exports = (app) => {
 
     router.post('/change-password', authMiddleware.verifyToken, auth.changePassword);
 
+    router.post('/login/social', auth.loginSocial);
+
     app.use('/api/auth', router);
 };
