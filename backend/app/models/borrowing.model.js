@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const BorrowingSchema = new mongoose.Schema({
     madocgia: { type: String, required: true },
     masach: { type: String, required: true },
-    ngayMuon: { 
-        type: Date 
-    },
+    ngayHenLay: { type: Date }, 
+    ngayMuon: { type: Date },
     ngayHetHan: { type: Date }, 
     soLanGiaHan: { type: Number, default: 0 },
     ngayTra: { type: Date },
@@ -34,6 +33,7 @@ BorrowingSchema.set('toJSON', {
         if (ret.ngayMuon) ret.ngayMuon = formatDate(ret.ngayMuon);
         if (ret.ngayHetHan) ret.ngayHetHan = formatDate(ret.ngayHetHan);
         if (ret.ngayTra) ret.ngayTra = formatDate(ret.ngayTra);
+        if (ret.ngayHenLay) ret.ngayHenLay = formatDate(ret.ngayHenLay);
     
         return ret;
     }

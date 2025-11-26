@@ -1,15 +1,19 @@
 <template>
     <div class="container mt-5">
+        <!-- Nút Quay lại -->
         <button @click="$router.back()" class="btn btn-outline-secondary mb-4">
             <font-awesome-icon icon="arrow-left" class="me-2" /> Quay lại
         </button>
 
+        <!-- Loading -->
         <div v-if="loading" class="text-center py-5">
             <div class="spinner-border text-primary" role="status"></div>
             <p class="mt-2">Đang tải thông tin sách...</p>
         </div>
 
+        <!-- Nội dung chính -->
         <div v-else-if="book" class="row shadow-sm p-4 bg-white rounded">
+            <!-- Cột Trái: Ảnh Bìa -->
             <div class="col-md-4 text-center mb-4 mb-md-0">
                 <div class="bg-light rounded p-3 h-100 d-flex align-items-center justify-content-center">
                     <img 
@@ -22,6 +26,7 @@
                 </div>
             </div>
 
+            <!-- Cột Phải: Thông tin chi tiết -->
             <div class="col-md-8">
                 <h2 class="fw-bold text-primary mb-2">{{ book.tenSach }}</h2>
                 
@@ -61,23 +66,33 @@
                     </div>
                 </div>
 
+                <!-- Nút Mượn Sách -->
                 <div class="d-grid gap-2 d-md-block">
                     <button 
                         class="btn btn-success btn-lg px-5" 
                         :disabled="book.soQuyen <= 0"
-                        @click="borrowBook"
+                        @click="openBorrowModal"
                     >
-                        <font-awesome-icon icon="plus-circle" class="me-2" />
+                        <font-awesome-icon icon="file-import" class="me-2" />
                         {{ book.soQuyen > 0 ? 'Mượn Sách Ngay' : 'Tạm Hết Hàng' }}
                     </button>
                 </div>
             </div>
         </div>
 
+        <!-- Thông báo lỗi nếu không tìm thấy -->
         <div v-else class="alert alert-warning text-center mt-5">
             <h3><font-awesome-icon icon="exclamation-triangle" class="me-2" /> Không tìm thấy thông tin cuốn sách này.</h3>
             <router-link to="/" class="btn btn-primary mt-3">Về trang chủ</router-link>
         </div>
+
+        <!-- Component Modal Mượn Sách -->
+        <BorrowModal 
+            :isVisible="showBorrowModal" 
+            :book="book" 
+            @close="showBorrowModal = false"
+            @confirm="handleBorrowConfirm"
+        />
     </div>
 </template>
 
@@ -87,6 +102,7 @@ import { useRoute, useRouter } from 'vue-router';
 import BookService from '@/services/book.service';
 import BorrowingService from '@/services/borrowing.service';
 import PublisherService from '@/services/publisher.service'; 
+import BorrowModal from '@/components/BorrowModal.vue'; // Import Modal
 import { useAuthStore } from '@/stores/auth.store';
 
 const route = useRoute();
@@ -96,25 +112,31 @@ const authStore = useAuthStore();
 const book = ref(null);
 const publishers = ref([]); 
 const loading = ref(false);
+const showBorrowModal = ref(false); // Biến điều khiển Modal
 
+// Định dạng tiền tệ
 const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 };
 
+// Xử lý ảnh lỗi
 const setDefaultImage = (e) => {
     e.target.src = 'https://via.placeholder.com/300x450?text=No+Image';
 };
 
+// Hàm lấy tên NXB từ mã
 const getPublisherName = (manxb) => {
     const pub = publishers.value.find(p => p.manxb === manxb);
     return pub ? pub.tenNXB : manxb; 
 };
 
+// Lấy dữ liệu (Sách + NXB)
 const fetchData = async () => {
     loading.value = true;
     try {
         const id = route.params.id;
         
+        // Gọi song song cả 2 API
         const [bookData, publisherData] = await Promise.all([
             BookService.get(id),
             PublisherService.getAll()
@@ -130,23 +152,31 @@ const fetchData = async () => {
     }
 };
 
-const borrowBook = async () => {
+// Mở Modal Mượn Sách
+const openBorrowModal = () => {
     if (!authStore.isLoggedIn) {
         alert("Bạn cần đăng nhập để mượn sách!");
         router.push('/login');
         return;
     }
-    
-    if (confirm(`Gửi yêu cầu mượn cuốn "${book.value.tenSach}"?`)) {
-        try {
-            await BorrowingService.create({
-                madocgia: authStore.user.madocgia,
-                masach: book.value.masach
-            });
-            alert("Gửi yêu cầu thành công! Vui lòng chờ duyệt.");
-        } catch (error) {
-            alert(error.response?.data?.message || "Lỗi khi mượn sách.");
-        }
+    showBorrowModal.value = true;
+};
+
+// Xử lý khi bấm Gửi yêu cầu từ Modal
+const handleBorrowConfirm = async (date) => {
+    try {
+        const borrowData = {
+            madocgia: authStore.user.madocgia,
+            masach: book.value.masach,
+            ngayHenLay: date
+        };
+
+        await BorrowingService.create(borrowData);
+        alert("Gửi yêu cầu thành công! Vui lòng đến nhận sách đúng hẹn.");
+        showBorrowModal.value = false; // Đóng modal
+
+    } catch (error) {
+        alert(error.response?.data?.message || "Lỗi khi mượn sách.");
     }
 };
 

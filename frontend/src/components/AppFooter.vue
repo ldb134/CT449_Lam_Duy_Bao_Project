@@ -16,8 +16,13 @@
           <ul class="list-unstyled">
             <li class="mb-2"><router-link to="/" class="text-white-50 text-decoration-none footer-link">Trang Chủ</router-link></li>
             <li class="mb-2"><router-link to="/history" class="text-white-50 text-decoration-none footer-link">Lịch Sử Mượn</router-link></li>
-            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none footer-link">Quy Định Mượn Trả</a></li>
-          </ul>
+            
+            <li class="mb-2">
+                <router-link to="/rules" class="text-white-50 text-decoration-none footer-link">
+                    Quy Định Mượn Trả
+                </router-link>
+            </li>
+            </ul>
         </div>
 
         <div class="col-md-4 mb-4">

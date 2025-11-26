@@ -14,12 +14,19 @@ import ReaderManage from '@/views/staff/ReaderManage.vue'
 import StaffManage from '@/views/staff/StaffManage.vue'
 import ChangePassword from '@/views/staff/ChangePassword.vue'
 import ReaderProfile from '@/views/reader/ReaderProfile.vue'
+import LibraryRules from '@/views/reader/LibraryRules.vue';
 
 const routes = [
   {
     path: '/',
     name: 'reader-home',
     component: ReaderHome,
+    meta: { layout: 'reader' } 
+  },
+  {
+    path: '/rules',
+    name: 'library-rules',
+    component: LibraryRules,
     meta: { layout: 'reader' } 
   },
   {

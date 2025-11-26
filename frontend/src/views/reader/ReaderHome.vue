@@ -16,17 +16,17 @@
           </div>
         </div>
         <div class="carousel-item" data-bs-interval="3000">
-          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 2" style="height: 400px; object-fit: cover;">
-          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-            <h5>Không gian đọc sách lý tưởng</h5>
-            <p>Mượn sách dễ dàng, nhanh chóng và tiện lợi.</p>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="3000">
           <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 3" style="height: 400px; object-fit: cover;">
           <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
             <h5>Cập nhật sách mới liên tục</h5>
             <p>Hàng ngàn đầu sách mới đang chờ đón bạn.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="https://images.unsplash.com/photo-1507842217121-9d59754a8429?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Slide 2" style="height: 400px; object-fit: cover;">
+          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+            <h5>Không gian đọc sách lý tưởng</h5>
+            <p>Mượn sách dễ dàng, nhanh chóng và tiện lợi.</p>
           </div>
         </div>
       </div>
@@ -40,7 +40,6 @@
 
     <div class="row">
       <div class="col-md-3 mb-4">
-        
         <div class="card shadow-sm border-0 mb-4">
           <div class="card-header bg-white py-3">
             <h5 class="mb-0 text-primary fw-bold">
@@ -100,7 +99,6 @@
             </button>
           </div>
         </div>
-
       </div>
 
       <div class="col-md-9">
@@ -181,7 +179,7 @@
                 <button 
                   class="btn w-100 rounded-pill fw-bold shadow-sm btn-borrow" 
                   :class="book.soQuyen > 0 ? 'btn-outline-primary' : 'btn-secondary disabled'"
-                  @click="borrowBook(book)"
+                  @click="openBorrowModal(book)"
                 >
                   <font-awesome-icon icon="file-import" class="me-2" />
                   {{ book.soQuyen > 0 ? 'Mượn Ngay' : 'Tạm Hết' }}
@@ -190,6 +188,13 @@
             </div>
           </div>
         </div>
+        
+        <BorrowModal 
+            :isVisible="showBorrowModal" 
+            :book="selectedBook" 
+            @close="showBorrowModal = false"
+            @confirm="handleBorrowConfirm"
+        />
 
       </div>
     </div>
@@ -202,6 +207,7 @@ import { useAuthStore } from '@/stores/auth.store';
 import BookService from '@/services/book.service';
 import PublisherService from '@/services/publisher.service'; 
 import BorrowingService from '@/services/borrowing.service'; 
+import BorrowModal from '@/components/BorrowModal.vue'; 
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
@@ -213,6 +219,8 @@ const selectedNXB = ref('');
 const selectedYear = ref(''); 
 const searchText = ref('');
 const loading = ref(false);
+const showBorrowModal = ref(false);
+const selectedBook = ref(null);
 
 const goToDetail = (masach) => {
     router.push({ name: 'book-detail', params: { id: masach } });
@@ -284,25 +292,34 @@ const filteredBooks = computed(() => {
     return result;
 });
 
-const borrowBook = async (book) => {
+const openBorrowModal = (book) => {
     if (!authStore.isLoggedIn) {
         alert("Bạn cần đăng nhập để mượn sách!");
         router.push('/login');
         return;
     }
-    
-    if (confirm(`Bạn muốn gửi yêu cầu mượn sách: "${book.tenSach}"?`)) {
-        try {
-            await BorrowingService.create({
-                madocgia: authStore.user.madocgia,
-                masach: book.masach
-            });
-            alert("Gửi yêu cầu thành công! Vui lòng chờ duyệt.");
-        } catch (error) {
-            alert(error.response?.data?.message || "Có lỗi xảy ra khi mượn sách.");
-        }
+    selectedBook.value = book;
+    showBorrowModal.value = true;
+};
+
+const handleBorrowConfirm = async (date) => {
+    try {
+        const borrowData = {
+            madocgia: authStore.user.madocgia,
+            masach: selectedBook.value.masach,
+            ngayHenLay: date 
+        };
+
+        await BorrowingService.create(borrowData);
+        alert("Gửi yêu cầu thành công! Vui lòng đến nhận sách đúng hẹn.");
+        showBorrowModal.value = false; 
+
+    } catch (error) {
+        console.log(error);
+        alert(error.response?.data?.message || "Có lỗi xảy ra.");
     }
 };
+// -------------------------------
 
 const setDefaultImage = (event) => {
     event.target.src = 'https://via.placeholder.com/200x300?text=No+Image';

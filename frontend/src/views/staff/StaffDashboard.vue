@@ -49,7 +49,7 @@
                <th scope="col" class="ps-4">Mã Phiếu</th>
                <th scope="col">Độc Giả</th>
                <th scope="col">Mã Sách</th>
-               <th scope="col">Ngày Mượn</th>
+               <th scope="col">Ngày Hẹn / Mượn</th>
                <th scope="col">Hạn Trả</th>
                <th scope="col">Trạng Thái</th>
                <th scope="col" class="text-center">Hành Động</th>
@@ -60,7 +60,16 @@
                <td class="ps-4 fw-bold text-muted small">#{{ item._id.slice(-6).toUpperCase() }}</td>
                <td>{{ item.madocgia }}</td>
                <td>{{ item.masach }}</td>
-               <td>{{ item.ngayMuon || '---' }}</td>
+               
+               <td>
+                 <span v-if="item.trangThai === 'Chờ duyệt'" class="text-primary fw-bold">
+                    <font-awesome-icon icon="calendar-alt" class="me-1"/> 
+                    {{ item.ngayHenLay || 'Chưa hẹn' }}
+                 </span>
+                 <span v-else>
+                    {{ item.ngayMuon || '---' }}
+                 </span>
+               </td>
                <td>{{ item.ngayHetHan || '---' }}</td>
                
                <td>

@@ -3,8 +3,8 @@ const Book = require('../models/book.model');
 const Reader = require('../models/reader.model');
 
 exports.create = async (req, res) => {
-    if (!req.body.madocgia || !req.body.masach) {
-        return res.status(400).send({ message: "Thiếu mã độc giả hoặc mã sách!" });
+    if (!req.body.madocgia || !req.body.masach || !req.body.ngayHenLay) {
+        return res.status(400).send({ message: "Vui lòng chọn sách và ngày hẹn lấy!" });
     }
 
     try {
@@ -27,9 +27,18 @@ exports.create = async (req, res) => {
             return res.status(400).send({ message: "Độc giả đang mượn hoặc đang chờ duyệt cuốn sách này rồi!" });
         }
 
+        const ngayHen = new Date(req.body.ngayHenLay);
+        const homNay = new Date();
+        homNay.setHours(0,0,0,0); 
+        
+        if (ngayHen < homNay) {
+             return res.status(400).send({ message: "Ngày hẹn lấy không được ở trong quá khứ!" });
+        }
+
         const borrowing = new Borrowing({
             madocgia: req.body.madocgia,
             masach: req.body.masach,
+            ngayHenLay: ngayHen 
         });
 
         const data = await borrowing.save();
@@ -59,11 +68,15 @@ exports.approve = async (req, res) => {
         book.soQuyen -= 1;
         await book.save();
 
-        const today = new Date();
-        const deadline = new Date(today);
-        deadline.setDate(today.getDate() + 7); 
+        let startDate = new Date();
+        if (borrowing.ngayHenLay && new Date(borrowing.ngayHenLay) > startDate) {
+            startDate = new Date(borrowing.ngayHenLay);
+        }
 
-        borrowing.ngayMuon = today;
+        const deadline = new Date(startDate);
+        deadline.setDate(startDate.getDate() + 7); 
+
+        borrowing.ngayMuon = startDate;
         borrowing.ngayHetHan = deadline;
         borrowing.trangThai = 'Đang mượn';
         
