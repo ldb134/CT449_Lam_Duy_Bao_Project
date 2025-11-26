@@ -158,7 +158,7 @@
                   >
                   <span class="position-absolute top-0 end-0 badge m-2 shadow-sm" 
                     :class="book.soQuyen > 0 ? 'bg-success' : 'bg-secondary'">
-                    <small>{{ book.soQuyen > 0 ? 'Còn hàng' : 'Hết' }}</small>
+                    <small>{{ book.soQuyen > 0 ? 'Có thể mượn' : 'Không thể mượn' }}</small>
                   </span>
                 </div>
 
@@ -171,11 +171,13 @@
                 <small class="text-muted mb-2">Năm: {{ book.namXuatBan }}</small>
                 
                 <div class="mt-auto">
-                   <h5 class="text-primary fw-bold mb-0">{{ formatPrice(book.donGia) }}</h5>
+                   <small class="text-muted">
+                       <font-awesome-icon icon="tag" class="me-1"/> Giá bìa: {{ formatPrice(book.donGia) }}
+                   </small>
                 </div>
               </div>
               
-              <div class="card-footer bg-white border-top-0 p-3 pt-0">
+              <div class="card-footer bg-white border-top-0 p-3 pt-0 mt-2">
                 <button 
                   class="btn w-100 rounded-pill fw-bold shadow-sm btn-borrow" 
                   :class="book.soQuyen > 0 ? 'btn-outline-primary' : 'btn-secondary disabled'"
@@ -298,6 +300,14 @@ const openBorrowModal = (book) => {
         router.push('/login');
         return;
     }
+
+    if (!authStore.user.dienThoai || !authStore.user.diaChi) {
+        if(confirm("Bạn cần hoàn tất hồ sơ (SĐT, Địa chỉ) và đồng ý quy định trước khi mượn sách. Đi đến trang hồ sơ ngay?")) {
+            router.push('/profile');
+        }
+        return;
+    }
+
     selectedBook.value = book;
     showBorrowModal.value = true;
 };
@@ -319,10 +329,9 @@ const handleBorrowConfirm = async (date) => {
         alert(error.response?.data?.message || "Có lỗi xảy ra.");
     }
 };
-// -------------------------------
 
 const setDefaultImage = (event) => {
-    event.target.src = 'https://via.placeholder.com/200x300?text=No+Image';
+    event.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
 };
 
 onMounted(() => {

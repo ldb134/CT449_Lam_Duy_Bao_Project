@@ -103,13 +103,19 @@
                   <div class="form-text text-muted">Mật khẩu này dùng để đăng nhập bằng Số điện thoại.</div>
                 </div>
                 <div class="mb-4">
-                  <label class="form-label fw-bold">Địa chỉ</label>
-                  <input type="text" class="form-control" v-model="formData.diaChi" required>
-                </div>
+  <label class="form-label fw-bold">Địa chỉ</label>
+  <input type="text" class="form-control" v-model="formData.diaChi" required>
+</div>
 
-                <button type="submit" class="btn btn-primary">
-                  <font-awesome-icon icon="save" class="me-2" /> Lưu Thay Đổi
-                </button>
+<div class="mb-3 form-check" v-if="isPhoneEmpty">
+    <input type="checkbox" class="form-check-input" id="profileAgreeRules" v-model="agreeRules">
+    <label class="form-check-label" for="profileAgreeRules">
+        Tôi đồng ý với các <a href="/rules" target="_blank" class="text-decoration-none">Quy định mượn trả sách</a> của thư viện.
+    </label>
+</div>
+<button type="submit" class="btn btn-primary">
+  <font-awesome-icon icon="save" class="me-2" /> Lưu Thay Đổi
+</button>
               </form>
             </div>
 
@@ -151,6 +157,7 @@ const formData = reactive({
 
 // Biến kiểm tra xem SĐT có trống không
 const isPhoneEmpty = ref(false);
+const agreeRules = ref(false); 
 
 // Computed để hiện cảnh báo vàng
 const isMissingInfo = computed(() => {
@@ -194,18 +201,25 @@ const fetchProfile = async () => {
 
 const updateProfile = async () => {
   try {
+    if (isPhoneEmpty.value && !agreeRules.value) {
+        alert("Bạn cần đồng ý với quy định mượn trả để tiếp tục!");
+        return;
+    }
+    
     await ReaderService.update(formData.madocgia, formData);
     alert("Cập nhật thông tin thành công!");
     
     authStore.user.ten = formData.ten;
     authStore.user.hoTen = `${formData.hoLot} ${formData.ten}`;
+    authStore.user.dienThoai = formData.dienThoai; 
+    authStore.user.diaChi = formData.diaChi;    
+    
     localStorage.setItem("user", JSON.stringify(authStore.user));
 
-    // Sau khi cập nhật xong, khóa SĐT lại và ẩn ô mật khẩu
     if (formData.dienThoai) {
         isPhoneEmpty.value = false;
     }
-    formData.password = ''; // Xóa mật khẩu khỏi form sau khi lưu
+    formData.password = ''; 
 
   } catch (error) {
     alert("Lỗi cập nhật: " + (error.response?.data?.message || error.message));

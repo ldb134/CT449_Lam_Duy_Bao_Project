@@ -1,19 +1,15 @@
 <template>
     <div class="container mt-5">
-        <!-- Nút Quay lại -->
         <button @click="$router.back()" class="btn btn-outline-secondary mb-4">
             <font-awesome-icon icon="arrow-left" class="me-2" /> Quay lại
         </button>
 
-        <!-- Loading -->
         <div v-if="loading" class="text-center py-5">
             <div class="spinner-border text-primary" role="status"></div>
             <p class="mt-2">Đang tải thông tin sách...</p>
         </div>
 
-        <!-- Nội dung chính -->
         <div v-else-if="book" class="row shadow-sm p-4 bg-white rounded">
-            <!-- Cột Trái: Ảnh Bìa -->
             <div class="col-md-4 text-center mb-4 mb-md-0">
                 <div class="bg-light rounded p-3 h-100 d-flex align-items-center justify-content-center">
                     <img 
@@ -26,47 +22,47 @@
                 </div>
             </div>
 
-            <!-- Cột Phải: Thông tin chi tiết -->
             <div class="col-md-8">
-                <h2 class="fw-bold text-primary mb-2">{{ book.tenSach }}</h2>
+    <h2 class="fw-bold text-primary mb-2">{{ book.tenSach }}</h2>
+    
+    <div class="d-flex align-items-center mb-3">
+        <span class="badge bg-info text-dark me-2">
+            <font-awesome-icon icon="barcode" class="me-1" /> {{ book.masach }}
+        </span>
+        <span class="text-muted fst-italic">
+            <font-awesome-icon icon="pen-nib" class="me-1" /> Tác giả: {{ book.tacGia }}
+        </span>
+    </div>
+
+    <div class="card bg-light border-0 mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <strong><font-awesome-icon icon="calendar-alt" class="me-1" /> Năm xuất bản:</strong> {{ book.namXuatBan }}
+                </div>
+                <div class="col-sm-6">
+                    <strong><font-awesome-icon icon="building" class="me-1" /> Nhà xuất bản:</strong> 
+                    {{ getPublisherName(book.manxb) }}
+                </div>
                 
-                <div class="d-flex align-items-center mb-3">
-                    <span class="badge bg-info text-dark me-2">
-                        <font-awesome-icon icon="barcode" class="me-1" /> {{ book.masach }}
-                    </span>
-                    <span class="text-muted fst-italic">
-                        <font-awesome-icon icon="pen-nib" class="me-1" /> Tác giả: {{ book.tacGia }}
+                <div class="col-sm-6">
+                    <strong><font-awesome-icon icon="check-circle" class="me-1" /> Trạng thái:</strong> 
+                    <span :class="book.soQuyen > 0 ? 'text-success fw-bold' : 'text-danger fw-bold'">
+                        {{ book.soQuyen > 0 ? 'Có thể mượn' : 'Không thể mượn' }}
                     </span>
                 </div>
-
-                <h3 class="text-danger fw-bold mb-4">
-                    {{ formatPrice(book.donGia) }}
-                </h3>
-
-                <div class="card bg-light border-0 mb-4">
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <strong><font-awesome-icon icon="calendar-alt" class="me-1" /> Năm xuất bản:</strong> {{ book.namXuatBan }}
-                            </div>
-                            <div class="col-sm-6">
-                                <strong><font-awesome-icon icon="building" class="me-1" /> Nhà xuất bản:</strong> 
-                                {{ getPublisherName(book.manxb) }}
-                            </div>
-                            <div class="col-sm-6">
-                                <strong><font-awesome-icon icon="box" class="me-1" /> Tình trạng:</strong> 
-                                <span :class="book.soQuyen > 0 ? 'text-success fw-bold' : 'text-danger fw-bold'">
-                                    {{ book.soQuyen > 0 ? 'Còn hàng' : 'Hết hàng' }}
-                                </span>
-                            </div>
-                            <div class="col-sm-6">
-                                <strong><font-awesome-icon icon="layer-group" class="me-1" /> Số lượng kho:</strong> {{ book.soQuyen }}
-                            </div>
-                        </div>
-                    </div>
+                
+                <div class="col-sm-6">
+                    <strong><font-awesome-icon icon="layer-group" class="me-1" /> Số lượng kho:</strong> {{ book.soQuyen }}
                 </div>
 
-                <!-- Nút Mượn Sách -->
+                <div class="col-sm-6">
+                    <strong><font-awesome-icon icon="tag" class="me-1" /> Giá bìa:</strong> 
+                    <span class="text-muted">{{ formatPrice(book.donGia) }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
                 <div class="d-grid gap-2 d-md-block">
                     <button 
                         class="btn btn-success btn-lg px-5" 
@@ -80,13 +76,11 @@
             </div>
         </div>
 
-        <!-- Thông báo lỗi nếu không tìm thấy -->
         <div v-else class="alert alert-warning text-center mt-5">
             <h3><font-awesome-icon icon="exclamation-triangle" class="me-2" /> Không tìm thấy thông tin cuốn sách này.</h3>
             <router-link to="/" class="btn btn-primary mt-3">Về trang chủ</router-link>
         </div>
 
-        <!-- Component Modal Mượn Sách -->
         <BorrowModal 
             :isVisible="showBorrowModal" 
             :book="book" 
@@ -102,7 +96,7 @@ import { useRoute, useRouter } from 'vue-router';
 import BookService from '@/services/book.service';
 import BorrowingService from '@/services/borrowing.service';
 import PublisherService from '@/services/publisher.service'; 
-import BorrowModal from '@/components/BorrowModal.vue'; // Import Modal
+import BorrowModal from '@/components/BorrowModal.vue'; 
 import { useAuthStore } from '@/stores/auth.store';
 
 const route = useRoute();
@@ -112,7 +106,7 @@ const authStore = useAuthStore();
 const book = ref(null);
 const publishers = ref([]); 
 const loading = ref(false);
-const showBorrowModal = ref(false); // Biến điều khiển Modal
+const showBorrowModal = ref(false); 
 
 // Định dạng tiền tệ
 const formatPrice = (price) => {
@@ -121,7 +115,7 @@ const formatPrice = (price) => {
 
 // Xử lý ảnh lỗi
 const setDefaultImage = (e) => {
-    e.target.src = 'https://via.placeholder.com/300x450?text=No+Image';
+    e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
 };
 
 // Hàm lấy tên NXB từ mã
@@ -159,6 +153,12 @@ const openBorrowModal = () => {
         router.push('/login');
         return;
     }
+    if (!authStore.user.dienThoai || !authStore.user.diaChi) {
+        if(confirm("Bạn cần hoàn tất hồ sơ (SĐT, Địa chỉ) và đồng ý quy định trước khi mượn sách. Đi đến trang hồ sơ ngay?")) {
+            router.push('/profile');
+        }
+        return;
+    }
     showBorrowModal.value = true;
 };
 
@@ -173,7 +173,7 @@ const handleBorrowConfirm = async (date) => {
 
         await BorrowingService.create(borrowData);
         alert("Gửi yêu cầu thành công! Vui lòng đến nhận sách đúng hẹn.");
-        showBorrowModal.value = false; // Đóng modal
+        showBorrowModal.value = false; 
 
     } catch (error) {
         alert(error.response?.data?.message || "Lỗi khi mượn sách.");

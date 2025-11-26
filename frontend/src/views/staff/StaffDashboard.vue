@@ -169,6 +169,7 @@ const returnBook = async (id) => {
         alert("Đã trả sách thành công!");
         fetchBorrowings();
     } catch (error) {
+        console.log(error);
         alert("Lỗi khi trả sách!");
     }
 };
@@ -179,6 +180,7 @@ const reject = async (id) => {
         await BorrowingService.delete(id);
         fetchBorrowings();
     } catch (error) {
+        console.log(error);
         alert("Lỗi khi xóa!");
     }
 };

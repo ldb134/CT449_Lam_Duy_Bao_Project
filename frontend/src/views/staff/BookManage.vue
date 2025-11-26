@@ -158,6 +158,7 @@ const deleteBook = async (book) => {
         alert("Đã xóa sách!");
         fetchData();
     } catch (error) {
+        console.log(error);
         alert("Không thể xóa sách! Có thể sách đang được mượn.");
     }
 };

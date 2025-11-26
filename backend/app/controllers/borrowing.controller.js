@@ -13,6 +13,12 @@ exports.create = async (req, res) => {
         
         if (!reader || !book) return res.status(404).send({ message: "Độc giả hoặc Sách không tồn tại!" });
 
+        if (!reader.dienThoai || !reader.diaChi) {
+            return res.status(400).send({ 
+                message: "Vui lòng cập nhật đầy đủ thông tin (Số điện thoại & Địa chỉ) trong trang Hồ sơ trước khi mượn sách!" 
+            });
+        }
+
         if (book.soQuyen < 1) {
             return res.status(400).send({ message: "Sách này đã hết hàng!" });
         }
@@ -25,6 +31,15 @@ exports.create = async (req, res) => {
 
         if (existingBorrow) {
             return res.status(400).send({ message: "Độc giả đang mượn hoặc đang chờ duyệt cuốn sách này rồi!" });
+        }
+        
+        const count = await Borrowing.countDocuments({
+            madocgia: req.body.madocgia,
+            trangThai: { $in: ['Chờ duyệt', 'Đang mượn'] }
+        });
+
+        if (count >= 3) {
+            return res.status(400).send({ message: "Bạn chỉ được mượn tối đa 3 cuốn sách cùng lúc!" });
         }
 
         const ngayHen = new Date(req.body.ngayHenLay);
