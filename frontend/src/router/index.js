@@ -109,7 +109,7 @@ const routes = [
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFound.vue'),
-      meta: { layout: 'reader' }
+      meta: { layout: 'reader' } 
   }
 ];
 
@@ -118,19 +118,45 @@ const router = createRouter({
   routes,
 })
 
+const STAFF_LOGIN_SECRET = "B2205854"; // Mã bí mật
+
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+  
+  // Nếu đích đến là trang 404 (not-found) -> Cho qua luôn, không kiểm tra gì nữa
+  if (to.name === 'not-found') {
+      return next();
+  }
 
-  if (to.meta.requiresAuth) {
-    if (!authStore.isLoggedIn) {
-      next(to.meta.isStaff ? '/staff/login' : '/login');
-    } else if (to.meta.isStaff && !authStore.isStaff) {
-      next('/');
-    } else {
-      next();
-    }
-  } else {
-    next();
+  const isStaffZone = to.path.startsWith('/staff');
+
+  // STAFF ZONE
+  if (isStaffZone) {
+      if (to.name === 'staff-login') {
+          if (to.query.key !== STAFF_LOGIN_SECRET) {
+              return next({ name: 'not-found', params: { pathMatch: to.path.substring(1).split('/') } });
+          }
+          return next();
+      }
+
+      if (!authStore.isLoggedIn || !authStore.isStaff) {
+          return next({ name: 'not-found', params: { pathMatch: to.path.substring(1).split('/') } });
+      }
+      
+      return next();
+  } 
+  
+  // READER ZONE
+  else {
+      if (authStore.isLoggedIn && authStore.isStaff) {
+          return next('/staff');
+      }
+
+      if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+          return next('/login');
+      }
+
+      return next();
   }
 });
 

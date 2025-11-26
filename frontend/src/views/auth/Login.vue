@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
 
@@ -85,6 +85,10 @@ const password = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
 const loginMethod = ref(''); 
+
+onMounted(() => {
+    authStore.logout();
+});
 
 // Đăng nhập thường (SĐT + Pass)
 async function handleLogin() {

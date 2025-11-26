@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
 
@@ -62,6 +62,10 @@ const msnv = ref('');
 const password = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
+
+onMounted(() => {
+    authStore.logout(); 
+});
 
 async function handleLogin() {
     loading.value = true;
