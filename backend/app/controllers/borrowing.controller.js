@@ -1,6 +1,7 @@
 const Borrowing = require('../models/borrowing.model');
 const Book = require('../models/book.model');
 const Reader = require('../models/reader.model');
+const Notification = require('../models/notification.model');
 
 exports.create = async (req, res) => {
     if (!req.body.madocgia || !req.body.masach || !req.body.ngayHenLay) {
@@ -96,6 +97,14 @@ exports.approve = async (req, res) => {
         borrowing.trangThai = 'Đang mượn';
         
         await borrowing.save();
+
+        const noti = new Notification({
+            madocgia: borrowing.madocgia,
+            tieuDe: "Yêu cầu mượn sách được duyệt",
+            noiDung: `Thủ thư đã duyệt cuốn sách mã ${borrowing.masach}. Vui lòng đến nhận sách đúng hạn!`,
+            loai: 'success'
+        });
+        await noti.save();
         res.send({ message: "Duyệt thành công! Đã trừ kho.", data: borrowing });
 
     } catch (err) {
@@ -145,6 +154,18 @@ exports.returnBook = async (req, res) => {
                 
                 await reader.save();
             }
+
+            const noti = new Notification({
+                madocgia: borrowing.madocgia,
+                tieuDe: "Cảnh báo trễ hạn",
+                noiDung: `Bạn đã trả cuốn ${borrowing.masach} trễ hạn. Số lần vi phạm hiện tại: ${reader.soLanTreHan}/3.`,
+                loai: 'danger'
+            });
+            
+            if (reader.trangThai === 'Bị khóa') {
+                noti.noiDung += " TÀI KHOẢN ĐÃ BỊ KHÓA DO VI PHẠM QUÁ MỨC.";
+            }
+            await noti.save();
         }
 
         await borrowing.save();
