@@ -67,16 +67,21 @@ exports.update = async (req, res) => {
         return res.status(400).send({ message: "Dữ liệu cập nhật không được để trống!" });
     }
 
-    const id = req.params.id; // Đây là madocgia (ví dụ: DG005)
+    const id = req.params.id;
+    
+    const updateData = { ...req.body };
 
     try {
-        // Nếu có gửi password lên (trường hợp cập nhật lần đầu từ Google)
-        if (req.body.password) {
+        // Kiểm tra xem có gửi password và password có nội dung không
+        if (updateData.password && updateData.password.trim() !== "") {
             const salt = await bcrypt.genSalt(10);
-            req.body.password = await bcrypt.hash(req.body.password, salt);
+            updateData.password = await bcrypt.hash(updateData.password, salt);
+        } else {
+            delete updateData.password;
         }
 
-        const data = await Reader.findOneAndUpdate({ madocgia: id }, req.body, { useFindAndModify: false, new: true });
+        // Thay req.body bằng updateData
+        const data = await Reader.findOneAndUpdate({ madocgia: id }, updateData, { useFindAndModify: false, new: true });
         
         if (!data) {
             return res.status(404).send({ message: `Không thể cập nhật độc giả với mã=${id}.` });

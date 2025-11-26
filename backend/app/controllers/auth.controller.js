@@ -39,7 +39,7 @@ exports.loginReader = async (req, res) => {
         if (!reader) return res.status(404).send({ message: "Số điện thoại chưa đăng ký!" });
 
         if (reader.trangThai === 'Bị khóa') {
-            return res.status(403).send({ message: "Tài khoản của bạn đã bị vô hiệu hóa do vi phạm quy định. Vui lòng liên hệ thủ thư!" });
+            return res.status(403).send({ message: "Tài khoản bị vô hiệu hóa!" });
         }
 
         const validPass = await bcrypt.compare(req.body.password, reader.password);
@@ -59,7 +59,9 @@ exports.loginReader = async (req, res) => {
                 madocgia: reader.madocgia,
                 hoTen: reader.hoTen, 
                 ten: reader.ten,
-                role: 'reader' 
+                role: 'reader',
+                dienThoai: reader.dienThoai, 
+                diaChi: reader.diaChi      
             } 
         });
     } catch (err) {

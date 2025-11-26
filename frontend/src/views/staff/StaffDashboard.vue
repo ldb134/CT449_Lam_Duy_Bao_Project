@@ -1,45 +1,97 @@
 <template>
   <div class="staff-dashboard">
     <h2 class="mb-4 fw-bold text-primary">
-       <font-awesome-icon icon="chart-pie" class="me-2" /> Tổng Quan Hệ Thống
+       <font-awesome-icon icon="chart-line" class="me-2" /> Thống Kê & Báo Cáo
     </h2>
     
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3 shadow border-0">
+    <div class="row mb-4 g-3">
+      <div class="col-md-3">
+        <div class="card text-white bg-primary shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
-              <h5 class="card-title fw-light">Yêu cầu chờ duyệt</h5>
-              <p class="card-text fs-1 fw-bold">{{ pendingCount }}</p>
+              <h6 class="card-title fw-light text-uppercase mb-1">Đang Mượn</h6>
+              <h3 class="fw-bold mb-0">{{ counts.borrowing }}</h3>
             </div>
-            <font-awesome-icon icon="bell" size="3x" class="opacity-50" />
+            <font-awesome-icon icon="book-reader" size="2x" class="opacity-50" />
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card text-white bg-success mb-3 shadow border-0">
+      <div class="col-md-3">
+        <div class="card text-white bg-warning shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
-               <h5 class="card-title fw-light">Đang mượn</h5>
-               <p class="card-text fs-1 fw-bold">{{ borrowingCount }}</p>
+              <h6 class="card-title fw-light text-uppercase mb-1 text-dark">Chờ Duyệt</h6>
+              <h3 class="fw-bold mb-0 text-dark">{{ counts.pending }}</h3>
             </div>
-            <font-awesome-icon icon="book-reader" size="3x" class="opacity-50" />
+            <font-awesome-icon icon="clock" size="2x" class="opacity-50 text-dark" />
+          </div>
+        </div>
+      </div>
+       <div class="col-md-3">
+        <div class="card text-white bg-success shadow-sm border-0 h-100">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title fw-light text-uppercase mb-1">Đã Trả</h6>
+              <h3 class="fw-bold mb-0">{{ counts.returned }}</h3>
+            </div>
+            <font-awesome-icon icon="check-circle" size="2x" class="opacity-50" />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-danger shadow-sm border-0 h-100">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title fw-light text-uppercase mb-1">Độc Giả</h6>
+              <h3 class="fw-bold mb-0">{{ totalReaders }}</h3>
+            </div>
+            <font-awesome-icon icon="users" size="2x" class="opacity-50" />
           </div>
         </div>
       </div>
     </div>
 
+    <div class="row mb-4">
+        <div class="col-md-8 mb-4 mb-md-0">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold text-secondary">
+                        <font-awesome-icon icon="chart-bar" class="me-2"/> Xu Hướng Mượn Sách ({{ currentYear }})
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <Bar v-if="loaded" :data="barChartData" :options="barOptions" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+             <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold text-secondary">
+                        <font-awesome-icon icon="chart-pie" class="me-2"/> Tỉ Lệ Trạng Thái
+                    </h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div style="max-width: 300px; width: 100%;">
+                        <Doughnut v-if="loaded" :data="doughnutChartData" :options="doughnutOptions" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow-sm border-0">
       <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
         <h5 class="mb-0 fw-bold text-secondary">
-          <font-awesome-icon icon="list-alt" class="me-2" /> Danh sách phiếu mượn
+          <font-awesome-icon icon="list-alt" class="me-2" /> Hoạt Động Gần Đây
         </h5>
-        <button class="btn btn-sm btn-outline-secondary" @click="fetchBorrowings">
+        <button class="btn btn-sm btn-outline-secondary" @click="fetchData">
           <font-awesome-icon icon="sync" /> Làm mới
         </button>
       </div>
       <div class="card-body p-0">
-         <div v-if="loading" class="text-center py-4">
+         <div v-if="!loaded" class="text-center py-4">
             <div class="spinner-border text-primary" role="status"></div>
          </div>
 
@@ -49,148 +101,198 @@
                <th scope="col" class="ps-4">Mã Phiếu</th>
                <th scope="col">Độc Giả</th>
                <th scope="col">Mã Sách</th>
-               <th scope="col">Ngày Hẹn / Mượn</th>
-               <th scope="col">Hạn Trả</th>
-               <th scope="col">Trạng Thái</th>
-               <th scope="col" class="text-center">Hành Động</th>
-             </tr>
+               <th scope="col">Hạn Trả</th>   <th scope="col">Trạng Thái</th> <th scope="col">Ngày Tạo</th>   <th scope="col" class="text-center">Hành Động</th> </tr>
            </thead>
            <tbody>
-             <tr v-for="item in borrowings" :key="item._id">
+             <tr v-for="item in recentBorrowings" :key="item._id">
                <td class="ps-4 fw-bold text-muted small">#{{ item._id.slice(-6).toUpperCase() }}</td>
+               
                <td>{{ item.madocgia }}</td>
+               
                <td>{{ item.masach }}</td>
                
                <td>
-                 <span v-if="item.trangThai === 'Chờ duyệt'" class="text-primary fw-bold">
-                    <font-awesome-icon icon="calendar-alt" class="me-1"/> 
-                    {{ item.ngayHenLay || 'Chưa hẹn' }}
-                 </span>
-                 <span v-else>
-                    {{ item.ngayMuon || '---' }}
+                 <span :class="getStatusLabel(item.ngayHetHan, item.trangThai).class">
+                    <font-awesome-icon 
+                        v-if="getStatusLabel(item.ngayHetHan, item.trangThai).class.includes('text-danger')" 
+                        icon="exclamation-circle" 
+                        class="me-1"
+                    />
+                    {{ getStatusLabel(item.ngayHetHan, item.trangThai).text }}
                  </span>
                </td>
-               <td>{{ item.ngayHetHan || '---' }}</td>
-               
+
                <td>
                  <span v-if="item.trangThai === 'Chờ duyệt'" class="badge bg-warning text-dark">Chờ duyệt</span>
                  <span v-else-if="item.trangThai === 'Đang mượn'" class="badge bg-primary">Đang mượn</span>
                  <span v-else-if="item.trangThai === 'Đã trả'" class="badge bg-success">Đã trả</span>
+                 <span v-else class="badge bg-secondary">{{ item.trangThai }}</span>
                </td>
 
+               <td class="small text-muted">{{ formatDate(item.createdAt) }}</td>
+               
                <td class="text-center">
                  <div v-if="item.trangThai === 'Chờ duyệt'">
-                   <button class="btn btn-sm btn-outline-primary me-2" title="Duyệt" @click="approve(item._id)">
-                      <font-awesome-icon icon="check" /> Duyệt
-                   </button>
-                   <button class="btn btn-sm btn-outline-danger" title="Từ chối" @click="reject(item._id)">
-                      <font-awesome-icon icon="times" />
-                   </button>
+                   <button class="btn btn-sm btn-outline-primary me-1" @click="approve(item._id)" title="Duyệt"><font-awesome-icon icon="check" /></button>
+                   <button class="btn btn-sm btn-outline-danger" @click="reject(item._id)" title="Xóa"><font-awesome-icon icon="times" /></button>
                  </div>
-
                  <div v-else-if="item.trangThai === 'Đang mượn'">
-                    <button class="btn btn-sm btn-success" title="Khách trả sách" @click="returnBook(item._id)">
-                      <font-awesome-icon icon="undo" /> Trả sách
-                   </button>
-
-                   <button 
-                        v-if="item.soLanGiaHan === 0"
-                        class="btn btn-sm btn-warning text-dark" 
-                        title="Gia hạn thêm 7 ngày" 
-                        @click="renew(item._id)"
-                    >
-                      <font-awesome-icon icon="clock" /> Gia hạn
-                    </button>
-                    <span v-else class="badge bg-secondary">Đã gia hạn</span>
+                    <button class="btn btn-sm btn-success" @click="returnBook(item._id)" title="Trả sách"><font-awesome-icon icon="undo" /></button>
                  </div>
-
-                 <div v-else>
-                    <span class="text-muted small"><font-awesome-icon icon="check-circle" /> Hoàn tất</span>
-                 </div>
+                 <span v-else class="text-muted small">---</span>
                </td>
              </tr>
            </tbody>
          </table>
+      </div>
+      <div class="card-footer bg-white text-center">
+          <small class="text-muted">Hiển thị 10 giao dịch gần nhất</small>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import BorrowingService from '@/services/borrowing.service';
+import ReaderService from '@/services/reader.service';
 
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement
+} from 'chart.js'
+import { Bar, Doughnut } from 'vue-chartjs'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
+
+const loaded = ref(false);
 const borrowings = ref([]);
-const loading = ref(false);
+const totalReaders = ref(0);
+const currentYear = new Date().getFullYear();
 
-const pendingCount = computed(() => borrowings.value.filter(b => b.trangThai === 'Chờ duyệt').length);
-const borrowingCount = computed(() => borrowings.value.filter(b => b.trangThai === 'Đang mượn').length);
+const counts = reactive({
+    pending: 0,
+    borrowing: 0,
+    returned: 0
+});
 
-const fetchBorrowings = async () => {
-    loading.value = true;
+// --- CHART DATA ---
+const barChartData = ref({
+  labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+  datasets: [{ label: 'Lượt mượn', backgroundColor: '#0d6efd', data: [] }]
+});
+const barOptions = { responsive: true, maintainAspectRatio: false };
+
+const doughnutChartData = ref({
+  labels: ['Đang mượn', 'Chờ duyệt', 'Đã trả'],
+  datasets: [{
+    backgroundColor: ['#0d6efd', '#ffc107', '#198754'],
+    data: []
+  }]
+});
+const doughnutOptions = { responsive: true, maintainAspectRatio: false };
+
+const fetchData = async () => {
+    loaded.value = false;
     try {
-        borrowings.value = await BorrowingService.getAll();
-        borrowings.value.sort((a, b) => {
-             if (a.trangThai === 'Chờ duyệt' && b.trangThai !== 'Chờ duyệt') return -1;
-             if (a.trangThai !== 'Chờ duyệt' && b.trangThai === 'Chờ duyệt') return 1;
-             return new Date(b.updatedAt) - new Date(a.updatedAt); 
+        const [borrowData, readerData] = await Promise.all([
+            BorrowingService.getAll(),
+            ReaderService.getAll()
+        ]);
+        
+        borrowings.value = borrowData;
+        totalReaders.value = readerData.length;
+
+        counts.pending = borrowData.filter(b => b.trangThai === 'Chờ duyệt').length;
+        counts.borrowing = borrowData.filter(b => b.trangThai === 'Đang mượn').length;
+        counts.returned = borrowData.filter(b => b.trangThai === 'Đã trả').length;
+
+        const monthlyData = new Array(12).fill(0);
+        borrowData.forEach(item => {
+            const date = new Date(item.createdAt);
+            if (date.getFullYear() === currentYear) {
+                monthlyData[date.getMonth()]++;
+            }
         });
+        barChartData.value.datasets[0].data = monthlyData;
+        doughnutChartData.value.datasets[0].data = [counts.borrowing, counts.pending, counts.returned];
+
+        loaded.value = true;
     } catch (error) {
-        console.error("Lỗi tải danh sách:", error);
-    } finally {
-        loading.value = false;
+        console.error("Lỗi tải dữ liệu Dashboard:", error);
     }
+};
+
+const recentBorrowings = computed(() => {
+    return [...borrowings.value].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 10);
+});
+
+const formatDate = (date) => new Date(date).toLocaleDateString('vi-VN');
+
+const getStatusLabel = (dateString, status) => {
+    if (status === 'Đã trả' || status === 'Đã hủy') {
+        return { text: '---', class: 'text-muted' };
+    }
+    if (status === 'Chờ duyệt') {
+         return { text: 'Đang chờ', class: 'text-muted fst-italic' };
+    }
+    if (!dateString) return { text: '---', class: 'text-muted' };
+    
+    let deadline;
+    const parts = dateString.split('-');
+    
+    if (parts.length === 3) {
+        deadline = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+    } else {
+        deadline = new Date(dateString);
+    }
+
+    const today = new Date();
+    
+    deadline.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+
+    const diffTime = deadline.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) {
+        return { text: `Trễ ${Math.abs(diffDays)} ngày`, class: 'text-danger fw-bold' };
+    }
+    if (diffDays === 0) {
+        return { text: 'Hôm nay', class: 'text-warning fw-bold' };
+    }
+    if (diffDays === 1) {
+        return { text: 'Ngày mai', class: 'text-primary fw-bold' };
+    }
+    
+    return { text: dateString, class: 'text-success' }; 
 };
 
 const approve = async (id) => {
-    if (!confirm("Bạn có chắc muốn duyệt phiếu mượn này?")) return;
-    try {
-        await BorrowingService.approve(id);
-        alert("Đã duyệt thành công!");
-        fetchBorrowings(); 
-    } catch (error) {
-        alert(error.response?.data?.message || "Lỗi khi duyệt!");
-    }
+    if(!confirm("Duyệt phiếu mượn này?")) return;
+    try { await BorrowingService.approve(id); fetchData(); } catch(e) { alert("Lỗi!"); }
 };
-
-const renew = async (id) => {
-    try {
-        await BorrowingService.renew(id);
-        fetchBorrowings(); 
-    } catch (error) {
-        alert(error.response?.data?.message || "Lỗi khi gia hạn!");
-    }
-};
-
-const returnBook = async (id) => {
-    if (!confirm("Xác nhận độc giả đã trả sách?")) return;
-    try {
-        await BorrowingService.returnBook(id);
-        alert("Đã trả sách thành công!");
-        fetchBorrowings();
-    } catch (error) {
-        console.log(error);
-        alert("Lỗi khi trả sách!");
-    }
-};
-
 const reject = async (id) => {
-    if (!confirm("Bạn muốn từ chối và xóa yêu cầu này?")) return;
-    try {
-        await BorrowingService.delete(id);
-        fetchBorrowings();
-    } catch (error) {
-        console.log(error);
-        alert("Lỗi khi xóa!");
-    }
+    if(!confirm("Xóa phiếu mượn này?")) return;
+    try { await BorrowingService.delete(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+};
+const returnBook = async (id) => {
+    if(!confirm("Xác nhận trả sách?")) return;
+    try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { alert("Lỗi!"); }
 };
 
 onMounted(() => {
-    fetchBorrowings();
+    fetchData();
 });
 </script>
 
 <style scoped>
 .card { transition: transform 0.2s; }
-.card:hover { transform: translateY(-5px); }
+.card:hover { transform: translateY(-3px); }
 </style>
