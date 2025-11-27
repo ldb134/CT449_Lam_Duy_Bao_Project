@@ -89,7 +89,7 @@
                     <div class="card h-100 shadow-sm border-0 book-card">
                         <div class="card-body text-center d-flex flex-column cursor-pointer p-3" @click="goToDetail(book.masach)">
                             <div class="image-container mb-3 position-relative rounded overflow-hidden">
-                                <img :src="book.anh" class="book-cover" @error="setDefaultImage">
+                                <img :src="getImageUrl(book.anh)" class="book-cover" @error="setDefaultImage">
                                 <span class="position-absolute top-0 end-0 badge m-2 shadow-sm" 
                                     :class="book.soQuyen > 0 ? 'bg-success' : 'bg-secondary'">
                                     <small>{{ book.soQuyen > 0 ? 'Có thể mượn' : 'Không thể mượn' }}</small>
@@ -201,6 +201,11 @@ watch(() => route.query.q, (newQuery) => {
     fetchData();
 }, { immediate: true });
 
+const getImageUrl = (imagePath) => {
+    if (!imagePath) return 'default-image-url';
+    if (imagePath.startsWith('http')) return imagePath; 
+    return `http://localhost:3000${imagePath}`; 
+}
 const getPublisherName = (manxb) => publishers.value.find(p => p.manxb === manxb)?.tenNXB || manxb;
 const goToDetail = (masach) => router.push({ name: 'book-detail', params: { id: masach } });
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);

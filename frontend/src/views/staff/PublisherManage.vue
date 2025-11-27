@@ -19,16 +19,32 @@
                 <table class="table table-hover mb-0 align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th class="ps-4">Mã NXB</th>
-                            <th>Tên Nhà Xuất Bản</th>
+                            <th class="ps-4 text-nowrap">Mã NXB</th>
+                            
+                            <th style="min-width: 200px;">Tên Nhà Xuất Bản</th>
+                            
+                            <th style="min-width: 275px;">Liên Hệ</th> 
+                            
                             <th>Địa Chỉ</th>
-                            <th class="text-end pe-4">Hành Động</th>
+                            
+                            <th class="text-end pe-4 text-nowrap">Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="pub in publishers" :key="pub._id">
                             <td class="ps-4 fw-bold text-secondary">{{ pub.manxb }}</td>
                             <td class="fw-bold text-primary">{{ pub.tenNXB }}</td>
+                            
+                            <td>
+                                <div v-if="pub.email" class="small text-muted">
+                                    <font-awesome-icon icon="envelope" class="me-1" /> {{ pub.email }}
+                                </div>
+                                <div v-if="pub.dienThoai" class="small text-muted">
+                                    <font-awesome-icon icon="phone" class="me-1" /> {{ pub.dienThoai }}
+                                </div>
+                                <span v-if="!pub.email && !pub.dienThoai" class="text-muted small fst-italic">---</span>
+                            </td>
+
                             <td>{{ pub.diaChi }}</td>
                             <td class="text-end pe-4">
                                 <button class="btn btn-sm btn-outline-warning me-2" @click="openEditModal(pub)" title="Sửa">
@@ -40,7 +56,7 @@
                             </td>
                         </tr>
                         <tr v-if="publishers.length === 0">
-                            <td colspan="4" class="text-center py-4 text-muted">Chưa có dữ liệu nhà xuất bản.</td>
+                            <td colspan="5" class="text-center py-4 text-muted">Chưa có dữ liệu nhà xuất bản.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,6 +77,18 @@
                                 <label class="form-label fw-bold">Tên Nhà Xuất Bản</label>
                                 <input type="text" class="form-control" v-model="formData.tenNXB" required>
                             </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Email</label>
+                                    <input type="email" class="form-control" v-model="formData.email" placeholder="contact@nxb.com">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Số Điện Thoại</label>
+                                    <input type="tel" class="form-control" v-model="formData.dienThoai" placeholder="028 38...">
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Địa Chỉ</label>
                                 <input type="text" class="form-control" v-model="formData.diaChi" required>
@@ -90,7 +118,9 @@ const isEditing = ref(false);
 const formData = reactive({
     manxb: '', 
     tenNXB: '',
-    diaChi: ''
+    diaChi: '',
+    email: '',
+    dienThoai: ''
 });
 
 const fetchData = async () => {
@@ -103,17 +133,13 @@ const fetchData = async () => {
 
 const openAddModal = () => {
     isEditing.value = false;
-    formData.tenNXB = '';
-    formData.diaChi = '';
-    formData.manxb = '';
+    Object.assign(formData, { manxb: '', tenNXB: '', diaChi: '', email: '', dienThoai: '' });
     showModal.value = true;
 };
 
 const openEditModal = (pub) => {
     isEditing.value = true;
-    formData.manxb = pub.manxb;
-    formData.tenNXB = pub.tenNXB;
-    formData.diaChi = pub.diaChi;
+    Object.assign(formData, pub);
     showModal.value = true;
 };
 

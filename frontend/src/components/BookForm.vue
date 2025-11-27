@@ -1,12 +1,11 @@
 <template>
-    <form @submit.prevent="submitBook">
+    <form @submit.prevent="submitBook" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-8">
                 <div class="mb-3">
                     <label class="form-label fw-bold">Tên Sách</label>
                     <input type="text" class="form-control" v-model="bookLocal.tenSach" required>
                 </div>
-                
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Tác Giả</label>
@@ -22,8 +21,7 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="row">
+                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label class="form-label fw-bold">Đơn Giá</label>
                         <input type="number" class="form-control" v-model="bookLocal.donGia" required min="0">
@@ -41,12 +39,13 @@
 
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Link Ảnh Bìa</label>
-                    <input type="url" class="form-control" v-model="bookLocal.anh" placeholder="https://...">
+                    <label class="form-label fw-bold">Ảnh Bìa</label>
+                    <input type="file" class="form-control" @change="handleFileUpload" accept="image/*">
                 </div>
-                <div class="card border-0 shadow-sm bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
-                    <img v-if="bookLocal.anh" :src="bookLocal.anh" class="img-fluid" style="max-height: 100%;" alt="Preview" @error="setDefaultImage">
-                    <span v-else class="text-muted">Xem trước ảnh</span>
+                
+                <div class="card border-0 shadow-sm bg-light d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">
+                    <img v-if="previewImage" :src="previewImage" class="img-fluid" style="max-height: 100%;" alt="Preview">
+                    <span v-else class="text-muted">Chưa có ảnh</span>
                 </div>
             </div>
         </div>
@@ -64,6 +63,8 @@
 import { ref, onMounted, watch } from 'vue';
 import PublisherService from '@/services/publisher.service';
 
+const API_URL = 'http://localhost:3000'; 
+
 const props = defineProps({
     book: { type: Object, default: () => ({}) }
 });
@@ -72,10 +73,21 @@ const emit = defineEmits(['submit:book', 'cancel']);
 
 const bookLocal = ref({});
 const publishers = ref([]);
+const selectedFile = ref(null); 
+const previewImage = ref('');   
 
 watch(() => props.book, (newVal) => {
     bookLocal.value = { ...newVal };
-    if (!bookLocal.value.anh) bookLocal.value.anh = '';
+    if (newVal.anh) {
+        if (newVal.anh.startsWith('http')) {
+             previewImage.value = newVal.anh;
+        } else {
+             previewImage.value = `${API_URL}${newVal.anh}`;
+        }
+    } else {
+        previewImage.value = '';
+    }
+    selectedFile.value = null; 
 }, { immediate: true });
 
 const fetchPublishers = async () => {
@@ -86,12 +98,32 @@ const fetchPublishers = async () => {
     }
 };
 
-const submitBook = () => {
-    emit('submit:book', bookLocal.value);
+const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        selectedFile.value = file;
+        previewImage.value = URL.createObjectURL(file);
+    }
 };
 
-const setDefaultImage = (e) => {
-    e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; //ảnh test
+const submitBook = () => {
+    const formData = new FormData();
+    
+    formData.append('tenSach', bookLocal.value.tenSach);
+    formData.append('tacGia', bookLocal.value.tacGia);
+    formData.append('manxb', bookLocal.value.manxb);
+    formData.append('donGia', bookLocal.value.donGia);
+    formData.append('soQuyen', bookLocal.value.soQuyen);
+    formData.append('namXuatBan', bookLocal.value.namXuatBan);
+    if (bookLocal.value.masach) {
+         formData.append('masach', bookLocal.value.masach);
+    }
+
+    if (selectedFile.value) {
+        formData.append('anh', selectedFile.value);
+    }
+
+    emit('submit:book', formData);
 };
 
 onMounted(() => {

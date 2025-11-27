@@ -13,7 +13,9 @@ exports.create = async (req, res) => {
         const publisher = new Publisher({
             manxb: formattedMaNXB,
             tenNXB: req.body.tenNXB,
-            diaChi: req.body.diaChi
+            diaChi: req.body.diaChi,
+            email: req.body.email,
+            dienThoai: req.body.dienThoai
         });
 
         const data = await publisher.save();

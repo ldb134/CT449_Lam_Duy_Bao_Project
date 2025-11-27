@@ -10,6 +10,14 @@ const PublisherSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
+    email: { 
+        type: String, 
+        trim: true 
+    },
+    dienThoai: { 
+        type: String, 
+        trim: true 
+    },
     diaChi: { 
         type: String, 
         required: true 

@@ -18,6 +18,11 @@ exports.create = async (req, res) => {
         const nextMaSach = await getNextSequenceValue("masach");
         const formattedMaSach = "S" + String(nextMaSach).padStart(3, '0'); 
 
+        let imagePath = "";
+        if (req.file) {
+            imagePath = "/uploads/" + req.file.filename;
+        }
+
         const book = new Book({
             masach: formattedMaSach,
             tenSach: req.body.tenSach,
@@ -25,7 +30,8 @@ exports.create = async (req, res) => {
             soQuyen: req.body.soQuyen,
             namXuatBan: req.body.namXuatBan,
             manxb: req.body.manxb,
-            tacGia: req.body.tacGia
+            tacGia: req.body.tacGia,
+            anh: imagePath 
         });
 
         const data = await book.save();
@@ -62,19 +68,21 @@ exports.findOne = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    if (!req.body) {
-        return res.status(400).send({ message: "Dữ liệu cập nhật không được để trống!" });
-    }
     const id = req.params.id;
+    const updateData = { ...req.body };
+
+    if (req.file) {
+        updateData.anh = "/uploads/" + req.file.filename;
+    } else {
+        if (!updateData.anh) delete updateData.anh; 
+    }
 
     try {
-        const data = await Book.findOneAndUpdate({ masach: id }, req.body, { useFindAndModify: false, new: true });
-        if (!data) {
-            return res.status(404).send({ message: "Không tìm thấy sách để cập nhật mã " + id });
-        }
-        res.send({ message: "Cập nhật sách thành công.", data: data });
+        const data = await Book.findOneAndUpdate({ masach: id }, updateData, { useFindAndModify: false, new: true });
+        if (!data) return res.status(404).send({ message: "Không tìm thấy sách!" });
+        res.send({ message: "Cập nhật thành công", data });
     } catch (err) {
-        res.status(500).send({ message: "Lỗi khi cập nhật sách mã " + id });
+        res.status(500).send({ message: "Lỗi cập nhật!" });
     }
 };
 

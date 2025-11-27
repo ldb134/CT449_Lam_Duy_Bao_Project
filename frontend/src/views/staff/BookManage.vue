@@ -36,7 +36,7 @@
                     <tbody>
                         <tr v-for="book in filteredBooks" :key="book._id">
                             <td class="ps-4">
-                                <img :src="book.anh" class="rounded border" style="width: 40px; height: 60px; object-fit: cover;" @error="setDefaultImage">
+                                <img :src="getImageUrl(book.anh)" class="rounded border" style="width: 40px; height: 60px; object-fit: cover;" @error="setDefaultImage">
                             </td>
                             <td>
                                 <span class="fw-bold text-primary d-block">{{ book.tenSach }}</span>
@@ -115,6 +115,12 @@ const getPublisherName = (manxb) => {
     return pub ? pub.tenNXB : manxb;
 };
 
+const getImageUrl = (imagePath) => {
+    if (!imagePath) return 'default-image-url';
+    if (imagePath.startsWith('http')) return imagePath; 
+    return `http://localhost:3000${imagePath}`; 
+}
+
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 const setDefaultImage = (e) => e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; //ảnh test
 
@@ -143,7 +149,7 @@ const closeModal = () => {
 const handleSave = async (bookData) => {
     try {
         if (isEditing.value) {
-            await BookService.update(bookData.masach, bookData);
+            await BookService.update(selectedBook.value.masach, bookData);
             alert("Cập nhật thành công!");
         } else {
             await BookService.create(bookData);
