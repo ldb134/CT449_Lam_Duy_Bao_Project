@@ -26,7 +26,7 @@
                     </li>
                   </ul>
 
-                  <form class="d-flex mx-auto w-50" @submit.prevent="handleQuickSearch">
+                  <form class="d-flex flex-grow-1 mx-lg-4 my-2 my-lg-0" style="max-width: 500px;" @submit.prevent="handleQuickSearch">
                     <div class="input-group">
                         <input 
                             class="form-control border-end-0 rounded-start-pill bg-light" 
@@ -40,7 +40,7 @@
                     </div>
                   </form>
 
-                  <div class="ms-auto d-flex align-items-center mt-3 mt-lg-0">
+                  <div class="ms-auto d-flex align-items-center">
                     <div v-if="authStore.isLoggedIn" class="d-flex align-items-center">
                         
                         <div class="dropdown me-3">
@@ -85,18 +85,18 @@
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
                                 <li>
                                     <router-link to="/profile" class="dropdown-item">
-                                        <font-awesome-icon icon="user-circle" class="me-2" />Hồ sơ cá nhân
+                                        <font-awesome-icon icon="user-circle" class="me-2"/>Hồ sơ cá nhân
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/history" class="dropdown-item">
-                                        <font-awesome-icon icon="history" class="me-2" />Lịch sử mượn
+                                        <font-awesome-icon icon="history" class="me-2"/>Lịch sử mượn
                                     </router-link>
                                 </li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li>
                                     <button @click="logout" class="dropdown-item text-danger">
-                                        <font-awesome-icon icon="sign-out-alt" class="me-2" />Đăng xuất
+                                        <font-awesome-icon icon="sign-out-alt" class="me-2"/>Đăng xuất
                                     </button>
                                 </li>
                             </ul>
@@ -104,8 +104,8 @@
                     </div>
                     
                     <div v-else class="d-flex gap-2">
-                        <router-link to="/login" class="btn btn-outline-primary rounded-pill px-4">Đăng Nhập</router-link>
-                        <router-link to="/register" class="btn btn-primary rounded-pill px-4 shadow-sm">Đăng Ký</router-link>
+                        <router-link to="/login" class="btn btn-outline-primary rounded-pill px-4 text-nowrap">Đăng Nhập</router-link>
+                        <router-link to="/register" class="btn btn-primary rounded-pill px-4 shadow-sm text-nowrap">Đăng Ký</router-link>
                     </div>
                 </div> </div> </div> </nav>
 
@@ -126,6 +126,7 @@ import AppFooter from '@/components/AppFooter.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
+
 const notifications = ref([]);
 const quickSearchText = ref('');
 
