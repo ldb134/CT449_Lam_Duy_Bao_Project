@@ -29,8 +29,26 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const data = await Publisher.find();
-        res.send(data);
+        if (!req.query.page) {
+            const data = await Publisher.find();
+            return res.send(data);
+        }
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const [publishers, total] = await Promise.all([
+            Publisher.find().skip(skip).limit(limit),
+            Publisher.countDocuments()
+        ]);
+
+        res.send({
+            publishers,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total
+        });
     } catch (err) {
         res.status(500).send({
             message: err.message || "Có lỗi xảy ra khi lấy danh sách NXB."

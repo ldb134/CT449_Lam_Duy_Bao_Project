@@ -12,7 +12,14 @@
         <div class="mb-4 bg-white p-3 rounded shadow-sm">
             <div class="input-group">
                 <span class="input-group-text bg-transparent border-end-0"><font-awesome-icon icon="search" /></span>
-                <input type="text" class="form-control border-start-0" placeholder="Tìm theo tên, số điện thoại..." v-model="searchText">
+                <input 
+                    type="text" 
+                    class="form-control border-start-0" 
+                    placeholder="Tìm theo tên, số điện thoại..." 
+                    v-model="searchText"
+                    @keyup.enter="fetchData"
+                >
+                <button class="btn btn-outline-secondary" @click="fetchData">Tìm</button>
             </div>
         </div>
 
@@ -30,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="reader in filteredReaders" :key="reader._id" :class="{'table-secondary': reader.trangThai === 'Bị khóa'}">
+                        <tr v-for="reader in readers" :key="reader._id" :class="{'table-secondary': reader.trangThai === 'Bị khóa'}">
                             <td class="ps-4 fw-bold text-secondary">{{ reader.madocgia }}</td>
                             <td>
                                 <span class="fw-bold text-primary d-block">{{ reader.hoLot }} {{ reader.ten }}</span>
@@ -70,48 +77,62 @@
                                 </button>
                             </td>
                         </tr>
+                        <tr v-if="readers.length === 0">
+                            <td colspan="6" class="text-center py-4 text-muted">Không tìm thấy độc giả nào.</td>
+                        </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-end py-3">
+                <Pagination 
+                    :current-page="currentPage" 
+                    :total-pages="totalPages" 
+                    @change-page="changePage" 
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import ReaderService from '@/services/reader.service';
+import Pagination from '@/components/Pagination.vue'; 
 
 const readers = ref([]);
 const searchText = ref('');
+const currentPage = ref(1);
+const totalPages = ref(1);
 
 const fetchData = async () => {
     try {
-        readers.value = await ReaderService.getAll();
+        const res = await ReaderService.getAll({ 
+            page: currentPage.value, 
+            limit: 10, 
+            q: searchText.value 
+        });
+        
+        readers.value = res.readers || [];
+        totalPages.value = res.totalPages || 1;
+        currentPage.value = res.currentPage || 1;
     } catch (error) {
         console.error(error);
     }
 };
 
-const filteredReaders = computed(() => {
-    if (!searchText.value) return readers.value;
-    const lower = searchText.value.toLowerCase();
-    return readers.value.filter(r => 
-        (r.dienThoai && r.dienThoai.includes(lower)) || 
-        (r.hoLot + ' ' + r.ten).toLowerCase().includes(lower) ||
-        r.madocgia.toLowerCase().includes(lower)
-    );
-});
+const changePage = (page) => {
+    currentPage.value = page;
+    fetchData();
+};
 
-// Hàm Khóa/Mở khóa thủ công 
 const toggleStatus = async (reader) => {
     const newStatus = reader.trangThai === 'Bị khóa' ? 'Hoạt động' : 'Bị khóa';
     if (!confirm(`Bạn có chắc muốn đổi trạng thái thành ${newStatus}?`)) return;
 
     try {
-        // Cập nhật trạng thái 
         const updateData = { trangThai: newStatus };
         if (newStatus === 'Hoạt động') {
-             updateData.soLanTreHan = 0; 
+            updateData.soLanTreHan = 0; 
         }
 
         await ReaderService.update(reader.madocgia, updateData);

@@ -55,7 +55,8 @@
             <div class="col-md-3 mb-4" v-for="book in newBooks" :key="book._id">
                <div class="card h-100 shadow-sm border-0 book-card" @click="goToDetail(book.masach)">
                   <div class="image-container rounded-top overflow-hidden position-relative">
-                      <img :src="book.anh" class="book-cover" @error="setDefaultImage">
+                      <img :src="getImageUrl(book.anh)" class="book-cover" @error="setDefaultImage">
+                      
                       <span class="position-absolute top-0 start-0 badge bg-danger m-2 shadow-sm">Mới</span>
                   </div>
                   <div class="card-body text-center">
@@ -84,7 +85,8 @@
             <div class="col-md-3 mb-4" v-for="book in hotBooks" :key="book._id">
                <div class="card h-100 shadow-sm border-0 book-card" @click="goToDetail(book.masach)">
                   <div class="image-container rounded-top overflow-hidden position-relative">
-                      <img :src="book.anh" class="book-cover" @error="setDefaultImage">
+                      <img :src="getImageUrl(book.anh)" class="book-cover" @error="setDefaultImage">
+                      
                       <span class="position-absolute top-0 end-0 badge bg-warning text-dark m-2 shadow-sm">
                         <font-awesome-icon icon="fire" class="me-1"/>Hot
                       </span>
@@ -108,13 +110,11 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-// Dữ liệu lấy từ API thật
 const newBooks = ref([]);
 const hotBooks = ref([]);
 
 const fetchData = async () => {
     try {
-        // Gọi song song 2 API lấy sách Mới và sách Hot
         const [topData, newData] = await Promise.all([
             BookService.getTopBorrowed(),
             BookService.getNew()
@@ -131,6 +131,12 @@ const fetchData = async () => {
 const goToDetail = (masach) => {
     router.push({ name: 'book-detail', params: { id: masach } });
 };
+
+const getImageUrl = (imagePath) => {
+    if (!imagePath) return 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; // Ảnh mặc định
+    if (imagePath.startsWith('http')) return imagePath; 
+    return `http://localhost:3000${imagePath}`; 
+}
 
 const setDefaultImage = (e) => {
     e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';

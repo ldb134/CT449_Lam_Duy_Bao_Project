@@ -44,8 +44,18 @@
                                 </button>
                             </td>
                         </tr>
+                        <tr v-if="staffList.length === 0">
+                            <td colspan="5" class="text-center py-4 text-muted">Không có dữ liệu.</td>
+                        </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-end py-3">
+                <Pagination 
+                    :current-page="currentPage" 
+                    :total-pages="totalPages" 
+                    @change-page="changePage" 
+                />
             </div>
         </div>
 
@@ -105,33 +115,35 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import StaffService from '@/services/staff.service';
+import Pagination from '@/components/Pagination.vue';
 
 const staffList = ref([]);
 const showModal = ref(false);
+const currentPage = ref(1);
+const totalPages = ref(1);
 
 const formData = reactive({
-    hoTenNV: '',
-    chucVu: 'ThuThu',
-    diaChi: '',
-    soDienThoai: '',
-    password: ''
+    hoTenNV: '', chucVu: 'ThuThu', diaChi: '', soDienThoai: '', password: ''
 });
 
 const fetchData = async () => {
     try {
-        staffList.value = await StaffService.getAll();
+        const res = await StaffService.getAll({ page: currentPage.value, limit: 10 });
+        staffList.value = res.staffs || [];
+        totalPages.value = res.totalPages || 1;
+        currentPage.value = res.currentPage || 1;
     } catch (error) {
         console.error(error);
     }
 };
 
+const changePage = (page) => {
+    currentPage.value = page;
+    fetchData();
+};
+
 const openAddModal = () => {
-    // Reset form
-    formData.hoTenNV = '';
-    formData.chucVu = 'ThuThu';
-    formData.diaChi = '';
-    formData.soDienThoai = '';
-    formData.password = '';
+    Object.assign(formData, { hoTenNV: '', chucVu: 'ThuThu', diaChi: '', soDienThoai: '', password: '' });
     showModal.value = true;
 };
 

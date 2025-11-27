@@ -37,12 +37,38 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const data = await Reader.find();
-        res.send(data);
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "Có lỗi xảy ra khi lấy danh sách độc giả."
+        if (!req.query.page) {
+            const data = await Reader.find();
+            return res.send(data);
+        }
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+        
+        let query = {};
+        if (req.query.q) {
+            query.$or = [
+                { ten: { $regex: req.query.q, $options: 'i' } },
+                { hoLot: { $regex: req.query.q, $options: 'i' } },
+                { dienThoai: { $regex: req.query.q, $options: 'i' } },
+                { madocgia: { $regex: req.query.q, $options: 'i' } }
+            ];
+        }
+
+        const [readers, total] = await Promise.all([
+            Reader.find(query).skip(skip).limit(limit).sort({ createdAt: -1 }),
+            Reader.countDocuments(query)
+        ]);
+
+        res.send({
+            readers,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total
         });
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi lấy danh sách độc giả." });
     }
 };
 

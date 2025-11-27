@@ -31,14 +31,31 @@ exports.create = async (req, res) => {
         });
     }
 };
+
 exports.findAll = async (req, res) => {
     try {
-        const data = await Staff.find();
-        res.send(data);
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "Có lỗi xảy ra khi lấy danh sách nhân viên."
+        if (!req.query.page) {
+            const data = await Staff.find();
+            return res.send(data);
+        }
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const [staffs, total] = await Promise.all([
+            Staff.find().skip(skip).limit(limit),
+            Staff.countDocuments()
+        ]);
+
+        res.send({
+            staffs,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total
         });
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi lấy danh sách nhân viên." });
     }
 };
 

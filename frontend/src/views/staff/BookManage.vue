@@ -17,7 +17,14 @@
         <div class="mb-4 bg-white p-3 rounded shadow-sm">
             <div class="input-group">
                 <span class="input-group-text bg-transparent border-end-0"><font-awesome-icon icon="search" /></span>
-                <input type="text" class="form-control border-start-0" placeholder="Tìm kiếm tên sách, tác giả..." v-model="searchText">
+                <input 
+                    type="text" 
+                    class="form-control border-start-0" 
+                    placeholder="Tìm kiếm tên sách, tác giả..." 
+                    v-model="searchText"
+                    @keyup.enter="fetchData"
+                >
+                <button class="btn btn-outline-secondary" @click="fetchData">Tìm</button>
             </div>
         </div>
 
@@ -34,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="book in filteredBooks" :key="book._id">
+                        <tr v-for="book in books" :key="book._id">
                             <td class="ps-4">
                                 <img :src="getImageUrl(book.anh)" class="rounded border" style="width: 40px; height: 60px; object-fit: cover;" @error="setDefaultImage">
                             </td>
@@ -62,8 +69,20 @@
                                 </button>
                             </td>
                         </tr>
+                        
+                        <tr v-if="books.length === 0">
+                            <td colspan="5" class="text-center py-4 text-muted">Không tìm thấy sách nào.</td>
+                        </tr>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-end py-3">
+                <Pagination 
+                    :current-page="currentPage" 
+                    :total-pages="totalPages" 
+                    @change-page="changePage" 
+                />
             </div>
         </div>
 
@@ -85,10 +104,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import BookService from '@/services/book.service';
 import PublisherService from '@/services/publisher.service';
 import BookForm from '@/components/BookForm.vue';
+import Pagination from '@/components/Pagination.vue';
 
 const books = ref([]);
 const publishers = ref([]);
@@ -96,18 +116,33 @@ const searchText = ref('');
 const showModal = ref(false);
 const isEditing = ref(false);
 const selectedBook = ref({});
+const currentPage = ref(1);
+const totalPages = ref(1);
 
 const fetchData = async () => {
     try {
-        const [booksData, pubsData] = await Promise.all([
-            BookService.getAll(),
-            PublisherService.getAll()
+        const [bookRes, pubsData] = await Promise.all([
+            BookService.getAll({ 
+                page: currentPage.value, 
+                limit: 10, 
+                q: searchText.value 
+            }),
+            PublisherService.getAll() 
         ]);
-        books.value = booksData;
+        
+        books.value = bookRes.books || [];
+        totalPages.value = bookRes.totalPages || 1;
+        currentPage.value = bookRes.currentPage || 1;
+        
         publishers.value = pubsData;
-    } catch (error) {
-        console.error(error);
+    } catch (error) { 
+        console.error(error); 
     }
+};
+
+const changePage = (page) => {
+    currentPage.value = page;
+    fetchData();
 };
 
 const getPublisherName = (manxb) => {
@@ -116,19 +151,13 @@ const getPublisherName = (manxb) => {
 };
 
 const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'default-image-url';
+    if (!imagePath) return 'https://via.placeholder.com/150';
     if (imagePath.startsWith('http')) return imagePath; 
     return `http://localhost:3000${imagePath}`; 
 }
 
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
-const setDefaultImage = (e) => e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; //ảnh test
-
-const filteredBooks = computed(() => {
-    if (!searchText.value) return books.value;
-    const lower = searchText.value.toLowerCase();
-    return books.value.filter(b => b.tenSach.toLowerCase().includes(lower) || b.tacGia.toLowerCase().includes(lower));
-});
+const setDefaultImage = (e) => e.target.src = 'https://via.placeholder.com/150'; 
 
 const openAddModal = () => {
     selectedBook.value = {};
@@ -149,6 +178,7 @@ const closeModal = () => {
 const handleSave = async (bookData) => {
     try {
         if (isEditing.value) {
+            // Khi update, bookData là FormData, cần lấy masach từ biến selectedBook
             await BookService.update(selectedBook.value.masach, bookData);
             alert("Cập nhật thành công!");
         } else {
