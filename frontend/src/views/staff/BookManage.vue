@@ -5,7 +5,7 @@
                 <font-awesome-icon icon="book" class="me-2" /> Quản Lý Sách
             </h2>
             <div>
-                <button class="btn btn-outline-secondary me-2" @click="fetchData">
+                <button class="btn btn-outline-secondary me-2" @click="refreshData">
                     <font-awesome-icon icon="sync" /> Làm mới
                 </button>
                 <button class="btn btn-primary" @click="openAddModal">
@@ -150,10 +150,18 @@ const getPublisherName = (manxb) => {
     return pub ? pub.tenNXB : manxb;
 };
 
+const refreshData = () => {
+    searchText.value = '';   
+    currentPage.value = 1;   
+    fetchData();             
+};
+
+const API_URL = import.meta.env.VITE_API_URL; 
+
 const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'https://via.placeholder.com/150';
+    if (!imagePath) return 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
     if (imagePath.startsWith('http')) return imagePath; 
-    return `http://localhost:3000${imagePath}`; 
+    return `${API_URL}${imagePath}`; 
 }
 
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);

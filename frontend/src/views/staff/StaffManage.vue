@@ -5,7 +5,7 @@
                 <font-awesome-icon icon="user-tie" class="me-2" /> Quản Lý Nhân Viên
             </h2>
             <div>
-                <button class="btn btn-outline-secondary me-2" @click="fetchData">
+                <button class="btn btn-outline-secondary me-2" @click="refreshData">
                     <font-awesome-icon icon="sync" /> Làm mới
                 </button>
                 <button class="btn btn-primary" @click="openAddModal">
@@ -140,6 +140,11 @@ const fetchData = async () => {
 const changePage = (page) => {
     currentPage.value = page;
     fetchData();
+};
+
+const refreshData = () => {
+    currentPage.value = 1;  
+    fetchData();            
 };
 
 const openAddModal = () => {

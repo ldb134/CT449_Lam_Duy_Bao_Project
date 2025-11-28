@@ -63,8 +63,6 @@
 import { ref, onMounted, watch } from 'vue';
 import PublisherService from '@/services/publisher.service';
 
-const API_URL = 'http://localhost:3000'; 
-
 const props = defineProps({
     book: { type: Object, default: () => ({}) }
 });
@@ -75,6 +73,8 @@ const bookLocal = ref({});
 const publishers = ref([]);
 const selectedFile = ref(null); 
 const previewImage = ref('');   
+
+const API_URL = import.meta.env.VITE_API_URL; 
 
 watch(() => props.book, (newVal) => {
     bookLocal.value = { ...newVal };

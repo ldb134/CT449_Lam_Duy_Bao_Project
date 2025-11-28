@@ -101,14 +101,16 @@
                <th scope="col" class="ps-4">Mã Phiếu</th>
                <th scope="col">Độc Giả</th>
                <th scope="col">Mã Sách</th>
-               <th scope="col">Hạn Trả</th>   <th scope="col">Trạng Thái</th> <th scope="col">Ngày Tạo</th>   <th scope="col" class="text-center">Hành Động</th> </tr>
+               <th scope="col">Hạn Trả</th>
+               <th scope="col">Trạng Thái</th>
+               <th scope="col">Ngày Tạo</th>
+               <th scope="col" class="text-center">Hành Động</th>
+             </tr>
            </thead>
            <tbody>
              <tr v-for="item in recentBorrowings" :key="item._id">
                <td class="ps-4 fw-bold text-muted small">#{{ item._id.slice(-6).toUpperCase() }}</td>
-               
                <td>{{ item.madocgia }}</td>
-               
                <td>{{ item.masach }}</td>
                
                <td>
@@ -156,16 +158,8 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import BorrowingService from '@/services/borrowing.service';
 import ReaderService from '@/services/reader.service';
-
 import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  ArcElement
+  Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement
 } from 'chart.js'
 import { Bar, Doughnut } from 'vue-chartjs'
 
@@ -177,12 +171,10 @@ const totalReaders = ref(0);
 const currentYear = new Date().getFullYear();
 
 const counts = reactive({
-    pending: 0,
-    borrowing: 0,
-    returned: 0
+    pending: 0, borrowing: 0, returned: 0
 });
 
-// --- CHART DATA ---
+// Chart Config
 const barChartData = ref({
   labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
   datasets: [{ label: 'Lượt mượn', backgroundColor: '#0d6efd', data: [] }]
@@ -191,10 +183,7 @@ const barOptions = { responsive: true, maintainAspectRatio: false };
 
 const doughnutChartData = ref({
   labels: ['Đang mượn', 'Chờ duyệt', 'Đã trả'],
-  datasets: [{
-    backgroundColor: ['#0d6efd', '#ffc107', '#198754'],
-    data: []
-  }]
+  datasets: [{ backgroundColor: ['#0d6efd', '#ffc107', '#198754'], data: [] }]
 });
 const doughnutOptions = { responsive: true, maintainAspectRatio: false };
 
@@ -233,8 +222,12 @@ const recentBorrowings = computed(() => {
     return [...borrowings.value].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 10);
 });
 
-const formatDate = (date) => new Date(date).toLocaleDateString('vi-VN');
+const formatDate = (dateString) => {
+    if (!dateString) return '---';
+    return new Date(dateString).toLocaleDateString('vi-VN');
+};
 
+// Hàm tính toán hạn trả (Đã tối ưu cho ISO Date)
 const getStatusLabel = (dateString, status) => {
     if (status === 'Đã trả' || status === 'Đã hủy') {
         return { text: '---', class: 'text-muted' };
@@ -244,17 +237,11 @@ const getStatusLabel = (dateString, status) => {
     }
     if (!dateString) return { text: '---', class: 'text-muted' };
     
-    let deadline;
-    const parts = dateString.split('-');
-    
-    if (parts.length === 3) {
-        deadline = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-    } else {
-        deadline = new Date(dateString);
-    }
-
+    // Dùng trực tiếp ISO date từ backend
+    const deadline = new Date(dateString);
     const today = new Date();
     
+    // Reset giờ để so sánh ngày
     deadline.setHours(0,0,0,0);
     today.setHours(0,0,0,0);
 
@@ -271,7 +258,7 @@ const getStatusLabel = (dateString, status) => {
         return { text: 'Ngày mai', class: 'text-primary fw-bold' };
     }
     
-    return { text: dateString, class: 'text-success' }; 
+    return { text: formatDate(dateString), class: 'text-success' }; 
 };
 
 const approve = async (id) => {

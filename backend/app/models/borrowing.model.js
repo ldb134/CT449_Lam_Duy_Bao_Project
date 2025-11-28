@@ -24,19 +24,4 @@ function formatDate(date) {
     return `${day}-${month}-${year}`;
 }
 
-BorrowingSchema.set('toJSON', {
-    getters: true,
-    virtuals: true,
-    transform: (doc, ret) => {
-        delete ret.__v;
-        
-        if (ret.ngayMuon) ret.ngayMuon = formatDate(ret.ngayMuon);
-        if (ret.ngayHetHan) ret.ngayHetHan = formatDate(ret.ngayHetHan);
-        if (ret.ngayTra) ret.ngayTra = formatDate(ret.ngayTra);
-        if (ret.ngayHenLay) ret.ngayHenLay = formatDate(ret.ngayHenLay);
-    
-        return ret;
-    }
-});
-
 module.exports = mongoose.model('TheoDoiMuonSach', BorrowingSchema, 'TheoDoiMuonSach');

@@ -8,8 +8,11 @@ const commonConfig = {
 };
 
 export default (baseURL) => {
+    // Ưu tiên dùng baseURL truyền vào, nếu không có thì lấy từ .env + "/api"
+    const url = baseURL || (import.meta.env.VITE_API_URL + "/api");
+
     const instance = axios.create({
-        baseURL,
+        baseURL: url,
         ...commonConfig,
     });
 

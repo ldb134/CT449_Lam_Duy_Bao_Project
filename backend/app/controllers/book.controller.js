@@ -113,8 +113,8 @@ exports.update = async (req, res) => {
             updateData.anh = "/uploads/" + req.file.filename;
 
             if (oldBook.anh && !oldBook.anh.startsWith('http')) {
-                const oldPath = path.join(__dirname, '../../app', oldBook.anh);
-                
+                const oldPath = path.join(process.cwd(), 'app', oldBook.anh);
+    
                 if (fs.existsSync(oldPath)) {
                     fs.unlinkSync(oldPath);
                     console.log("Đã xóa ảnh cũ:", oldPath);
@@ -141,10 +141,10 @@ exports.delete = async (req, res) => {
         }
 
         if (data.anh && !data.anh.startsWith('http')) {
-            const imagePath = path.join(__dirname, '../../app', data.anh);
+            const imagePath = path.join(process.cwd(), 'app', data.anh);
+            
             if (fs.existsSync(imagePath)) {
                 fs.unlinkSync(imagePath);
-                console.log("Đã dọn dẹp ảnh của sách đã xóa:", imagePath);
             }
         }
 

@@ -132,10 +132,12 @@ const goToDetail = (masach) => {
     router.push({ name: 'book-detail', params: { id: masach } });
 };
 
+const API_URL = import.meta.env.VITE_API_URL; 
+
 const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q'; // Ảnh mặc định
+    if (!imagePath) return 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
     if (imagePath.startsWith('http')) return imagePath; 
-    return `http://localhost:3000${imagePath}`; 
+    return `${API_URL}${imagePath}`; 
 }
 
 const setDefaultImage = (e) => {

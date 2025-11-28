@@ -4,7 +4,7 @@
             <h2 class="text-primary fw-bold">
                 <font-awesome-icon icon="users" class="me-2" /> Quản Lý Độc Giả
             </h2>
-            <button class="btn btn-outline-secondary" @click="fetchData">
+            <button class="btn btn-outline-secondary" @click="refreshData">
                 <font-awesome-icon icon="sync" /> Làm mới
             </button>
         </div>
@@ -123,6 +123,12 @@ const fetchData = async () => {
 const changePage = (page) => {
     currentPage.value = page;
     fetchData();
+};
+
+const refreshData = () => {
+    searchText.value = '';   
+    currentPage.value = 1;  
+    fetchData();             
 };
 
 const toggleStatus = async (reader) => {
