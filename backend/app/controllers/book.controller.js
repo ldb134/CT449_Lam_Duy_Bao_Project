@@ -186,3 +186,21 @@ exports.findNew = async (req, res) => {
         res.status(500).send({ message: "Lỗi lấy sách mới." });
     }
 };
+
+exports.getAllYears = async (req, res) => {
+    try {
+        const result = await Book.aggregate([
+            { 
+                $group: { 
+                    _id: "$namXuatBan", 
+                    count: { $sum: 1 } 
+                } 
+            },
+            { $sort: { _id: -1 } }
+        ]);
+        
+        res.send(result);
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi lấy danh sách năm xuất bản." });
+    }
+};

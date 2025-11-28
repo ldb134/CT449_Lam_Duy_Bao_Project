@@ -6,13 +6,14 @@
     
     <div class="row">
       <div class="col-md-3 mb-4">
+        
         <div class="card shadow-sm border-0 mb-4">
           <div class="card-header bg-white py-3">
             <h5 class="mb-0 text-primary fw-bold">
               <font-awesome-icon icon="filter" class="me-2" /> Nhà Xuất Bản
             </h5>
           </div>
-          <div class="list-group list-group-flush">
+          <div class="list-group list-group-flush scrollable-list" style="max-height: 300px; overflow-y: auto;">
             <button 
               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
               :class="{ 'active': selectedNXB === '' }"
@@ -37,13 +38,28 @@
               <font-awesome-icon icon="calendar-alt" class="me-2" /> Năm Xuất Bản
             </h5>
           </div>
-          <div class="p-3">
-              <select class="form-select" v-model="selectedYear" @change="changeFilter('year', selectedYear)">
-                  <option value="">-- Tất cả các năm --</option>
-                  <option v-for="year in availableYears" :key="year" :value="year">Năm {{ year }}</option>
-              </select>
+          
+          <div class="list-group list-group-flush scrollable-list" style="max-height: 300px; overflow-y: auto;">
+            <button 
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedYear === '' }"
+              @click="changeFilter('year', '')"
+            >
+              <span>Tất cả các năm</span>
+            </button>
+            
+            <button 
+              v-for="y in yearsList" :key="y._id"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              :class="{ 'active': selectedYear === y._id }"
+              @click="changeFilter('year', y._id)"
+            >
+              <span>Năm {{ y._id }}</span>
+              <span class="badge bg-light text-dark rounded-pill border">{{ y.count }}</span>
+            </button>
           </div>
         </div>
+
       </div>
 
       <div class="col-md-9">
@@ -64,13 +80,13 @@
 
         <div v-if="selectedNXB || selectedYear" class="mb-3">
             <span class="text-muted me-2">Đang lọc:</span>
-            <span v-if="selectedNXB" class="badge bg-primary me-2 p-2">
-                NXB: {{ getPublisherName(selectedNXB) }} 
-                <font-awesome-icon icon="times" class="ms-2 cursor-pointer" @click="changeFilter('nxb', '')" />
+            
+            <span v-if="selectedNXB" class="badge bg-primary me-2 p-2 cursor-pointer" @click="changeFilter('nxb', '')">
+                NXB: {{ getPublisherName(selectedNXB) }} <font-awesome-icon icon="times" class="ms-2"/>
             </span>
-            <span v-if="selectedYear" class="badge bg-info text-dark p-2">
-                Năm: {{ selectedYear }}
-                <font-awesome-icon icon="times" class="ms-2 cursor-pointer" @click="changeFilter('year', '')" />
+
+            <span v-if="selectedYear" class="badge bg-info text-dark p-2 cursor-pointer" @click="changeFilter('year', '')">
+                Năm: {{ selectedYear }} <font-awesome-icon icon="times" class="ms-2"/>
             </span>
         </div>
 
@@ -139,6 +155,7 @@ const route = useRoute();
 
 const books = ref([]);
 const publishers = ref([]);
+const yearsList = ref([]); 
 const loading = ref(false);
 const showBorrowModal = ref(false);
 const selectedBook = ref(null);
@@ -148,8 +165,6 @@ const totalPages = ref(1);
 const selectedNXB = ref('');
 const selectedYear = ref('');
 const searchText = ref('');
-
-const availableYears = [2020, 2021, 2022, 2023, 2024, 2025];
 
 const fetchData = async () => {
     loading.value = true;
@@ -162,9 +177,10 @@ const fetchData = async () => {
             year: selectedYear.value
         };
 
-        const [bookRes, pubsData] = await Promise.all([
+        const [bookRes, pubsData, yearsData] = await Promise.all([
             BookService.getAll(params),
-            PublisherService.getAll()
+            PublisherService.getAll(),
+            BookService.getAllYears() 
         ]);
 
         if (bookRes.books) {
@@ -176,6 +192,7 @@ const fetchData = async () => {
         }
         
         publishers.value = pubsData;
+        yearsList.value = yearsData; 
     } catch (error) { 
         console.error("Lỗi tải dữ liệu:", error); 
     } finally { 
@@ -202,7 +219,7 @@ watch(() => route.query.q, (newQuery) => {
 }, { immediate: true });
 
 const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'default-image-url';
+    if (!imagePath) return 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
     if (imagePath.startsWith('http')) return imagePath; 
     return `http://localhost:3000${imagePath}`; 
 }
@@ -240,4 +257,8 @@ onMounted(() => {
 .image-container { height: 220px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; }
 .book-cover { height: 100%; width: auto; object-fit: contain; }
 .cursor-pointer { cursor: pointer; }
+.scrollable-list::-webkit-scrollbar { width: 6px; }
+.scrollable-list::-webkit-scrollbar-track { background: #f1f1f1; }
+.scrollable-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.scrollable-list::-webkit-scrollbar-thumb:hover { background: #aaa; }
 </style>

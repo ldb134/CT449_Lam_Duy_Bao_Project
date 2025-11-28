@@ -17,6 +17,10 @@ class BookService {
         return (await this.api.get("/new")).data;
     }
 
+    async getAllYears() {
+        return (await this.api.get("/years")).data;
+    }
+
     async get(id) {
         return (await this.api.get(`/${id}`)).data;
     }

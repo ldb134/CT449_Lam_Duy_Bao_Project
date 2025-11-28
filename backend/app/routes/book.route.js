@@ -8,6 +8,7 @@ module.exports = (app) => {
     router.get('/', bookController.findAll);
     router.get('/top-borrowed', bookController.findTopBorrowed);
     router.get('/new', bookController.findNew);
+    router.get('/years', bookController.getAllYears);
     router.get('/:id', bookController.findOne);
     router.put('/:id', upload.single('anh'), bookController.update);
     router.delete('/:id', bookController.delete);
