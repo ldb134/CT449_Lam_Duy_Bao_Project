@@ -31,6 +31,7 @@
                             <button class="nav-link" :class="{ active: activeTab === 'Đang mượn' }" @click="changeTab('Đang mượn')">Đang mượn</button>
                             <button class="nav-link" :class="{ active: activeTab === 'Đã trả' }" @click="changeTab('Đã trả')">Đã trả</button>
                             <button class="nav-link" :class="{ active: activeTab === 'Quá hạn' }" @click="changeTab('Quá hạn')">Quá hạn</button>
+                            <button class="nav-link" :class="{ active: activeTab === 'Đã hủy' }" @click="changeTab('Đã hủy')">Đã hủy</button>
                         </div>
                     </div>
                 </div>
@@ -66,6 +67,7 @@
                                 <span v-if="item.trangThai === 'Chờ duyệt'" class="badge bg-warning text-dark">Chờ duyệt</span>
                                 <span v-else-if="item.trangThai === 'Đang mượn'" class="badge bg-primary">Đang mượn</span>
                                 <span v-else-if="item.trangThai === 'Đã trả'" class="badge bg-success">Đã trả</span>
+                                <span v-else-if="item.trangThai === 'Đã hủy'" class="badge bg-secondary">Đã hủy</span>
                                 <span v-else class="badge bg-secondary">{{ item.trangThai }}</span>
                             </td>
 
@@ -182,9 +184,17 @@ const approve = async (id) => {
     try { await BorrowingService.approve(id); fetchData(); } catch(e) { alert(e.response?.data?.message || "Lỗi!"); }
 };
 const reject = async (id) => {
-    if(!confirm("Xóa phiếu mượn này?")) return;
-    try { await BorrowingService.delete(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+    if(!confirm("Bạn muốn TỪ CHỐI phiếu mượn này?")) return;
+    
+    try { 
+        await BorrowingService.reject(id); 
+        alert("Đã hủy phiếu mượn!");
+        fetchData(); 
+    } catch(e) { 
+        alert(e.response?.data?.message || "Lỗi!"); 
+    }
 };
+
 const returnBook = async (id) => {
     if(!confirm("Xác nhận trả sách?")) return;
     try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { alert("Lỗi!"); }

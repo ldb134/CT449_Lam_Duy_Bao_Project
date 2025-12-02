@@ -7,6 +7,7 @@ module.exports = (app) => {
     router.post('/', borrowingController.create);
     router.put('/:id/approve', authMiddleware.verifyToken, borrowingController.approve); 
     router.put('/:id/return', authMiddleware.verifyToken, borrowingController.returnBook); 
+    router.put('/:id/reject', authMiddleware.verifyToken, borrowingController.reject);
     router.put('/:id/renew', borrowingController.renew);
     router.get('/', authMiddleware.verifyToken, borrowingController.findAll); 
     router.get('/:id', authMiddleware.verifyToken, borrowingController.findOne);

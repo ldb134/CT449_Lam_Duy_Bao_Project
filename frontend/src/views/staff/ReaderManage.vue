@@ -218,10 +218,22 @@ const deleteReader = async (reader) => {
 const viewHistory = async (reader) => {
     selectedReader.value = reader;
     try {
-        const res = await BorrowingService.getAll({ madocgia: reader.madocgia });
-        historyList.value = res;
+        const res = await BorrowingService.getAll({ 
+            madocgia: reader.madocgia,
+            limit: 100 
+        });
+
+        if (res.borrowings) {
+            historyList.value = res.borrowings; 
+        } else if (Array.isArray(res)) {
+            historyList.value = res;            
+        } else {
+            historyList.value = [];
+        }
+
         showHistoryModal.value = true;
     } catch (error) {
+        console.error(error);
         alert("Lỗi tải lịch sử: " + error.message);
     }
 };

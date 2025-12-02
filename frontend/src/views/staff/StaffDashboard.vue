@@ -5,7 +5,7 @@
     </h2>
     
     <div class="row mb-4 g-3">
-      <div class="col-md-3">
+      <div class="col">
         <div class="card text-white bg-primary shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
@@ -16,18 +16,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card text-white bg-warning shadow-sm border-0 h-100">
+      <div class="col">
+        <div class="card text-dark bg-warning shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
-              <h6 class="card-title fw-light text-uppercase mb-1 text-dark">Chờ Duyệt</h6>
-              <h3 class="fw-bold mb-0 text-dark">{{ counts.pending }}</h3>
+              <h6 class="card-title fw-light text-uppercase mb-1">Chờ Duyệt</h6>
+              <h3 class="fw-bold mb-0">{{ counts.pending }}</h3>
             </div>
-            <font-awesome-icon icon="clock" size="2x" class="opacity-50 text-dark" />
+            <font-awesome-icon icon="clock" size="2x" class="opacity-50" />
           </div>
         </div>
       </div>
-       <div class="col-md-3">
+       <div class="col">
         <div class="card text-white bg-success shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
@@ -38,7 +38,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col">
+        <div class="card text-white bg-secondary shadow-sm border-0 h-100">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title fw-light text-uppercase mb-1">Đã Hủy</h6>
+              <h3 class="fw-bold mb-0">{{ counts.cancelled }}</h3>
+            </div>
+            <font-awesome-icon icon="ban" size="2x" class="opacity-50" />
+          </div>
+        </div>
+      </div>
+      <div class="col">
         <div class="card text-white bg-danger shadow-sm border-0 h-100">
           <div class="card-body d-flex justify-content-between align-items-center">
             <div>
@@ -128,6 +139,7 @@
                  <span v-if="item.trangThai === 'Chờ duyệt'" class="badge bg-warning text-dark">Chờ duyệt</span>
                  <span v-else-if="item.trangThai === 'Đang mượn'" class="badge bg-primary">Đang mượn</span>
                  <span v-else-if="item.trangThai === 'Đã trả'" class="badge bg-success">Đã trả</span>
+                 <span v-else-if="item.trangThai === 'Đã hủy'" class="badge bg-secondary">Đã hủy</span>
                  <span v-else class="badge bg-secondary">{{ item.trangThai }}</span>
                </td>
 
@@ -136,7 +148,7 @@
                <td class="text-center">
                  <div v-if="item.trangThai === 'Chờ duyệt'">
                    <button class="btn btn-sm btn-outline-primary me-1" @click="approve(item._id)" title="Duyệt"><font-awesome-icon icon="check" /></button>
-                   <button class="btn btn-sm btn-outline-danger" @click="reject(item._id)" title="Xóa"><font-awesome-icon icon="times" /></button>
+                   <button class="btn btn-sm btn-outline-danger" @click="reject(item._id)" title="Từ chối"><font-awesome-icon icon="times" /></button>
                  </div>
                  <div v-else-if="item.trangThai === 'Đang mượn'">
                     <button class="btn btn-sm btn-success" @click="returnBook(item._id)" title="Trả sách"><font-awesome-icon icon="undo" /></button>
@@ -170,32 +182,31 @@ const borrowings = ref([]);
 const totalReaders = ref(0);
 const currentYear = new Date().getFullYear();
 
+// Thêm cancelled vào object counts
 const counts = reactive({
-    pending: 0, borrowing: 0, returned: 0
+    pending: 0, borrowing: 0, returned: 0, cancelled: 0
 });
 
-// Chart Config
 const barChartData = ref({
   labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
   datasets: [{ label: 'Lượt mượn', backgroundColor: '#0d6efd', data: [] }]
 });
 const barOptions = { responsive: true, maintainAspectRatio: false };
 
+// Thêm màu và label cho phần Đã hủy trong biểu đồ tròn
 const doughnutChartData = ref({
-  labels: ['Đang mượn', 'Chờ duyệt', 'Đã trả'],
-  datasets: [{ backgroundColor: ['#0d6efd', '#ffc107', '#198754'], data: [] }]
+  labels: ['Đang mượn', 'Chờ duyệt', 'Đã trả', 'Đã hủy'],
+  datasets: [{ backgroundColor: ['#0d6efd', '#ffc107', '#198754', '#6c757d'], data: [] }]
 });
 const doughnutOptions = { responsive: true, maintainAspectRatio: false };
 
 const fetchData = async () => {
     loaded.value = false;
     try {
-        // Truyền limit lớn để lấy toàn bộ dữ liệu cho việc thống kê chính xác
         const [borrowRes, readerRes] = await Promise.all([
             BorrowingService.getAll({ limit: 10000 }), 
             ReaderService.getAll({ limit: 10000 })
         ]);
-        
         
         let borrowList = [];
         if (borrowRes.borrowings) {
@@ -206,20 +217,20 @@ const fetchData = async () => {
 
         let readerList = [];
         if (readerRes.readers) {
-            readerList = readerRes.readers;   
+            readerList = readerRes.readers;    
         } else if (Array.isArray(readerRes)) {
             readerList = readerRes;            
         }
 
         borrowings.value = borrowList;
-        totalReaders.value = readerList.length; 
+        totalReaders.value = readerList.length;
 
-        // Tính toán thống kê dựa trên list đã chuẩn hóa
+        // Tính toán thống kê bao gồm cả cancelled
         counts.pending = borrowList.filter(b => b.trangThai === 'Chờ duyệt').length;
         counts.borrowing = borrowList.filter(b => b.trangThai === 'Đang mượn').length;
         counts.returned = borrowList.filter(b => b.trangThai === 'Đã trả').length;
+        counts.cancelled = borrowList.filter(b => b.trangThai === 'Đã hủy').length;
 
-        // Vẽ biểu đồ
         const monthlyData = new Array(12).fill(0);
         borrowList.forEach(item => {
             const date = new Date(item.createdAt);
@@ -229,9 +240,10 @@ const fetchData = async () => {
         });
         
         barChartData.value.datasets[0].data = monthlyData;
-        doughnutChartData.value.datasets[0].data = [counts.borrowing, counts.pending, counts.returned];
+        // Cập nhật dữ liệu cho biểu đồ tròn
+        doughnutChartData.value.datasets[0].data = [counts.borrowing, counts.pending, counts.returned, counts.cancelled];
 
-        loaded.value = true; g
+        loaded.value = true;
     } catch (error) {
         console.error("Lỗi tải dữ liệu Dashboard:", error);
         loaded.value = true; 
@@ -247,7 +259,6 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('vi-VN');
 };
 
-// Hàm tính toán hạn trả (Đã tối ưu cho ISO Date)
 const getStatusLabel = (dateString, status) => {
     if (status === 'Đã trả' || status === 'Đã hủy') {
         return { text: '---', class: 'text-muted' };
@@ -257,11 +268,8 @@ const getStatusLabel = (dateString, status) => {
     }
     if (!dateString) return { text: '---', class: 'text-muted' };
     
-    // Dùng trực tiếp ISO date từ backend
     const deadline = new Date(dateString);
     const today = new Date();
-    
-    // Reset giờ để so sánh ngày
     deadline.setHours(0,0,0,0);
     today.setHours(0,0,0,0);
 
@@ -285,16 +293,24 @@ const approve = async (id) => {
     if(!confirm("Duyệt phiếu mượn này?")) return;
     try { 
         await BorrowingService.approve(id); 
-        alert("Duyệt thành công!"); 
+        alert("Duyệt thành công!");
         fetchData(); 
     } catch(e) { 
         alert(e.response?.data?.message || "Có lỗi xảy ra!"); 
     }
 };
+
 const reject = async (id) => {
-    if(!confirm("Xóa phiếu mượn này?")) return;
-    try { await BorrowingService.delete(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+    if(!confirm("Bạn muốn TỪ CHỐI phiếu mượn này?")) return;
+    try { 
+        await BorrowingService.reject(id); 
+        alert("Đã từ chối phiếu mượn!");
+        fetchData(); 
+    } catch(e) { 
+        alert(e.response?.data?.message || "Lỗi!"); 
+    }
 };
+
 const returnBook = async (id) => {
     if(!confirm("Xác nhận trả sách?")) return;
     try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { alert("Lỗi!"); }
@@ -308,4 +324,7 @@ onMounted(() => {
 <style scoped>
 .card { transition: transform 0.2s; }
 .card:hover { transform: translateY(-3px); }
+.col {
+    min-width: 200px;
+}
 </style>

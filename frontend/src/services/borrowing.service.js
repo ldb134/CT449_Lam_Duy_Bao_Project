@@ -20,6 +20,10 @@ class BorrowingService {
     async returnBook(id) {
         return (await this.api.put(`/${id}/return`)).data;
     }
+
+    async reject(id) {
+        return (await this.api.put(`/${id}/reject`)).data;
+    }
     
     async delete(id) {
         return (await this.api.delete(`/${id}`)).data;

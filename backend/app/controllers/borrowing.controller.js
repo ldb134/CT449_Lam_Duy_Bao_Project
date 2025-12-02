@@ -298,6 +298,34 @@ exports.findOne = async (req, res) => {
     }
 };
 
+exports.reject = async (req, res) => {
+    const id = req.params.id; 
+    try {
+        const borrowing = await Borrowing.findByIdAndUpdate(
+            id, 
+            { trangThai: 'Đã hủy' }, 
+            { new: true }
+        );
+
+        if (!borrowing) {
+            return res.status(404).send({ message: "Không tìm thấy phiếu mượn!" });
+        }
+
+        const noti = new Notification({
+            madocgia: borrowing.madocgia,
+            tieuDe: "Yêu cầu mượn sách bị từ chối",
+            noiDung: `Yêu cầu mượn cuốn sách có mã ${borrowing.masach} của bạn đã bị từ chối. Vui lòng liên hệ thủ thư nếu có thắc mắc.`,
+            loai: 'danger' 
+        });
+        await noti.save();
+
+        res.send({ message: "Đã từ chối yêu cầu mượn sách.", data: borrowing });
+
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi khi từ chối: " + err.message });
+    }
+};
+
 exports.delete = async (req, res) => {
     const id = req.params.id;
 
