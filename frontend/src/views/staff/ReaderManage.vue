@@ -63,6 +63,9 @@
                             </td>
 
                             <td class="text-end pe-4">
+                                <button class="btn btn-sm btn-outline-primary me-2" @click="viewHistory(reader)" title="Xem lịch sử mượn">
+                                    <font-awesome-icon icon="eye" />
+                                </button>
                                 <button 
                                     class="btn btn-sm me-2" 
                                     :class="reader.trangThai === 'Bị khóa' ? 'btn-success' : 'btn-warning'"
@@ -91,18 +94,69 @@
                 />
             </div>
         </div>
-    </div>
+        
+        <div v-if="showHistoryModal" class="modal-backdrop fade show"></div>
+        <div v-if="showHistoryModal" class="modal fade show d-block" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title fw-bold">
+                            <font-awesome-icon icon="history" class="me-2"/>
+                            Lịch sử mượn: {{ selectedReader.hoLot }} {{ selectedReader.ten }}
+                        </h5>
+                        <button type="button" class="btn-close" @click="closeHistoryModal"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <table class="table table-striped mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Mã Sách</th>
+                                    <th>Ngày Mượn</th>
+                                    <th>Hạn Trả</th>
+                                    <th>Trạng Thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in historyList" :key="item._id">
+                                    <td class="ps-3 fw-bold">{{ item.masach }}</td>
+                                    <td>{{ formatDate(item.ngayMuon || item.createdAt) }}</td>
+                                    <td>{{ formatDate(item.ngayHetHan) }}</td>
+                                    <td>
+                                        <span v-if="item.trangThai === 'Đang mượn'" class="badge bg-primary">Đang mượn</span>
+                                        <span v-else-if="item.trangThai === 'Đã trả'" class="badge bg-success">Đã trả</span>
+                                        <span v-else-if="item.trangThai === 'Chờ duyệt'" class="badge bg-warning text-dark">Chờ duyệt</span>
+                                        <span v-else class="badge bg-secondary">{{ item.trangThai }}</span>
+                                    </td>
+                                </tr>
+                                <tr v-if="historyList.length === 0">
+                                    <td colspan="4" class="text-center py-3 text-muted">Độc giả này chưa mượn cuốn nào.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="closeHistoryModal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ReaderService from '@/services/reader.service';
+import BorrowingService from '@/services/borrowing.service'; 
 import Pagination from '@/components/Pagination.vue'; 
 
 const readers = ref([]);
 const searchText = ref('');
 const currentPage = ref(1);
 const totalPages = ref(1);
+
+const showHistoryModal = ref(false);
+const selectedReader = ref({});
+const historyList = ref([]);
 
 const fetchData = async () => {
     try {
@@ -159,6 +213,27 @@ const deleteReader = async (reader) => {
         console.log(error); 
         alert("Không thể xóa (có thể đang mượn sách).");
     }
+};
+
+const viewHistory = async (reader) => {
+    selectedReader.value = reader;
+    try {
+        const res = await BorrowingService.getAll({ madocgia: reader.madocgia });
+        historyList.value = res;
+        showHistoryModal.value = true;
+    } catch (error) {
+        alert("Lỗi tải lịch sử: " + error.message);
+    }
+};
+
+const closeHistoryModal = () => {
+    showHistoryModal.value = false;
+    historyList.value = [];
+};
+
+const formatDate = (dateString) => {
+    if (!dateString) return '---';
+    return new Date(dateString).toLocaleDateString('vi-VN');
 };
 
 onMounted(() => {

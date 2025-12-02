@@ -39,6 +39,11 @@
                     </router-link>
                 </li>
                 <li class="nav-item mb-2">
+                    <router-link to="/staff/borrowings" class="nav-link text-white">
+                        <font-awesome-icon icon="clipboard-list" class="me-2" style="width: 20px"/> Mượn Trả
+                    </router-link>
+                </li>
+                <li class="nav-item mb-2">
                     <router-link to="/staff/profile" class="nav-link text-white">
                       <font-awesome-icon icon="key" class="me-2" style="width: 20px"/> Đổi Mật Khẩu
                     </router-link>

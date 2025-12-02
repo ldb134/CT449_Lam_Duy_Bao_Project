@@ -110,6 +110,9 @@ const loading = ref(false);
 const showBorrowModal = ref(false); 
 
 const formatPrice = (price) => {
+    if (price === 0) {
+        return "Sách Nhà Nước đặt hàng";
+    }
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 };
 

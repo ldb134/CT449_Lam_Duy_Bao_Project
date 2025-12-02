@@ -190,31 +190,51 @@ const doughnutOptions = { responsive: true, maintainAspectRatio: false };
 const fetchData = async () => {
     loaded.value = false;
     try {
-        const [borrowData, readerData] = await Promise.all([
-            BorrowingService.getAll(),
-            ReaderService.getAll()
+        // Truyền limit lớn để lấy toàn bộ dữ liệu cho việc thống kê chính xác
+        const [borrowRes, readerRes] = await Promise.all([
+            BorrowingService.getAll({ limit: 10000 }), 
+            ReaderService.getAll({ limit: 10000 })
         ]);
         
-        borrowings.value = borrowData;
-        totalReaders.value = readerData.length;
+        
+        let borrowList = [];
+        if (borrowRes.borrowings) {
+            borrowList = borrowRes.borrowings; 
+        } else if (Array.isArray(borrowRes)) {
+            borrowList = borrowRes;            
+        }
 
-        counts.pending = borrowData.filter(b => b.trangThai === 'Chờ duyệt').length;
-        counts.borrowing = borrowData.filter(b => b.trangThai === 'Đang mượn').length;
-        counts.returned = borrowData.filter(b => b.trangThai === 'Đã trả').length;
+        let readerList = [];
+        if (readerRes.readers) {
+            readerList = readerRes.readers;   
+        } else if (Array.isArray(readerRes)) {
+            readerList = readerRes;            
+        }
 
+        borrowings.value = borrowList;
+        totalReaders.value = readerList.length; 
+
+        // Tính toán thống kê dựa trên list đã chuẩn hóa
+        counts.pending = borrowList.filter(b => b.trangThai === 'Chờ duyệt').length;
+        counts.borrowing = borrowList.filter(b => b.trangThai === 'Đang mượn').length;
+        counts.returned = borrowList.filter(b => b.trangThai === 'Đã trả').length;
+
+        // Vẽ biểu đồ
         const monthlyData = new Array(12).fill(0);
-        borrowData.forEach(item => {
+        borrowList.forEach(item => {
             const date = new Date(item.createdAt);
             if (date.getFullYear() === currentYear) {
                 monthlyData[date.getMonth()]++;
             }
         });
+        
         barChartData.value.datasets[0].data = monthlyData;
         doughnutChartData.value.datasets[0].data = [counts.borrowing, counts.pending, counts.returned];
 
-        loaded.value = true;
+        loaded.value = true; g
     } catch (error) {
         console.error("Lỗi tải dữ liệu Dashboard:", error);
+        loaded.value = true; 
     }
 };
 
@@ -263,7 +283,13 @@ const getStatusLabel = (dateString, status) => {
 
 const approve = async (id) => {
     if(!confirm("Duyệt phiếu mượn này?")) return;
-    try { await BorrowingService.approve(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+    try { 
+        await BorrowingService.approve(id); 
+        alert("Duyệt thành công!"); 
+        fetchData(); 
+    } catch(e) { 
+        alert(e.response?.data?.message || "Có lỗi xảy ra!"); 
+    }
 };
 const reject = async (id) => {
     if(!confirm("Xóa phiếu mượn này?")) return;

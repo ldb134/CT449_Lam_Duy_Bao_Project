@@ -228,8 +228,14 @@ const getImageUrl = (imagePath) => {
 
 const getPublisherName = (manxb) => publishers.value.find(p => p.manxb === manxb)?.tenNXB || manxb;
 const goToDetail = (masach) => router.push({ name: 'book-detail', params: { id: masach } });
-const formatPrice = (price) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 const setDefaultImage = (e) => e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
+const formatPrice = (price) => {
+    if (price === 0) {
+        return "Sách Nhà Nước đặt hàng";
+    }
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+};
+
 
 const openBorrowModal = (book) => {
     if (!authStore.isLoggedIn) { alert("Bạn cần đăng nhập để mượn sách!"); router.push('/login'); return; }

@@ -9,8 +9,8 @@ class BorrowingService {
         return (await this.api.post("/", data)).data;
     }
 
-    async getAll() {
-        return (await this.api.get("/")).data;
+    async getAll(params) { 
+        return (await this.api.get("/", { params })).data;
     }
 
     async approve(id) {

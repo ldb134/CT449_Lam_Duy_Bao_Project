@@ -15,6 +15,7 @@ import StaffManage from '@/views/staff/StaffManage.vue'
 import ChangePassword from '@/views/staff/ChangePassword.vue'
 import ReaderProfile from '@/views/reader/ReaderProfile.vue'
 import LibraryRules from '@/views/reader/LibraryRules.vue';
+import BorrowingManage from '@/views/staff/BorrowingManage.vue'
 
 const routes = [
   {
@@ -115,6 +116,12 @@ const routes = [
     path: '/staff/publishers',
     name: 'publisher-manage',
     component: PublisherManage,
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
+  },
+  {
+    path: '/staff/borrowings',
+    name: 'borrowing-manage',
+    component: BorrowingManage,
     meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {

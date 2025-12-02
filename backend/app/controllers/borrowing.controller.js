@@ -68,6 +68,7 @@ exports.create = async (req, res) => {
 exports.approve = async (req, res) => {
     const id = req.params.id; 
     try {
+        // 1. Tìm phiếu mượn
         const borrowing = await Borrowing.findById(id);
         if (!borrowing) return res.status(404).send({ message: "Không tìm thấy phiếu mượn!" });
 
@@ -75,22 +76,28 @@ exports.approve = async (req, res) => {
             return res.status(400).send({ message: "Phiếu này không ở trạng thái chờ duyệt!" });
         }
 
-        
-        const book = await Book.findOne({ masach: borrowing.masach });
-        if (!book || book.soQuyen < 1) {
-            return res.status(400).send({ message: "Sách đã hết, không thể duyệt!" });
+        // 2. KIỂM TRA VÀ TRỪ KHO (ATOMIC UPDATE)
+        // Tìm sách có mã này VÀ số lượng > 0. Nếu tìm thấy thì trừ đi 1.
+        const book = await Book.findOneAndUpdate(
+            { masach: borrowing.masach, soQuyen: { $gt: 0 } }, 
+            { $inc: { soQuyen: -1 } }, 
+            { new: true } 
+        );
+
+        // 3. Nếu không tìm thấy book (tức là soQuyen đã = 0 hoặc sách bị xóa)
+        if (!book) {
+            return res.status(400).send({ message: "Sách này vừa hết hàng! Không thể duyệt." });
         }
 
-        book.soQuyen -= 1;
-        await book.save();
-
+        // 4. Cập nhật phiếu mượn
         let startDate = new Date();
+        // Nếu ngày hẹn là tương lai thì lấy ngày hẹn, ngược lại lấy hôm nay
         if (borrowing.ngayHenLay && new Date(borrowing.ngayHenLay) > startDate) {
             startDate = new Date(borrowing.ngayHenLay);
         }
 
         const deadline = new Date(startDate);
-        deadline.setDate(startDate.getDate() + 7); 
+        deadline.setDate(startDate.getDate() + 7); // Mượn 7 ngày
 
         borrowing.ngayMuon = startDate;
         borrowing.ngayHetHan = deadline;
@@ -98,17 +105,19 @@ exports.approve = async (req, res) => {
         
         await borrowing.save();
 
+        // 5. Tạo thông báo
         const noti = new Notification({
             madocgia: borrowing.madocgia,
             tieuDe: "Yêu cầu mượn sách được duyệt",
-            noiDung: `Thủ thư đã duyệt cuốn sách mã ${borrowing.masach}. Vui lòng đến nhận sách đúng hạn!`,
+            noiDung: `Thủ thư đã duyệt cuốn sách mã ${borrowing.masach}. Vui lòng đến nhận sách!`,
             loai: 'success'
         });
         await noti.save();
+
         res.send({ message: "Duyệt thành công! Đã trừ kho.", data: borrowing });
 
     } catch (err) {
-        res.status(500).send({ message: "Lỗi khi duyệt phiếu mượn." });
+        res.status(500).send({ message: "Lỗi khi duyệt: " + err.message });
     }
 };
 
@@ -182,9 +191,66 @@ exports.returnBook = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const data = await Borrowing.find();
-        res.send(data);
-    } catch (err) { res.status(500).send({ message: "Lỗi lấy danh sách." }); }
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        let query = {};
+
+        if (req.query.q) {
+            query.madocgia = { $regex: req.query.q, $options: 'i' };
+        }
+
+        if (req.query.trangThai) {
+            const status = req.query.trangThai;
+
+            switch (status) {
+                case 'Quá hạn':
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); 
+                    
+                    query.trangThai = 'Đang mượn';
+                    query.ngayHetHan = { $lt: today };
+                    break;
+
+                case 'Đang mượn':
+                    query.trangThai = 'Đang mượn';
+                    break;
+
+                case 'Chờ duyệt':
+                    query.trangThai = 'Chờ duyệt';
+                    break;
+
+                case 'Đã trả':
+                    query.trangThai = 'Đã trả';
+                    break;
+                
+                default:
+                    query.trangThai = status;
+                    break;
+            }
+        }
+        
+        if (req.query.madocgia) {
+            query.madocgia = req.query.madocgia;
+        }
+
+        const [borrowings, total] = await Promise.all([
+            Borrowing.find(query).skip(skip).limit(limit).sort({ createdAt: -1 }),
+            Borrowing.countDocuments(query)
+        ]);
+
+        res.send({
+            borrowings,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Lỗi lấy danh sách: " + err.message });
+    }
 };
 
 exports.renew = async (req, res) => {

@@ -54,7 +54,7 @@
               <ul>
                 <li>Độc giả mang sách đến quầy để trả. Nhân viên sẽ cập nhật trạng thái thành <em>"Đã trả"</em> trên hệ thống.</li>
                 <li><strong>Quá hạn:</strong> Sách trả trễ hạn sẽ bị phạt <strong>5.000đ / ngày / cuốn</strong>.</li>
-                <li><strong>Mất/Hỏng sách:</strong> Độc giả phải bồi thường giá trị thực tế của cuốn sách cộng thêm phí xử lý.</li>
+                <li><strong>Mất/Hỏng sách:</strong> Độc giả phải bồi thường giá trị thực tế của cuốn sách cộng thêm phí xử lý. Đối với các ấn phẩm đặc biệt, sách đặt hàng riêng của Nhà nước, nếu làm mất hoặc hư hỏng, mức bồi thường sẽ được áp dụng theo quy định riêng của Thư viện tại thời điểm xử lý."</li>
                 <li>
                     <strong class="text-danger">Vô hiệu hóa tài khoản:</strong>
                     Nếu độc giả trả sách trễ hạn quá <strong>3 lần</strong> trong một năm hoặc làm mất sách không bồi thường, tài khoản sẽ bị <strong>vô hiệu hóa vĩnh viễn</strong> và từ chối phục vụ.

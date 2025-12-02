@@ -91,20 +91,28 @@ const getBookAuthor = (masach) => {
 const fetchData = async () => {
     if (!authStore.isLoggedIn) return;
     loading.value = true;
-    try {
-        const [borrowingsData, booksData] = await Promise.all([
-            BorrowingService.getAll(),
-            BookService.getAll()
+    try {   
+        const [borrowingsData, bookRes] = await Promise.all([
+            BorrowingService.getAll(), 
+            BookService.getAll({ limit: 1000 }) 
         ]);
 
-        books.value = booksData;
+        if (bookRes.books) {
+            books.value = bookRes.books; 
+        } else if (Array.isArray(bookRes)) {
+            books.value = bookRes;       
+        } else {
+            books.value = [];
+        }
+
         myBorrowings.value = borrowingsData.filter(b => b.madocgia === authStore.user.madocgia);
         myBorrowings.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     } catch (error) {
-        console.error(error);
+        console.error("Lỗi tải lịch sử:", error);
+        alert("Không tải được dữ liệu. Vui lòng thử lại sau."); 
     } finally {
-        loading.value = false;
+        loading.value = false; 
     }
 };
 
