@@ -2,5 +2,5 @@
 /backend/.env
 
 # Bỏ qua tất cả file trong thư mục uploads
-/backend/app/uploads/*
-!/backend/app/uploads/.gitkeep
+/backend/uploads/*
+!/backend/uploads/.gitkeep

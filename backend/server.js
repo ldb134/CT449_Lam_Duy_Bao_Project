@@ -15,7 +15,7 @@ startCronJobs();
 
 app.use(cors()); 
 app.use(express.json()); 
-app.use("/uploads", express.static(path.join(__dirname, "app/uploads")));
+app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
     res.json({ message: "Chào mừng đến với API Quản lý mượn sách." });
