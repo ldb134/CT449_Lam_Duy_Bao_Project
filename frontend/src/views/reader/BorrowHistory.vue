@@ -86,6 +86,7 @@ import BorrowingService from '@/services/borrowing.service';
 import BookService from '@/services/book.service';
 import { useAuthStore } from '@/stores/auth.store';
 import { toast } from 'vue3-toastify'; 
+import Swal from 'sweetalert2';
 
 const authStore = useAuthStore();
 const myBorrowings = ref([]);
@@ -148,13 +149,23 @@ const fetchData = async () => {
 };
 
 const renewBook = async (id) => {
-    if (!confirm("Bạn muốn gia hạn sách này thêm 7 ngày?")) return;
-    try {
-        await BorrowingService.renew(id);
-        toast.success("Gia hạn thành công!"); 
-        fetchData();
-    } catch (error) {
-        toast.error(error.response?.data?.message || "Không thể gia hạn!");
+    const result = await Swal.fire({
+        title: 'Gia hạn sách?',
+        text: "Bạn muốn gia hạn sách này thêm 7 ngày?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await BorrowingService.renew(id);
+            toast.success("Gia hạn thành công! Hạn trả mới đã được cập nhật."); 
+            fetchData();
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Không thể gia hạn!");
+        }
     }
 };
 

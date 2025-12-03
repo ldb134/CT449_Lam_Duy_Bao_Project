@@ -6,6 +6,7 @@ module.exports = (app) => {
 
     router.get('/', authMiddleware.verifyToken, controller.getMine);
     router.put('/:id/read', authMiddleware.verifyToken, controller.markAsRead);
+    router.put('/read-all', authMiddleware.verifyToken, controller.markAllAsRead);
 
     app.use('/api/notifications', router);
 };

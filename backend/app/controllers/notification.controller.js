@@ -19,3 +19,15 @@ exports.markAsRead = async (req, res) => {
         res.status(500).send({ message: "Lỗi cập nhật." });
     }
 };
+
+exports.markAllAsRead = async (req, res) => {
+    try {
+        await Notification.updateMany(
+            { madocgia: req.user.madocgia, daXem: false }, 
+            { $set: { daXem: true } }
+        );
+        res.send({ message: "Đã đánh dấu tất cả là đã đọc." });
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi cập nhật." });
+    }
+};

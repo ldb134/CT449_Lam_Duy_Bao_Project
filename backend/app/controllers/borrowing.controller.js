@@ -1,6 +1,6 @@
 const Borrowing = require('../models/borrowing.model');
 const Book = require('../models/book.model');
-const Reader = require('../models/reader.model'); // Cần model Độc giả để lấy email
+const Reader = require('../models/reader.model'); 
 const Notification = require('../models/notification.model');
 const sendEmail = require('../utils/sendEmail');
 
@@ -106,7 +106,6 @@ exports.approve = async (req, res) => {
             loai: 'success'
         }).save();
 
-        // --- 2. GỬI EMAIL THÔNG BÁO ---
         // Lấy thông tin độc giả để có email
         const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
         
@@ -120,7 +119,6 @@ exports.approve = async (req, res) => {
                 <hr>
                 <small>Thư viện Đại học Cần Thơ</small>
             `;
-            // Gửi mail (bất đồng bộ, không cần await để tránh user phải chờ lâu)
             sendEmail(reader.email, subject, content);
         }
         // -----------------------------
@@ -132,7 +130,6 @@ exports.approve = async (req, res) => {
     }
 };
 
-// --- HÀM TỪ CHỐI (SỬA LẠI) ---
 exports.reject = async (req, res) => {
     const id = req.params.id; 
     try {
@@ -155,7 +152,6 @@ exports.reject = async (req, res) => {
             loai: 'danger' 
         }).save();
 
-        // --- GỬI EMAIL ---
         const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
         if (reader && reader.email) {
             sendEmail(
@@ -163,10 +159,9 @@ exports.reject = async (req, res) => {
                 "❌ Yêu cầu mượn sách bị TỪ CHỐI", 
                 `<h3>Chào ${reader.ten},</h3>
                  <p>Rất tiếc, yêu cầu mượn cuốn sách <b>"${bookName}"</b> của bạn không được chấp nhận.</p>
-                 <p>Vui lòng liên hệ thủ thư hoặc chọn cuốn sách khác.</p>`
+                 <p>Vui lòng liên hệ thủ thư để biết thêm chi tiết hoặc chọn cuốn sách khác.</p>`
             );
         }
-        // -----------------
 
         res.send({ message: "Đã từ chối và gửi email.", data: borrowing });
 
@@ -182,10 +177,12 @@ exports.returnBook = async (req, res) => {
         const borrowing = await Borrowing.findById(id);
         if (!borrowing) return res.status(404).send({ message: "Phiếu mượn không tồn tại!" });
 
-        if (borrowing.trangThai === 'Đã trả') {
-            return res.status(400).send({ message: "Sách này đã trả rồi!" });
+        // Kiểm tra xem đã có ngày trả chưa (tránh trả 2 lần)
+        if (borrowing.ngayTra) {
+            return res.status(400).send({ message: "Sách này đã được trả rồi!" });
         }
 
+        // Cộng lại số lượng sách vào kho
         const book = await Book.findOne({ masach: borrowing.masach });
         if (book) {
             book.soQuyen += 1;
@@ -193,42 +190,44 @@ exports.returnBook = async (req, res) => {
         }
 
         const ngayTraThucTe = new Date();
-        borrowing.ngayTra = ngayTraThucTe;
-        borrowing.trangThai = 'Đã trả';
-
+        borrowing.ngayTra = ngayTraThucTe; 
+        
         const hanTra = new Date(borrowing.ngayHetHan);
-        ngayTraThucTe.setHours(0,0,0,0);
+        
+        const ngayTraSoSanh = new Date(ngayTraThucTe);
+        ngayTraSoSanh.setHours(0,0,0,0);
         hanTra.setHours(0,0,0,0);
 
         let messageThem = "";
 
-        if (ngayTraThucTe > hanTra) {
+        if (ngayTraSoSanh > hanTra) {
+            borrowing.trangThai = 'Quá hạn'; 
+            
             const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
             
             if (reader) {
                 reader.soLanTreHan = (reader.soLanTreHan || 0) + 1;
-
+                
                 if (reader.soLanTreHan >= 3) {
                     reader.trangThai = 'Bị khóa';
-                    messageThem = ` Tài khoản độc giả đã bị KHÓA TỰ ĐỘNG do trễ hạn quá 3 lần (${reader.soLanTreHan}/3).`;
+                    messageThem = ` Tài khoản đã bị KHÓA do vi phạm 3 lần.`;
                 } else {
-                    messageThem = ` Đã ghi nhận trễ hạn lần thứ ${reader.soLanTreHan}/3.`;
+                    messageThem = ` Ghi nhận trễ hạn lần ${reader.soLanTreHan}/3.`;
                 }
-                
                 await reader.save();
-            }
 
-            const noti = new Notification({
-                madocgia: borrowing.madocgia,
-                tieuDe: "Cảnh báo trễ hạn",
-                noiDung: `Bạn đã trả cuốn ${borrowing.masach} trễ hạn. Số lần vi phạm hiện tại: ${reader.soLanTreHan}/3.`,
-                loai: 'danger'
-            });
-            
-            if (reader.trangThai === 'Bị khóa') {
-                noti.noiDung += " TÀI KHOẢN ĐÃ BỊ KHÓA DO VI PHẠM QUÁ MỨC.";
-            }
-            await noti.save();
+                const noiDungTB = `Bạn đã trả cuốn ${borrowing.masach} trễ hạn. Số lần vi phạm: ${reader.soLanTreHan}/3.`;
+                
+                const noti = new Notification({
+                    madocgia: borrowing.madocgia,
+                    tieuDe: "Cảnh báo trễ hạn",
+                    noiDung: noiDungTB + (reader.trangThai === 'Bị khóa' ? " TÀI KHOẢN ĐÃ BỊ KHÓA." : ""),
+                    loai: 'danger'
+                });
+                await noti.save();
+            } 
+        } else {
+            borrowing.trangThai = 'Đã trả';
         }
 
         await borrowing.save();
@@ -239,6 +238,7 @@ exports.returnBook = async (req, res) => {
         });
 
     } catch (err) {
+        console.error(err); 
         res.status(500).send({ message: "Lỗi khi trả sách: " + err.message });
     }
 };
@@ -263,24 +263,21 @@ exports.findAll = async (req, res) => {
                     const today = new Date();
                     today.setHours(0, 0, 0, 0); 
                     
-                    query.trangThai = 'Đang mượn';
-                    query.ngayHetHan = { $lt: today };
+                    query.$or = [
+                        { trangThai: 'Quá hạn' }, 
+                        { 
+                            trangThai: 'Đang mượn', 
+                            ngayHetHan: { $lt: today }
+                        }
+                    ];
                     break;
 
                 case 'Đang mượn':
                     query.trangThai = 'Đang mượn';
                     break;
 
-                case 'Chờ duyệt':
-                    query.trangThai = 'Chờ duyệt';
-                    break;
-
-                case 'Đã trả':
-                    query.trangThai = 'Đã trả';
-                    break;
-                
                 default:
-                    query.trangThai = status;
+                    if (status) query.trangThai = status;
                     break;
             }
         }

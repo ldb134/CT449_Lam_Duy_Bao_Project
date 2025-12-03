@@ -25,7 +25,7 @@
                 </li>
                 <li class="nav-item mb-2">
                     <router-link to="/staff/publishers" class="nav-link text-white">
-                      <font-awesome-icon icon="building" class="me-2" style="width: 20px"/> Nhà Xuất Bản
+                      <font-awesome-icon icon="building" class="me-2" style="width: 20px"/> Quản Lý Nhà Xuất Bản
                     </router-link>
                 </li>
                 <li class="nav-item mb-2">
@@ -35,12 +35,12 @@
                 </li>
                 <li class="nav-item mb-2">
                     <router-link to="/staff/accounts" class="nav-link text-white">
-                      <font-awesome-icon icon="user-tie" class="me-2" style="width: 20px"/> Nhân Sự
+                      <font-awesome-icon icon="user-tie" class="me-2" style="width: 20px"/> Quản Lý Nhân Sự
                     </router-link>
                 </li>
                 <li class="nav-item mb-2">
                     <router-link to="/staff/borrowings" class="nav-link text-white">
-                        <font-awesome-icon icon="clipboard-list" class="me-2" style="width: 20px"/> Mượn Trả
+                        <font-awesome-icon icon="clipboard-list" class="me-2" style="width: 20px"/> Quản Lý Mượn Trả
                     </router-link>
                 </li>
                 <li class="nav-item mb-2">

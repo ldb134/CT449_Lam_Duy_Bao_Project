@@ -157,7 +157,6 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'});
 };
 
-// Hàm đánh dấu 1 tin đã đọc
 const readNoti = async (noti) => {
     if (!noti.daXem) {
         try {
@@ -169,15 +168,14 @@ const readNoti = async (noti) => {
     }
 };
 
-// Hàm đánh dấu tất cả đã đọc (Gọi API)
 const markAllRead = async () => {
-    const unreadList = notifications.value.filter(n => !n.daXem);
-    
-    if (unreadList.length === 0) return;
+    if (unreadCount.value === 0) return;
 
     try {
-        await Promise.all(unreadList.map(n => NotificationService.markRead(n._id)));
+        await NotificationService.markAllRead();
+        
         notifications.value.forEach(n => n.daXem = true);
+        
     } catch (error) {
         console.error("Lỗi cập nhật trạng thái:", error);
     }
@@ -190,7 +188,7 @@ const logout = () => {
 
 onMounted(() => {
     fetchNoti();
-    setInterval(fetchNoti, 60000); // Tự động check thông báo mỗi 60s
+    setInterval(fetchNoti, 30000); 
 });
 </script>
 
@@ -208,7 +206,6 @@ onMounted(() => {
 .hover-underline:hover {
     text-decoration: underline;
 }
-/* Giữ header thông báo luôn ở trên cùng khi scroll */
 .sticky-top {
     position: sticky;
     top: 0;

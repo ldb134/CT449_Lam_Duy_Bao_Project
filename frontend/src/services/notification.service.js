@@ -3,5 +3,8 @@ class NotificationService {
     constructor(baseUrl = "/api/notifications") { this.api = createApiClient(baseUrl); }
     async getMine() { return (await this.api.get("/")).data; }
     async markRead(id) { return (await this.api.put(`/${id}/read`)).data; }
+    async markAllRead() { 
+        return (await this.api.put("/read-all")).data; 
+    }
 }
 export default new NotificationService();
