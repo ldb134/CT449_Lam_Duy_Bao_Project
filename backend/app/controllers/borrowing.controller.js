@@ -114,14 +114,17 @@ exports.approve = async (req, res) => {
             const content = `
                 <h3>Xin chào ${reader.hoLot} ${reader.ten},</h3>
                 <p>Yêu cầu mượn cuốn sách <b>"${book.tenSach}"</b> của bạn đã được chấp nhận.</p>
-                <p>📅 <b>Hạn trả sách:</b> ${deadline.toLocaleDateString('vi-VN')}</p>
+                
+                <p>📅 <b>Ngày nhận sách:</b> ${startDate.toLocaleDateString('vi-VN')}</p>
+                <p>⏳ <b>Hạn trả sách:</b> ${deadline.toLocaleDateString('vi-VN')}</p>
+                
                 <p>Vui lòng đến thư viện nhận sách đúng hẹn.</p>
                 <hr>
                 <small>Thư viện Đại học Cần Thơ</small>
             `;
+            
             sendEmail(reader.email, subject, content);
         }
-        // -----------------------------
 
         res.send({ message: "Duyệt thành công! Đã gửi email thông báo.", data: borrowing });
 

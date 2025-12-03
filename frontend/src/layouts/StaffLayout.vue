@@ -74,7 +74,7 @@ const router = useRouter();
 
 function logout() {
     authStore.logout();
-    router.push('/staff/login');
+    router.push('/');
 }
 </script>
 

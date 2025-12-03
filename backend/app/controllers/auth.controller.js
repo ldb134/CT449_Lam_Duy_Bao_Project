@@ -155,14 +155,13 @@ exports.loginSocial = async (req, res) => {
         if (!reader) {
             isNewUser = true; 
 
-            // --- TÁCH TÊN AN TOÀN (Phòng trường hợp displayName bị trống) ---
             let hoLot = '';
             let ten = 'Người Dùng';
             
             if (displayName && displayName.trim().length > 0) {
                 const nameParts = displayName.trim().split(' ');
-                ten = nameParts.pop(); // Lấy từ cuối cùng làm Tên
-                hoLot = nameParts.join(' '); // Phần còn lại là Họ lót
+                ten = nameParts.pop(); 
+                hoLot = nameParts.join(' '); 
             }
 
             const nextMaDocGia = await getNextSequenceValue("madocgia");
@@ -180,11 +179,11 @@ exports.loginSocial = async (req, res) => {
 
             await reader.save();
         }
+        
         if (reader && reader.trangThai === 'Bị khóa') {
              return res.status(403).send({ message: "Tài khoản Google này đã bị vô hiệu hóa trong hệ thống!" });
         }
 
-        // ... (Tạo token và trả về response giữ nguyên)
         const token = jwt.sign(
             { id: reader._id, role: 'reader', madocgia: reader.madocgia }, 
             SECRET_KEY, 
@@ -201,14 +200,14 @@ exports.loginSocial = async (req, res) => {
                 hoTen: `${reader.hoLot} ${reader.ten}`,
                 ten: reader.ten,
                 role: 'reader',
-                email: reader.email
+                email: reader.email,
+                dienThoai: reader.dienThoai, 
+                diaChi: reader.diaChi
             } 
         });
 
     } catch (err) {
-        // Bắt lỗi Mongoose Validation và trả về 400
         if (err.name === 'ValidationError') {
-             // Thường xảy ra khi trường 'ten' bị trống dù đã cố gắng xử lý
              return res.status(400).send({ message: "Lỗi Validation: Vui lòng kiểm tra lại cấu hình tên." });
         } else if (err.code === 11000) { 
              return res.status(400).send({ message: "Lỗi trùng lặp thông tin." });
