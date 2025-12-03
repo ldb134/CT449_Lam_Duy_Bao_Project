@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const getNextSequenceValue = require('../utils/getNextSequence');
 
-const SECRET_KEY = process.env.JWT_SECRET || "bi_mat_khong_the_bat_mi";
+const SECRET_KEY = process.env.JWT_SECRET;
 
 exports.registerReader = async (req, res) => {
     try {
