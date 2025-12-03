@@ -52,9 +52,11 @@
                             </button>
                             
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-0" style="width: 320px; max-height: 400px; overflow-y: auto;">
-                                <li class="p-3 border-bottom fw-bold bg-light d-flex justify-content-between align-items-center">
+                                <li class="p-3 border-bottom fw-bold bg-light d-flex justify-content-between align-items-center sticky-top">
                                     <span>Thông báo</span>
-                                    <small class="text-primary cursor-pointer" @click="markAllReadLocal" v-if="unreadCount > 0">Đọc tất cả</small>
+                                    <small class="text-primary cursor-pointer hover-underline" @click="markAllRead" v-if="unreadCount > 0">
+                                        Đánh dấu đã đọc hết
+                                    </small>
                                 </li>
                                 <li v-if="notifications.length === 0" class="p-4 text-center text-muted small">
                                     <font-awesome-icon icon="bell-slash" class="mb-2 fs-4 d-block opacity-50" />
@@ -107,7 +109,9 @@
                         <router-link to="/login" class="btn btn-outline-primary rounded-pill px-4 text-nowrap">Đăng Nhập</router-link>
                         <router-link to="/register" class="btn btn-primary rounded-pill px-4 shadow-sm text-nowrap">Đăng Ký</router-link>
                     </div>
-                </div> </div> </div> </nav>
+                  </div> 
+                </div> 
+            </div> </nav>
 
         <div class="container flex-grow-1">
             <slot></slot>
@@ -153,19 +157,30 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'});
 };
 
+// Hàm đánh dấu 1 tin đã đọc
 const readNoti = async (noti) => {
     if (!noti.daXem) {
         try {
             await NotificationService.markRead(noti._id);
             noti.daXem = true; 
         } catch (e) {
-            console.log(e);
+            console.error("Lỗi cập nhật trạng thái đọc:", e);
         }
     }
 };
 
-const markAllReadLocal = () => {
-    notifications.value.forEach(n => n.daXem = true);
+// Hàm đánh dấu tất cả đã đọc (Gọi API)
+const markAllRead = async () => {
+    const unreadList = notifications.value.filter(n => !n.daXem);
+    
+    if (unreadList.length === 0) return;
+
+    try {
+        await Promise.all(unreadList.map(n => NotificationService.markRead(n._id)));
+        notifications.value.forEach(n => n.daXem = true);
+    } catch (error) {
+        console.error("Lỗi cập nhật trạng thái:", error);
+    }
 };
 
 const logout = () => {
@@ -175,7 +190,7 @@ const logout = () => {
 
 onMounted(() => {
     fetchNoti();
-    setInterval(fetchNoti, 60000);
+    setInterval(fetchNoti, 60000); // Tự động check thông báo mỗi 60s
 });
 </script>
 
@@ -189,5 +204,14 @@ onMounted(() => {
 }
 .cursor-pointer {
     cursor: pointer;
+}
+.hover-underline:hover {
+    text-decoration: underline;
+}
+/* Giữ header thông báo luôn ở trên cùng khi scroll */
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
 }
 </style>

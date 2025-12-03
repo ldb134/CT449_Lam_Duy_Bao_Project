@@ -169,7 +169,6 @@ const handleSave = async () => {
     }
 };
 
-// 3. Sửa hàm deleteStaff
 const deleteStaff = async (staff) => {
     const result = await Swal.fire({
         title: 'Xóa nhân viên?',
@@ -186,6 +185,7 @@ const deleteStaff = async (staff) => {
             toast.success("Đã xóa nhân viên!");
             fetchData();
         } catch (error) {
+            console.log(error);
             toast.error("Lỗi khi xóa!");
         }
     }

@@ -75,6 +75,17 @@
                 </div>
 
                 <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <input 
+                    type="email" 
+                    class="form-control" 
+                    v-model="formData.email" 
+                    placeholder="Nhập email để nhận thông báo mượn trả tự động"
+                  >
+                  <div class="form-text text-muted">Chúng tôi sẽ gửi thông báo mượn/trả sách qua email này.</div>
+                </div>
+
+                <div class="mb-3">
                   <label class="form-label fw-bold">Số điện thoại</label>
                   <input 
                     type="tel" 
@@ -102,20 +113,22 @@
                   >
                   <div class="form-text text-muted">Mật khẩu này dùng để đăng nhập bằng Số điện thoại.</div>
                 </div>
-                <div class="mb-4">
-  <label class="form-label fw-bold">Địa chỉ</label>
-  <input type="text" class="form-control" v-model="formData.diaChi" required>
-</div>
 
-<div class="mb-3 form-check" v-if="isPhoneEmpty">
-    <input type="checkbox" class="form-check-input" id="profileAgreeRules" v-model="agreeRules">
-    <label class="form-check-label" for="profileAgreeRules">
-        Tôi đồng ý với các <a href="/rules" target="_blank" class="text-decoration-none">Quy định mượn trả sách</a> của thư viện.
-    </label>
-</div>
-<button type="submit" class="btn btn-primary">
-  <font-awesome-icon icon="save" class="me-2" /> Lưu Thay Đổi
-</button>
+                <div class="mb-4">
+                  <label class="form-label fw-bold">Địa chỉ</label>
+                  <input type="text" class="form-control" v-model="formData.diaChi" required>
+                </div>
+
+                <div class="mb-3 form-check" v-if="isPhoneEmpty">
+                    <input type="checkbox" class="form-check-input" id="profileAgreeRules" v-model="agreeRules">
+                    <label class="form-check-label" for="profileAgreeRules">
+                        Tôi đồng ý với các <a href="/rules" target="_blank" class="text-decoration-none">Quy định mượn trả sách</a> của thư viện.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <font-awesome-icon icon="save" class="me-2" /> Lưu Thay Đổi
+                </button>
               </form>
             </div>
 
@@ -152,15 +165,14 @@ const formData = reactive({
   phai: 'Nam',
   diaChi: '',
   dienThoai: '',
+  email: '', 
   madocgia: '',
   password: '' 
 });
 
-// Biến kiểm tra xem SĐT có trống không
 const isPhoneEmpty = ref(false);
 const agreeRules = ref(false); 
 
-// Computed để hiện cảnh báo vàng
 const isMissingInfo = computed(() => {
     return !formData.dienThoai || !formData.diaChi;
 });
@@ -171,12 +183,7 @@ const getAvatarChar = (name) => {
 
 const formatDateForInput = (dateString) => {
   if (!dateString) return '';
-  if (dateString.includes('-')) {
-     const [day, month, year] = dateString.split('-');
-     return `${year}-${month}-${day}`; 
-  }
-  const date = new Date(dateString);
-  return date.toISOString().split('T')[0];
+  return new Date(dateString).toISOString().split('T')[0];
 };
 
 const fetchProfile = async () => {
@@ -185,18 +192,21 @@ const fetchProfile = async () => {
     const data = await ReaderService.get(authStore.user.madocgia);
     
     Object.assign(formData, data);
-    // Reset password field vì không muốn hiện hash pass cũ
+    // Reset password field
     formData.password = ''; 
     
-    formData.ngaySinh = formatDateForInput(data.ngaySinh);
+    if (data.ngaySinh) {
+        formData.ngaySinh = formatDateForInput(data.ngaySinh);
+    }
 
-    // Kiểm tra nếu SĐT chưa có (do login Google)
+    // Kiểm tra nếu SĐT chưa có
     if (!formData.dienThoai) {
         isPhoneEmpty.value = true;
     }
     
   } catch (error) {
     console.error("Lỗi tải thông tin:", error);
+    toast.error("Không thể tải thông tin cá nhân.");
   }
 };
 
@@ -208,13 +218,13 @@ const updateProfile = async () => {
     }
     
     await ReaderService.update(formData.madocgia, formData);
-    
     toast.success("Cập nhật thông tin thành công!");
     
     authStore.user.ten = formData.ten;
     authStore.user.hoTen = `${formData.hoLot} ${formData.ten}`;
     authStore.user.dienThoai = formData.dienThoai; 
     authStore.user.diaChi = formData.diaChi;    
+    
     localStorage.setItem("user", JSON.stringify(authStore.user));
 
     if (formData.dienThoai) {

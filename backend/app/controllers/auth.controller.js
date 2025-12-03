@@ -22,6 +22,7 @@ exports.registerReader = async (req, res) => {
             phai: req.body.phai,
             diaChi: req.body.diaChi,
             dienThoai: req.body.dienThoai,
+            email: req.body.email,
             password: hashedPassword 
         });
 

@@ -1,7 +1,8 @@
 const Borrowing = require('../models/borrowing.model');
 const Book = require('../models/book.model');
-const Reader = require('../models/reader.model');
+const Reader = require('../models/reader.model'); // Cần model Độc giả để lấy email
 const Notification = require('../models/notification.model');
+const sendEmail = require('../utils/sendEmail');
 
 exports.create = async (req, res) => {
     if (!req.body.madocgia || !req.body.masach || !req.body.ngayHenLay) {
@@ -68,7 +69,6 @@ exports.create = async (req, res) => {
 exports.approve = async (req, res) => {
     const id = req.params.id; 
     try {
-        // 1. Tìm phiếu mượn
         const borrowing = await Borrowing.findById(id);
         if (!borrowing) return res.status(404).send({ message: "Không tìm thấy phiếu mượn!" });
 
@@ -76,48 +76,102 @@ exports.approve = async (req, res) => {
             return res.status(400).send({ message: "Phiếu này không ở trạng thái chờ duyệt!" });
         }
 
-        // 2. KIỂM TRA VÀ TRỪ KHO (ATOMIC UPDATE)
-        // Tìm sách có mã này VÀ số lượng > 0. Nếu tìm thấy thì trừ đi 1.
+        // Trừ kho
         const book = await Book.findOneAndUpdate(
             { masach: borrowing.masach, soQuyen: { $gt: 0 } }, 
             { $inc: { soQuyen: -1 } }, 
             { new: true } 
         );
 
-        // 3. Nếu không tìm thấy book (tức là soQuyen đã = 0 hoặc sách bị xóa)
-        if (!book) {
-            return res.status(400).send({ message: "Sách này vừa hết hàng! Không thể duyệt." });
-        }
+        if (!book) return res.status(400).send({ message: "Sách này vừa hết hàng!" });
 
-        // 4. Cập nhật phiếu mượn
+        // Cập nhật ngày
         let startDate = new Date();
-        // Nếu ngày hẹn là tương lai thì lấy ngày hẹn, ngược lại lấy hôm nay
         if (borrowing.ngayHenLay && new Date(borrowing.ngayHenLay) > startDate) {
             startDate = new Date(borrowing.ngayHenLay);
         }
-
         const deadline = new Date(startDate);
-        deadline.setDate(startDate.getDate() + 7); // Mượn 7 ngày
+        deadline.setDate(startDate.getDate() + 7); 
 
         borrowing.ngayMuon = startDate;
         borrowing.ngayHetHan = deadline;
         borrowing.trangThai = 'Đang mượn';
-        
         await borrowing.save();
 
-        // 5. Tạo thông báo
-        const noti = new Notification({
+        // Tạo thông báo trong web
+        await new Notification({
             madocgia: borrowing.madocgia,
-            tieuDe: "Yêu cầu mượn sách được duyệt",
-            noiDung: `Thủ thư đã duyệt cuốn sách mã ${borrowing.masach}. Vui lòng đến nhận sách!`,
+            tieuDe: "Yêu cầu được duyệt",
+            noiDung: `Thủ thư đã duyệt cuốn sách ${book.tenSach}. Vui lòng đến nhận!`,
             loai: 'success'
-        });
-        await noti.save();
+        }).save();
 
-        res.send({ message: "Duyệt thành công! Đã trừ kho.", data: borrowing });
+        // --- 2. GỬI EMAIL THÔNG BÁO ---
+        // Lấy thông tin độc giả để có email
+        const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
+        
+        if (reader && reader.email) {
+            const subject = "📚 Yêu cầu mượn sách đã được DUYỆT";
+            const content = `
+                <h3>Xin chào ${reader.hoLot} ${reader.ten},</h3>
+                <p>Yêu cầu mượn cuốn sách <b>"${book.tenSach}"</b> của bạn đã được chấp nhận.</p>
+                <p>📅 <b>Hạn trả sách:</b> ${deadline.toLocaleDateString('vi-VN')}</p>
+                <p>Vui lòng đến thư viện nhận sách đúng hẹn.</p>
+                <hr>
+                <small>Thư viện Đại học Cần Thơ</small>
+            `;
+            // Gửi mail (bất đồng bộ, không cần await để tránh user phải chờ lâu)
+            sendEmail(reader.email, subject, content);
+        }
+        // -----------------------------
+
+        res.send({ message: "Duyệt thành công! Đã gửi email thông báo.", data: borrowing });
 
     } catch (err) {
         res.status(500).send({ message: "Lỗi khi duyệt: " + err.message });
+    }
+};
+
+// --- HÀM TỪ CHỐI (SỬA LẠI) ---
+exports.reject = async (req, res) => {
+    const id = req.params.id; 
+    try {
+        const borrowing = await Borrowing.findByIdAndUpdate(
+            id, 
+            { trangThai: 'Đã hủy' }, 
+            { new: true }
+        );
+
+        if (!borrowing) return res.status(404).send({ message: "Không tìm thấy phiếu!" });
+
+        // Lấy tên sách để email chi tiết hơn
+        const book = await Book.findOne({ masach: borrowing.masach });
+        const bookName = book ? book.tenSach : borrowing.masach;
+
+        await new Notification({
+            madocgia: borrowing.madocgia,
+            tieuDe: "Yêu cầu bị từ chối",
+            noiDung: `Yêu cầu mượn cuốn ${bookName} đã bị từ chối.`,
+            loai: 'danger' 
+        }).save();
+
+        // --- GỬI EMAIL ---
+        const reader = await Reader.findOne({ madocgia: borrowing.madocgia });
+        if (reader && reader.email) {
+            sendEmail(
+                reader.email, 
+                "❌ Yêu cầu mượn sách bị TỪ CHỐI", 
+                `<h3>Chào ${reader.ten},</h3>
+                 <p>Rất tiếc, yêu cầu mượn cuốn sách <b>"${bookName}"</b> của bạn không được chấp nhận.</p>
+                 <p>Vui lòng liên hệ thủ thư hoặc chọn cuốn sách khác.</p>`
+            );
+        }
+        // -----------------
+
+        res.send({ message: "Đã từ chối và gửi email.", data: borrowing });
+
+    } catch (err) {
+        res.status(500).send({ message: "Lỗi khi từ chối: " + err.message });
     }
 };
 
@@ -295,34 +349,6 @@ exports.findOne = async (req, res) => {
         res.send(data);
     } catch (err) {
         res.status(500).send({ message: "Lỗi khi tìm phiếu mượn id=" + id });
-    }
-};
-
-exports.reject = async (req, res) => {
-    const id = req.params.id; 
-    try {
-        const borrowing = await Borrowing.findByIdAndUpdate(
-            id, 
-            { trangThai: 'Đã hủy' }, 
-            { new: true }
-        );
-
-        if (!borrowing) {
-            return res.status(404).send({ message: "Không tìm thấy phiếu mượn!" });
-        }
-
-        const noti = new Notification({
-            madocgia: borrowing.madocgia,
-            tieuDe: "Yêu cầu mượn sách bị từ chối",
-            noiDung: `Yêu cầu mượn cuốn sách có mã ${borrowing.masach} của bạn đã bị từ chối. Vui lòng liên hệ thủ thư nếu có thắc mắc.`,
-            loai: 'danger' 
-        });
-        await noti.save();
-
-        res.send({ message: "Đã từ chối yêu cầu mượn sách.", data: borrowing });
-
-    } catch (err) {
-        res.status(500).send({ message: "Lỗi khi từ chối: " + err.message });
     }
 };
 

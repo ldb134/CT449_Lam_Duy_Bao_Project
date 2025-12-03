@@ -73,6 +73,7 @@ async function handleLogin() {
     errorMessage.value = '';
     
     try {
+        await authStore.login({ msnv: msnv.value, password: password.value }, 'staff');
         toast.success("Xin chào Quản trị viên!", { autoClose: 1500 });
 
         setTimeout(() => {

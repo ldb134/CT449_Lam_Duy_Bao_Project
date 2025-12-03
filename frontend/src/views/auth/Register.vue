@@ -30,6 +30,11 @@
               </div>
 
               <div class="mb-3">
+                  <label class="form-label">Email (Tùy chọn)</label>
+                  <input type="email" class="form-control" v-model="formData.email" placeholder="Nhập email để nhận thông báo mượn trả">
+              </div>
+
+              <div class="mb-3">
                 <label for="diaChi" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" id="diaChi" v-model="formData.diaChi" required>
               </div>
@@ -111,6 +116,7 @@ const formData = reactive({
     hoLot: '',
     ten: '',
     dienThoai: '',
+    email: '',
     diaChi: '',
     password: '',
     phai: 'Nam', 

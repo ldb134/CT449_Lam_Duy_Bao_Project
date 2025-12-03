@@ -1,44 +1,22 @@
 <template>
   <div class="home-page">
     
-    <div id="libraryCarousel" class="carousel slide shadow-sm mb-5" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="0" class="active"></button>
-        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#libraryCarousel" data-bs-slide-to="2"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
-          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Thư viện" style="height: 450px; object-fit: cover;">
-          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
-            <h2 class="fw-bold">Chào mừng đến với Thư Viện</h2>
-            <p class="fs-5">Khám phá kho tàng tri thức vô tận ngay hôm nay.</p>
-            <router-link to="/library" class="btn btn-primary mt-2">
-                <font-awesome-icon icon="search" class="me-2" /> Khám Phá Ngay
+    <div class="banner-section position-relative mb-5">
+        <img 
+            src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+            class="d-block w-100 rounded-3 shadow" 
+            alt="Thư viện banner" 
+            style="height: 450px; object-fit: cover; filter: brightness(0.85);"
+        >
+        
+        <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3">
+            <h1 class="fw-bold display-4 mb-3 text-shadow">Chào mừng đến với Thư Viện CTU</h1>
+            <p class="fs-5 mb-4 text-shadow">Nơi khởi nguồn tri thức và chắp cánh ước mơ của bạn.</p>
+            
+            <router-link to="/library" class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg border-2 border-white">
+                <font-awesome-icon icon="search" class="me-2" /> Khám Phá Kho Sách Ngay
             </router-link>
-          </div>
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Sách mới" style="height: 450px; object-fit: cover;">
-          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
-            <h2 class="fw-bold">Cập nhật sách mới liên tục</h2>
-            <p class="fs-5">Hàng ngàn đầu sách mới đang chờ đón bạn.</p>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="3000">
-          <img src="https://images.unsplash.com/photo-1507842217121-9d59754a8429?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Không gian đọc" style="height: 450px; object-fit: cover;">
-          <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
-            <h2 class="fw-bold">Không gian đọc sách lý tưởng</h2>
-            <p class="fs-5">Mượn sách dễ dàng, nhanh chóng và tiện lợi.</p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#libraryCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#libraryCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
 
     <div class="container">
@@ -246,5 +224,8 @@ onMounted(() => {
 }
 .book-card:hover .book-cover {
     transform: scale(1.05);
+}
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 </style>

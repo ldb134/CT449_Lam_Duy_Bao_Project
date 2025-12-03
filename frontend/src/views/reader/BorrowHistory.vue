@@ -36,21 +36,34 @@
                                     </small>
                                 </td>
                                 
-                                <td>{{ item.ngayMuon || '---' }}</td>
-                                <td :class="{'text-danger fw-bold': isOverdue(item)}">
-                                    {{ item.ngayHetHan || '---' }}
+                                <td>
+                                    <span v-if="item.ngayMuon" class="fw-bold text-dark">
+                                        {{ formatDate(item.ngayMuon) }}
+                                    </span>
+                                    <span v-else>---</span>
                                 </td>
+
+                                <td>
+                                    <span v-if="item.ngayHetHan" :class="{'text-danger fw-bold': isOverdue(item), 'fw-bold': !isOverdue(item)}">
+                                        {{ formatDate(item.ngayHetHan) }}
+                                    </span>
+                                    <span v-else>---</span>
+                                </td>
+
                                 <td>
                                     <span v-if="item.trangThai === 'Chờ duyệt'" class="badge bg-warning text-dark">Chờ duyệt</span>
                                     <span v-else-if="item.trangThai === 'Đang mượn'" class="badge bg-primary">Đang mượn</span>
-                                    <span v-else class="badge bg-success">Đã trả</span>
+                                    <span v-else-if="item.trangThai === 'Đã trả'" class="badge bg-success">Đã trả</span>
+                                    <span v-else-if="item.trangThai === 'Đã hủy'" class="badge bg-secondary">Đã hủy</span>
+                                    <span v-else class="badge bg-secondary">{{ item.trangThai }}</span>
                                 </td>
+                                
                                 <td class="text-center">
                                     <button 
                                         v-if="item.trangThai === 'Đang mượn' && item.soLanGiaHan === 0"
                                         class="btn btn-sm btn-outline-warning text-dark"
                                         @click="renewBook(item._id)"
-                                        title="Gia hạn thêm 7 ngày ngay lập tức"
+                                        title="Gia hạn thêm 7 ngày"
                                     >
                                         <font-awesome-icon icon="clock" /> Gia hạn
                                     </button>
@@ -87,6 +100,13 @@ const getBookName = (masach) => {
 const getBookAuthor = (masach) => {
     const book = books.value.find(b => b.masach === masach);
     return book ? book.tacGia : '';
+};
+
+const formatDate = (dateString) => {
+    if (!dateString) return '---';
+    return new Date(dateString).toLocaleDateString('vi-VN', {
+        day: '2-digit', month: '2-digit', year: 'numeric'
+    });
 };
 
 const fetchData = async () => {
@@ -142,15 +162,10 @@ const isOverdue = (item) => {
     const deadlineStr = item.ngayHetHan;
     if (!deadlineStr || item.trangThai !== 'Đang mượn') return false;
     
-    // Convert dd-mm-yyyy to Date object
-    const parts = deadlineStr.split('-');
-    if (parts.length === 3) {
-        // parts[0] is day, parts[1] is month, parts[2] is year
-        const deadline = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-        deadline.setHours(23, 59, 59, 999); 
-        return new Date() > deadline;
-    }
-    return false;
+    const deadline = new Date(deadlineStr);
+    const now = new Date();
+    deadline.setHours(23, 59, 59, 999); 
+    return now > deadline;
 };
 
 onMounted(() => {
