@@ -98,6 +98,7 @@ import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/config/firebase"; 
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -127,11 +128,16 @@ async function handleRegister() {
 
     try {
         await AuthService.register(formData);
-        alert("Đăng ký thành công! Vui lòng đăng nhập.");
-        router.push('/login');
+        toast.success("Đăng ký thành công! Đang chuyển hướng...", {
+            autoClose: 2000 
+        });
+
+        setTimeout(() => {
+            router.push('/login');
+        }, 2000);
     } catch (error) {
         console.log(error);
-        errorMessage.value = error.response?.data?.message || "Đăng ký thất bại. Vui lòng thử lại.";
+        toast.error(error.response?.data?.message || "Đăng ký thất bại.");
     } finally {
         loading.value = false;
     }
@@ -152,7 +158,7 @@ const loginGoogle = async () => {
         });
         
         if (response.isNewUser) {
-            alert("Chào mừng thành viên mới! Vui lòng cập nhật thông tin để hoàn tất hồ sơ.");
+            toast.success("Chào mừng thành viên mới! Vui lòng cập nhật thông tin để hoàn tất hồ sơ.");
             router.push('/profile'); 
         } else {
             router.push('/'); 

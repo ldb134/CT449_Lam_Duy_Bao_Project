@@ -72,6 +72,7 @@ import { ref, onMounted } from 'vue';
 import BorrowingService from '@/services/borrowing.service';
 import BookService from '@/services/book.service';
 import { useAuthStore } from '@/stores/auth.store';
+import { toast } from 'vue3-toastify'; 
 
 const authStore = useAuthStore();
 const myBorrowings = ref([]);
@@ -91,28 +92,38 @@ const getBookAuthor = (masach) => {
 const fetchData = async () => {
     if (!authStore.isLoggedIn) return;
     loading.value = true;
-    try {   
-        const [borrowingsData, bookRes] = await Promise.all([
-            BorrowingService.getAll(), 
+    try {
+        const [borrowRes, bookRes] = await Promise.all([
+            BorrowingService.getAll({ 
+                madocgia: authStore.user.madocgia,
+                limit: 100 
+            }), 
             BookService.getAll({ limit: 1000 }) 
         ]);
 
+        if (borrowRes.borrowings) {
+            myBorrowings.value = borrowRes.borrowings;
+        } else if (Array.isArray(borrowRes)) {
+            myBorrowings.value = borrowRes;
+        } else {
+            myBorrowings.value = [];
+        }
+
         if (bookRes.books) {
-            books.value = bookRes.books; 
+            books.value = bookRes.books;
         } else if (Array.isArray(bookRes)) {
-            books.value = bookRes;       
+            books.value = bookRes;
         } else {
             books.value = [];
         }
 
-        myBorrowings.value = borrowingsData.filter(b => b.madocgia === authStore.user.madocgia);
         myBorrowings.value.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     } catch (error) {
         console.error("Lỗi tải lịch sử:", error);
-        alert("Không tải được dữ liệu. Vui lòng thử lại sau."); 
+        toast.error("Không tải được dữ liệu. Vui lòng thử lại sau."); 
     } finally {
-        loading.value = false; 
+        loading.value = false;
     }
 };
 
@@ -120,10 +131,10 @@ const renewBook = async (id) => {
     if (!confirm("Bạn muốn gia hạn sách này thêm 7 ngày?")) return;
     try {
         await BorrowingService.renew(id);
-        alert("Gia hạn thành công!");
+        toast.success("Gia hạn thành công!"); 
         fetchData();
     } catch (error) {
-        alert(error.response?.data?.message || "Không thể gia hạn!");
+        toast.error(error.response?.data?.message || "Không thể gia hạn!");
     }
 };
 
@@ -131,10 +142,15 @@ const isOverdue = (item) => {
     const deadlineStr = item.ngayHetHan;
     if (!deadlineStr || item.trangThai !== 'Đang mượn') return false;
     
-    const [day, month, year] = deadlineStr.split('-');
-    const deadline = new Date(`${year}-${month}-${day}`);
-    deadline.setHours(23, 59, 59, 999); 
-    return new Date() > deadline;
+    // Convert dd-mm-yyyy to Date object
+    const parts = deadlineStr.split('-');
+    if (parts.length === 3) {
+        // parts[0] is day, parts[1] is month, parts[2] is year
+        const deadline = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        deadline.setHours(23, 59, 59, 999); 
+        return new Date() > deadline;
+    }
+    return false;
 };
 
 onMounted(() => {

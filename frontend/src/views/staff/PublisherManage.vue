@@ -110,6 +110,8 @@
 import { ref, onMounted, reactive } from 'vue';
 import PublisherService from '@/services/publisher.service';
 import Pagination from '@/components/Pagination.vue'; 
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const publishers = ref([]);
 const showModal = ref(false);
@@ -162,27 +164,38 @@ const handleSave = async () => {
     try {
         if (isEditing.value) {
             await PublisherService.update(formData.manxb, formData);
-            alert("Cập nhật thành công!");
+            toast.success("Cập nhật NXB thành công!");
         } else {
             await PublisherService.create(formData);
-            alert("Thêm mới thành công!");
+            toast.success("Thêm mới NXB thành công!");
         }
         closeModal();
         fetchData();
     } catch (error) {
-        alert("Lỗi: " + (error.response?.data?.message || error.message));
+        toast.error("Lỗi: " + (error.response?.data?.message || error.message));
     }
 };
 
+// 3. Sửa hàm deletePublisher (Xóa)
 const deletePublisher = async (pub) => {
-    if (!confirm(`Bạn có chắc muốn xóa NXB "${pub.tenNXB}"?`)) return;
-    try {
-        await PublisherService.delete(pub.manxb);
-        alert("Đã xóa NXB!");
-        fetchData();
-    } catch (error) {
-        console.log(error);
-        alert("Lỗi khi xóa! Có thể NXB này đang có sách.");
+    // Thay confirm bằng Swal
+    const result = await Swal.fire({
+        title: 'Xóa Nhà Xuất Bản?',
+        text: `Bạn chắc chắn muốn xóa "${pub.tenNXB}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Vâng, xóa nó!'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await PublisherService.delete(pub.manxb);
+            toast.success("Đã xóa NXB thành công!");
+            fetchData();
+        } catch (error) {
+            toast.error("Lỗi khi xóa! Có thể NXB này đang có sách.");
+        }
     }
 };
 

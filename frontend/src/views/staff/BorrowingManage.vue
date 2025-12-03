@@ -106,6 +106,8 @@
 import { ref, onMounted} from 'vue';
 import BorrowingService from '@/services/borrowing.service';
 import Pagination from '@/components/Pagination.vue';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const borrowings = ref([]);
 const searchText = ref('');
@@ -137,7 +139,7 @@ const fetchData = async () => {
     } catch (error) {
         console.error(error);
         if (error.response && error.response.status === 401) {
-            alert("Phiên đăng nhập hết hạn.");
+            toast.error("Phiên đăng nhập hết hạn.");
             
         }
     }
@@ -150,7 +152,7 @@ const changePage = (page) => {
 
 const changeTab = (tab) => {
     activeTab.value = tab;
-    currentPage.value = 1; // Reset về trang 1 khi đổi tab
+    currentPage.value = 1; 
     fetchData();
 };
 
@@ -179,25 +181,59 @@ const getStatusLabel = (dateString, status) => {
 };
 
 // Các hàm xử lý hành động
-const approve = async (id) => {
-    if(!confirm("Duyệt phiếu mượn này?")) return;
-    try { await BorrowingService.approve(id); fetchData(); } catch(e) { alert(e.response?.data?.message || "Lỗi!"); }
-};
 const reject = async (id) => {
-    if(!confirm("Bạn muốn TỪ CHỐI phiếu mượn này?")) return;
-    
-    try { 
-        await BorrowingService.reject(id); 
-        alert("Đã hủy phiếu mượn!");
-        fetchData(); 
-    } catch(e) { 
-        alert(e.response?.data?.message || "Lỗi!"); 
+
+    const result = await Swal.fire({
+        title: 'Bạn chắc chắn chứ?',
+        text: "Hành động này sẽ từ chối phiếu mượn và gửi thông báo cho độc giả!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33', 
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Vâng, từ chối ngay!',
+        cancelButtonText: 'Hủy bỏ'
+    });
+
+    if (result.isConfirmed) {
+        try { 
+            await BorrowingService.reject(id); 
+            
+            Swal.fire(
+                'Đã từ chối!',
+                'Phiếu mượn đã chuyển sang trạng thái hủy.',
+                'success'
+            );
+            fetchData(); 
+        } catch(e) { 
+            toast.error("Lỗi: " + e.message); 
+        }
+    }
+};
+
+const approve = async (id) => {
+    const result = await Swal.fire({
+        title: 'Duyệt phiếu mượn này?',
+        text: "Sách sẽ được trừ khỏi kho.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        confirmButtonText: 'Duyệt ngay'
+    });
+
+    if (result.isConfirmed) {
+        try { 
+            await BorrowingService.approve(id); 
+            toast.success("Duyệt thành công!");
+            fetchData(); 
+        } catch(e) { 
+            toast.error(e.response?.data?.message);
+        }
     }
 };
 
 const returnBook = async (id) => {
     if(!confirm("Xác nhận trả sách?")) return;
-    try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+    try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { toast.error("Lỗi!"); }
 };
 
 onMounted(() => {

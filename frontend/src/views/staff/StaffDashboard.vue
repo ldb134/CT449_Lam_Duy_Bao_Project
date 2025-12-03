@@ -173,7 +173,9 @@ import ReaderService from '@/services/reader.service';
 import {
   Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement
 } from 'chart.js'
-import { Bar, Doughnut } from 'vue-chartjs'
+import { Bar, Doughnut } from 'vue-chartjs';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
 
@@ -193,7 +195,6 @@ const barChartData = ref({
 });
 const barOptions = { responsive: true, maintainAspectRatio: false };
 
-// Thêm màu và label cho phần Đã hủy trong biểu đồ tròn
 const doughnutChartData = ref({
   labels: ['Đang mượn', 'Chờ duyệt', 'Đã trả', 'Đã hủy'],
   datasets: [{ backgroundColor: ['#0d6efd', '#ffc107', '#198754', '#6c757d'], data: [] }]
@@ -290,30 +291,67 @@ const getStatusLabel = (dateString, status) => {
 };
 
 const approve = async (id) => {
-    if(!confirm("Duyệt phiếu mượn này?")) return;
-    try { 
-        await BorrowingService.approve(id); 
-        alert("Duyệt thành công!");
-        fetchData(); 
-    } catch(e) { 
-        alert(e.response?.data?.message || "Có lỗi xảy ra!"); 
+    const result = await Swal.fire({
+        title: 'Duyệt phiếu mượn?',
+        text: "Xác nhận cho phép độc giả mượn sách này.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Duyệt ngay',
+        confirmButtonColor: '#198754' 
+    });
+
+    if (result.isConfirmed) {
+        try { 
+            await BorrowingService.approve(id); 
+            toast.success("Duyệt thành công!"); 
+            fetchData(); 
+        } catch(e) { 
+            toast.error(e.response?.data?.message || "Có lỗi xảy ra!"); 
+        }
     }
 };
 
 const reject = async (id) => {
-    if(!confirm("Bạn muốn TỪ CHỐI phiếu mượn này?")) return;
-    try { 
-        await BorrowingService.reject(id); 
-        alert("Đã từ chối phiếu mượn!");
-        fetchData(); 
-    } catch(e) { 
-        alert(e.response?.data?.message || "Lỗi!"); 
+    const result = await Swal.fire({
+        title: 'Từ chối yêu cầu?',
+        text: "Hành động này sẽ hủy phiếu mượn và gửi thông báo cho độc giả.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33', 
+        confirmButtonText: 'Vâng, từ chối',
+        cancelButtonText: 'Hủy'
+    });
+
+    if (result.isConfirmed) {
+        try { 
+            await BorrowingService.reject(id); 
+            toast.success("Đã từ chối phiếu mượn!");
+            fetchData(); 
+        } catch(e) { 
+            toast.error(e.response?.data?.message || "Lỗi!"); 
+        }
     }
 };
 
 const returnBook = async (id) => {
-    if(!confirm("Xác nhận trả sách?")) return;
-    try { await BorrowingService.returnBook(id); fetchData(); } catch(e) { alert("Lỗi!"); }
+    const result = await Swal.fire({
+        title: 'Xác nhận trả sách?',
+        text: "Sách đã được kiểm tra và thu hồi về kho.",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Xác nhận trả',
+        confirmButtonColor: '#0d6efd' 
+    });
+
+    if (result.isConfirmed) {
+        try { 
+            await BorrowingService.returnBook(id); 
+            toast.success("Trả sách thành công!");
+            fetchData(); 
+        } catch(e) { 
+            toast.error("Lỗi: " + e.message); 
+        }
+    }
 };
 
 onMounted(() => {

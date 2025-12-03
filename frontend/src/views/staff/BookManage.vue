@@ -109,6 +109,8 @@ import BookService from '@/services/book.service';
 import PublisherService from '@/services/publisher.service';
 import BookForm from '@/components/BookForm.vue';
 import Pagination from '@/components/Pagination.vue';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const books = ref([]);
 const publishers = ref([]);
@@ -194,27 +196,37 @@ const handleSave = async (bookData) => {
         if (isEditing.value) {
             // Khi update, bookData là FormData, cần lấy masach từ biến selectedBook
             await BookService.update(selectedBook.value.masach, bookData);
-            alert("Cập nhật thành công!");
         } else {
             await BookService.create(bookData);
-            alert("Thêm sách mới thành công!");
         }
+        toast.success(isEditing.value ? "Cập nhật sách thành công!" : "Thêm sách mới thành công!");
         closeModal();
         fetchData();
     } catch (error) {
-        alert("Lỗi: " + (error.response?.data?.message || error.message));
+        toast.error("Lỗi: " + (error.response?.data?.message || error.message));
     }
 };
 
 const deleteBook = async (book) => {
-    if (!confirm(`Bạn có chắc muốn xóa sách "${book.tenSach}"?`)) return;
-    try {
-        await BookService.delete(book.masach);
-        alert("Đã xóa sách!");
-        fetchData();
-    } catch (error) {
-        console.log(error);
-        alert("Không thể xóa sách! Có thể sách đang được mượn.");
+    // Thay confirm()
+    const result = await Swal.fire({
+        title: 'Xóa sách này?',
+        text: `Bạn chắc chắn muốn xóa "${book.tenSach}"? Hành động này không thể hoàn tác!`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Vâng, xóa nó!'
+    });
+
+    if (result.isConfirmed) {
+        try {
+        
+            await BookService.delete(book.masach);
+            toast.success("Đã xóa sách thành công!");
+            fetchData();
+        } catch (error) {
+            toast.error("Không thể xóa! Có thể sách đang được mượn.");
+        }
     }
 };
 

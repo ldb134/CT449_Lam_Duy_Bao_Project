@@ -148,6 +148,8 @@ import BorrowingService from '@/services/borrowing.service';
 import BorrowModal from '@/components/BorrowModal.vue'; 
 import Pagination from '@/components/Pagination.vue'; 
 import { useRouter, useRoute } from 'vue-router';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -237,10 +239,26 @@ const formatPrice = (price) => {
 };
 
 
-const openBorrowModal = (book) => {
-    if (!authStore.isLoggedIn) { alert("Bạn cần đăng nhập để mượn sách!"); router.push('/login'); return; }
+const openBorrowModal = async (book) => { 
+    if (!authStore.isLoggedIn) {
+        toast.warning("Bạn cần đăng nhập để mượn sách!"); 
+        router.push('/login'); 
+        return; 
+    }
+    
     if (!authStore.user.dienThoai || !authStore.user.diaChi) {
-        if(confirm("Bạn cần hoàn tất hồ sơ trước khi mượn sách. Đi đến trang hồ sơ ngay?")) router.push('/profile');
+        const result = await Swal.fire({
+            title: 'Chưa hoàn tất hồ sơ',
+            text: "Bạn cần cập nhật Số điện thoại và Địa chỉ để mượn sách. Cập nhật ngay?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Đi tới Hồ sơ',
+            cancelButtonText: 'Để sau'
+        });
+        
+        if(result.isConfirmed) {
+            router.push('/profile');
+        }
         return;
     }
     selectedBook.value = book;
@@ -249,10 +267,17 @@ const openBorrowModal = (book) => {
 
 const handleBorrowConfirm = async (date) => {
     try {
-        await BorrowingService.create({ madocgia: authStore.user.madocgia, masach: selectedBook.value.masach, ngayHenLay: date });
-        alert("Gửi yêu cầu thành công!");
+        await BorrowingService.create({ 
+            madocgia: authStore.user.madocgia, 
+            masach: selectedBook.value.masach, 
+            ngayHenLay: date 
+        });
+        
+        toast.success("Gửi yêu cầu thành công! Vui lòng chờ duyệt.");
         showBorrowModal.value = false; 
-    } catch (error) { alert(error.response?.data?.message || "Lỗi."); }
+    } catch (error) { 
+        toast.error(error.response?.data?.message || "Lỗi khi mượn sách."); 
+    }
 };
 
 onMounted(() => {

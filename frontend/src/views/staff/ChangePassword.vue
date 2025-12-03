@@ -46,6 +46,7 @@
 import { ref, reactive, computed } from 'vue';
 import AuthService from '@/services/auth.service';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 const loading = ref(false);
@@ -67,14 +68,14 @@ const handleChangePassword = async () => {
     loading.value = true;
     try {
         await AuthService.changePassword(formData);
-        alert("Đổi mật khẩu thành công! Vui lòng đăng nhập lại.");
+        toast.success("Đổi mật khẩu thành công! Vui lòng đăng nhập lại.");
         
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         router.push('/staff/login');
         
     } catch (error) {
-        alert(error.response?.data?.message || "Đổi mật khẩu thất bại.");
+        toast.error(error.response?.data?.message || "Đổi mật khẩu thất bại.");
     } finally {
         loading.value = false;
     }

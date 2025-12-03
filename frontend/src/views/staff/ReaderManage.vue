@@ -148,6 +148,8 @@ import { ref, onMounted } from 'vue';
 import ReaderService from '@/services/reader.service';
 import BorrowingService from '@/services/borrowing.service'; 
 import Pagination from '@/components/Pagination.vue'; 
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const readers = ref([]);
 const searchText = ref('');
@@ -187,7 +189,17 @@ const refreshData = () => {
 
 const toggleStatus = async (reader) => {
     const newStatus = reader.trangThai === 'Bị khóa' ? 'Hoạt động' : 'Bị khóa';
-    if (!confirm(`Bạn có chắc muốn đổi trạng thái thành ${newStatus}?`)) return;
+
+    const result = await Swal.fire({
+        title: 'Xác nhận thay đổi',
+        text: `Bạn muốn chuyển trạng thái độc giả này sang "${newStatus}"?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Đồng ý',
+        confirmButtonColor: newStatus === 'Bị khóa' ? '#d33' : '#198754' // Đỏ nếu khóa, Xanh nếu mở
+    });
+
+    if (result.isConfirmed) {
 
     try {
         const updateData = { trangThai: newStatus };
@@ -196,22 +208,32 @@ const toggleStatus = async (reader) => {
         }
 
         await ReaderService.update(reader.madocgia, updateData);
-        alert("Cập nhật thành công!");
-        fetchData();
-    } catch (error) {
-        alert("Lỗi: " + error.message);
+            toast.success(`Đã cập nhật trạng thái thành: ${newStatus}`);
+            fetchData();
+        } catch (error) {
+            toast.error("Lỗi: " + error.message);
+        }
     }
 };
 
 const deleteReader = async (reader) => {
-    if (!confirm(`Xóa độc giả ${reader.ten}?`)) return;
-    try {
-        await ReaderService.delete(reader.madocgia);
-        alert("Đã xóa!");
-        fetchData();
-    } catch (error) {
-        console.log(error); 
-        alert("Không thể xóa (có thể đang mượn sách).");
+    const result = await Swal.fire({
+        title: 'Xóa độc giả?',
+        text: `Xóa độc giả ${reader.ten} sẽ xóa cả lịch sử mượn!`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Xóa vĩnh viễn'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await ReaderService.delete(reader.madocgia);
+            toast.success("Đã xóa độc giả!");
+            fetchData();
+        } catch (error) {
+            toast.error("Không thể xóa (có thể đang giữ sách).");
+        }
     }
 };
 
@@ -234,7 +256,7 @@ const viewHistory = async (reader) => {
         showHistoryModal.value = true;
     } catch (error) {
         console.error(error);
-        alert("Lỗi tải lịch sử: " + error.message);
+        toast.error("Lỗi tải lịch sử: " + error.message);
     }
 };
 

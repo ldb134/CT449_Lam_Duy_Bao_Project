@@ -140,6 +140,7 @@ import { useAuthStore } from '@/stores/auth.store';
 import ReaderService from '@/services/reader.service';
 import BorrowHistory from './BorrowHistory.vue';
 import ChangePassword from './ChangePassword.vue';
+import { toast } from 'vue3-toastify';
 
 const authStore = useAuthStore();
 const activeTab = ref('info'); 
@@ -202,18 +203,18 @@ const fetchProfile = async () => {
 const updateProfile = async () => {
   try {
     if (isPhoneEmpty.value && !agreeRules.value) {
-        alert("Bạn cần đồng ý với quy định mượn trả để tiếp tục!");
+        toast.warning("Bạn cần đồng ý với quy định mượn trả để tiếp tục!");
         return;
     }
     
     await ReaderService.update(formData.madocgia, formData);
-    alert("Cập nhật thông tin thành công!");
+    
+    toast.success("Cập nhật thông tin thành công!");
     
     authStore.user.ten = formData.ten;
     authStore.user.hoTen = `${formData.hoLot} ${formData.ten}`;
     authStore.user.dienThoai = formData.dienThoai; 
     authStore.user.diaChi = formData.diaChi;    
-    
     localStorage.setItem("user", JSON.stringify(authStore.user));
 
     if (formData.dienThoai) {
@@ -222,7 +223,7 @@ const updateProfile = async () => {
     formData.password = ''; 
 
   } catch (error) {
-    alert("Lỗi cập nhật: " + (error.response?.data?.message || error.message));
+    toast.error("Lỗi cập nhật: " + (error.response?.data?.message || error.message));
   }
 };
 

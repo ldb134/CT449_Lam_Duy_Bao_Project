@@ -116,6 +116,8 @@
 import { ref, onMounted, reactive } from 'vue';
 import StaffService from '@/services/staff.service';
 import Pagination from '@/components/Pagination.vue';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const staffList = ref([]);
 const showModal = ref(false);
@@ -159,23 +161,33 @@ const closeModal = () => {
 const handleSave = async () => {
     try {
         await StaffService.create(formData);
-        alert("Tạo tài khoản thành công!");
+        toast.success("Tạo tài khoản nhân viên thành công!");
         closeModal();
         fetchData();
     } catch (error) {
-        alert("Lỗi: " + (error.response?.data?.message || error.message));
+        toast.error("Lỗi: " + (error.response?.data?.message || error.message));
     }
 };
 
+// 3. Sửa hàm deleteStaff
 const deleteStaff = async (staff) => {
-    if (!confirm(`Bạn có chắc muốn xóa nhân viên "${staff.hoTenNV}"?`)) return;
-    try {
-        await StaffService.delete(staff.msnv);
-        alert("Đã xóa nhân viên!");
-        fetchData();
-    } catch (error) {
-        console.log(error)
-        alert("Lỗi khi xóa!");
+    const result = await Swal.fire({
+        title: 'Xóa nhân viên?',
+        text: `Bạn chắc chắn muốn xóa nhân viên "${staff.hoTenNV}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Xóa luôn'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await StaffService.delete(staff.msnv);
+            toast.success("Đã xóa nhân viên!");
+            fetchData();
+        } catch (error) {
+            toast.error("Lỗi khi xóa!");
+        }
     }
 };
 

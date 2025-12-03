@@ -73,6 +73,7 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/config/firebase"; 
@@ -98,9 +99,15 @@ async function handleLogin() {
     
     try {
         await authStore.login({ dienThoai: username.value, password: password.value }, 'reader');
-        router.push('/'); 
+        toast.success("Chào mừng bạn quay trở lại!", {
+            autoClose: 2000, 
+        });
+
+        setTimeout(() => {
+            router.push('/'); 
+        }, 1500);
     } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại.';
+        toast.error(error.response?.data?.message || 'Đăng nhập thất bại.');
     } finally {
         loading.value = false;
         loginMethod.value = '';
@@ -124,7 +131,7 @@ const loginGoogle = async () => {
         });
         
         if (response.isNewUser) {
-            alert("Chào mừng thành viên mới! Vui lòng cập nhật Số điện thoại và Mật khẩu để hoàn tất hồ sơ.");
+            toast.success("Chào mừng thành viên mới! Vui lòng cập nhật Số điện thoại và Mật khẩu để hoàn tất hồ sơ.");
             router.push('/profile'); 
         } else {
             router.push('/'); 

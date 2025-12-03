@@ -63,6 +63,14 @@
                       <h6 class="fw-bold text-truncate text-dark" :title="book.tenSach">{{ book.tenSach }}</h6>
                       <small class="text-muted">{{ book.tacGia }}</small>
                   </div>
+                  <div class="card-footer bg-white border-top-0 p-3 pt-0 mt-2">
+                      <button 
+                          class="btn w-100 rounded-pill fw-bold shadow-sm btn-outline-primary" 
+                          @click.stop="openBorrowModal(book)"
+                      >
+                          <font-awesome-icon icon="file-import" class="me-2" /> Mượn Ngay
+                      </button>
+                  </div>
                </div>
             </div>
         </div>
@@ -95,23 +103,45 @@
                       <h6 class="fw-bold text-truncate text-dark" :title="book.tenSach">{{ book.tenSach }}</h6>
                       <small class="text-muted">{{ book.tacGia }}</small>
                   </div>
+                  <div class="card-footer bg-white border-top-0 p-3 pt-0 mt-2">
+                      <button 
+                          class="btn w-100 rounded-pill fw-bold shadow-sm btn-outline-primary" 
+                          @click.stop="openBorrowModal(book)"
+                      >
+                          <font-awesome-icon icon="file-import" class="me-2" /> Mượn Ngay
+                      </button>
+                  </div>
                </div>
             </div>
         </div>
       </section>
     </div>
-  </div>
+  <BorrowModal 
+        :isVisible="showBorrowModal" 
+        :book="selectedBook" 
+        @close="showBorrowModal = false" 
+        @confirm="handleBorrowConfirm"
+    />
+  </div> 
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import BookService from '@/services/book.service';
+import BorrowingService from '@/services/borrowing.service';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth.store'; 
+import Swal from 'sweetalert2'; 
+import { toast } from 'vue3-toastify'; 
+import BorrowModal from '@/components/BorrowModal.vue'; 
 
 const router = useRouter();
+const authStore = useAuthStore(); 
 
 const newBooks = ref([]);
 const hotBooks = ref([]);
+const showBorrowModal = ref(false); 
+const selectedBook = ref(null);    
 
 const fetchData = async () => {
     try {
@@ -142,6 +172,49 @@ const getImageUrl = (imagePath) => {
 
 const setDefaultImage = (e) => {
     e.target.src = 'https://fastly.picsum.photos/id/173/200/300.jpg?hmac=9Ed5HxHOL3tFCOiW6UHx6a3hVksxDWc7L7p_WzN9N9Q';
+};
+
+
+const openBorrowModal = async (book) => { 
+    if(event) event.stopPropagation(); 
+
+    if (!authStore.isLoggedIn) { 
+        toast.warning("Bạn cần đăng nhập để mượn sách!"); 
+        router.push('/login'); 
+        return; 
+    }
+    
+    if (!authStore.user.dienThoai || !authStore.user.diaChi) {
+        const result = await Swal.fire({
+            title: 'Chưa hoàn tất hồ sơ',
+            text: "Bạn cần cập nhật Số điện thoại và Địa chỉ để mượn sách. Cập nhật ngay?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Đi tới Hồ sơ',
+            cancelButtonText: 'Để sau'
+        });
+        
+        if(result.isConfirmed) {
+            router.push('/profile');
+        }
+        return;
+    }
+    selectedBook.value = book;
+    showBorrowModal.value = true;
+};
+
+const handleBorrowConfirm = async (date) => {
+    try {
+        await BorrowingService.create({ 
+            madocgia: authStore.user.madocgia, 
+            masach: selectedBook.value.masach, 
+            ngayHenLay: date 
+        });
+        toast.success("Gửi yêu cầu thành công! Vui lòng chờ duyệt.");
+        showBorrowModal.value = false; 
+    } catch (error) { 
+        toast.error(error.response?.data?.message || "Lỗi khi mượn sách."); 
+    }
 };
 
 onMounted(() => {

@@ -99,6 +99,8 @@ import BorrowingService from '@/services/borrowing.service';
 import PublisherService from '@/services/publisher.service'; 
 import BorrowModal from '@/components/BorrowModal.vue'; 
 import { useAuthStore } from '@/stores/auth.store';
+import Swal from 'sweetalert2';
+import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const router = useRouter();
@@ -150,14 +152,23 @@ const fetchData = async () => {
     }
 };
 
-const openBorrowModal = () => {
+const openBorrowModal = async () => { 
     if (!authStore.isLoggedIn) {
-        alert("Bạn cần đăng nhập để mượn sách!");
+        toast.warning("Bạn cần đăng nhập để mượn sách!"); 
         router.push('/login');
         return;
     }
     if (!authStore.user.dienThoai || !authStore.user.diaChi) {
-        if(confirm("Bạn cần hoàn tất hồ sơ (SĐT, Địa chỉ) và đồng ý quy định trước khi mượn sách. Đi đến trang hồ sơ ngay?")) {
+        const result = await Swal.fire({
+            title: 'Chưa hoàn tất hồ sơ',
+            text: "Bạn cần cập nhật Số điện thoại và Địa chỉ để mượn sách. Cập nhật ngay?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Đi tới Hồ sơ',
+            cancelButtonText: 'Để sau'
+        });
+
+        if(result.isConfirmed) {
             router.push('/profile');
         }
         return;
@@ -174,11 +185,11 @@ const handleBorrowConfirm = async (date) => {
         };
 
         await BorrowingService.create(borrowData);
-        alert("Gửi yêu cầu thành công! Vui lòng đến nhận sách đúng hẹn.");
+        toast.success("Gửi yêu cầu thành công! Vui lòng đến nhận sách đúng hẹn.");
         showBorrowModal.value = false; 
 
     } catch (error) {
-        alert(error.response?.data?.message || "Lỗi khi mượn sách.");
+        toast.error(error.response?.data?.message || "Lỗi khi mượn sách.");
     }
 };
 

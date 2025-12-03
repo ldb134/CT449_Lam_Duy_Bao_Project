@@ -54,6 +54,7 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth.store';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -72,10 +73,13 @@ async function handleLogin() {
     errorMessage.value = '';
     
     try {
-        await authStore.login({ msnv: msnv.value, password: password.value }, 'staff');
-        router.push('/staff');
+        toast.success("Xin chào Quản trị viên!", { autoClose: 1500 });
+
+        setTimeout(() => {
+            router.push('/staff');
+        }, 1500);
     } catch (error) {
-        errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại.';
+        toast.error(error.response?.data?.message || 'Đăng nhập thất bại.');
     } finally {
         loading.value = false;
     }
