@@ -125,6 +125,12 @@ const routes = [
     meta: { layout: 'staff', requiresAuth: true, isStaff: true }
   },
   {
+    path: '/staff/transactions',
+    name: 'transaction-log',
+    component: () => import('@/views/staff/TransactionLog.vue'), 
+    meta: { layout: 'staff', requiresAuth: true, isStaff: true }
+},
+  {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFound.vue'),
@@ -137,7 +143,7 @@ const router = createRouter({
   routes,
 })
 
-const STAFF_LOGIN_SECRET = "B2205854"; // Mã bí mật
+const STAFF_LOGIN_SECRET = "B2205854"; 
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();

@@ -35,6 +35,8 @@ require('./app/routes/auth.route')(app);
 
 require('./app/routes/notification.route')(app);
 
+require("./app/routes/transaction.route")(app);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy trên cổng ${PORT}.`);

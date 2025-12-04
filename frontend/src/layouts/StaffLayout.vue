@@ -44,6 +44,11 @@
                     </router-link>
                 </li>
                 <li class="nav-item mb-2">
+                    <router-link to="/staff/transactions" class="nav-link text-white">
+                        <font-awesome-icon icon="history" class="me-2" style="width: 20px"/> Nhật Ký Hoạt Động
+                    </router-link>
+                </li>
+                <li class="nav-item mb-2">
                     <router-link to="/staff/profile" class="nav-link text-white">
                       <font-awesome-icon icon="key" class="me-2" style="width: 20px"/> Đổi Mật Khẩu
                     </router-link>
