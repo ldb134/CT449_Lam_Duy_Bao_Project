@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "691ad8ca51afe9fe99308107"
+  },
+  "msnv": "NV000",
+  "hoTenNV": "Lâm Duy Bảo",
+  "password": "$2b$10$IAEgr2PnNge5CELBC2.C/.kmK/HKzu1ZtTy78DByngk4wwjVSVFtO",
+  "chucVu": "QuanLy",
+  "diaChi": "Sóc Trăng",
+  "soDienThoai": "0378721859",
+  "createdAt": {
+    "$date": "2025-11-17T08:11:54.254Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-17T17:48:52.115Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315b3fd942897b402b9f57"
+  },
+  "msnv": "NV002",
+  "hoTenNV": "Lâm Bảo Bảo",
+  "password": "$2b$10$KwsgmhQfneV0lRefF8/OXOI99PYaExgeLNxSdTrH9/K73IwBBNwja",
+  "chucVu": "ThuThu",
+  "diaChi": "Sóc Trăng",
+  "soDienThoai": "0378721859",
+  "createdAt": {
+    "$date": "2025-12-04T09:58:23.833Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:58:23.833Z"
+  },
+  "__v": 0
+}]

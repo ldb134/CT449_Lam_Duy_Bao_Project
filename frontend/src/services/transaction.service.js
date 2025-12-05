@@ -5,8 +5,8 @@ class TransactionService {
         this.api = createApiClient(baseUrl);
     }
 
-    async getAll() {
-        return (await this.api.get("/")).data;
+    async getAll(params) {
+        return (await this.api.get("/", { params })).data;
     }
 }
 

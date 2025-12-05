@@ -1,0 +1,119 @@
+[{
+  "_id": {
+    "$oid": "69287f916ff7fb9281c7be77"
+  },
+  "manxb": "NXB001",
+  "tenNXB": "Nhà xuất bản Trẻ",
+  "diaChi": "161B Lý Chính Thắng, Phường Xuân Hoà , TP. Hồ Chí Minh",
+  "createdAt": {
+    "$date": "2025-11-27T16:42:57.512Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:02:42.219Z"
+  },
+  "__v": 0,
+  "dienThoai": "(028) 3931 6289",
+  "email": "hopthubandoc@nxbtre.com.vn"
+},
+{
+  "_id": {
+    "$oid": "6928814783bdfa24d927ccaf"
+  },
+  "manxb": "NXB002",
+  "tenNXB": "Nhà xuất bản Kim Đồng",
+  "email": "info@nxbkimdong.com.vn",
+  "dienThoai": "(024) 3943 4730",
+  "diaChi": "55 Quang Trung, Phường Hai Bà Trưng, Thành phố Hà Nội",
+  "createdAt": {
+    "$date": "2025-11-27T16:50:15.615Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:04:08.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692881ed83bdfa24d927ccbb"
+  },
+  "manxb": "NXB003",
+  "tenNXB": "Nhà xuất bản Tổng hợp thành phố Hồ Chí Minh",
+  "email": "nstonhop@gmail.com",
+  "dienThoai": "(028) 3825 6804",
+  "diaChi": "62 Nguyễn Thị Minh Khai, Phường Sài Gòn, TP.HCM",
+  "createdAt": {
+    "$date": "2025-11-27T16:53:01.409Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:03:58.862Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692882ad83bdfa24d927ccc3"
+  },
+  "manxb": "NXB004",
+  "tenNXB": "Nhà xuất bản Hội Nhà văn",
+  "email": "nhaxuatbanhnv@gmail.com",
+  "dienThoai": "(024) 3822 2135",
+  "diaChi": "65 Nguyễn Du, Phường Hai Bà Trưng, Hà Nội",
+  "createdAt": {
+    "$date": "2025-11-27T16:56:13.324Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:04:39.729Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928830583bdfa24d927ccce"
+  },
+  "manxb": "NXB005",
+  "tenNXB": "Nhà xuất bản Chính trị quốc gia Sự thật",
+  "email": "phathanh@nxbctqg.vn",
+  "dienThoai": "(024) 3822 1581",
+  "diaChi": "6/86 Duy tân, Cầu Giấy, Hà Nội",
+  "createdAt": {
+    "$date": "2025-11-27T16:57:41.044Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T16:57:41.044Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928833083bdfa24d927ccd3"
+  },
+  "manxb": "NXB006",
+  "tenNXB": "Nhà xuất bản Phụ nữ Việt Nam",
+  "email": "truyenthongvaprnxbpn@gmail.com",
+  "dienThoai": "(024) 3971 0717",
+  "diaChi": "39 Hàng Chuối, Quận Hai Bà Trưng, Hà Nội",
+  "createdAt": {
+    "$date": "2025-11-27T16:58:24.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T16:59:12.196Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692883ef83bdfa24d927ccf2"
+  },
+  "manxb": "NXB007",
+  "tenNXB": "Nhà xuất bản Lao Động ",
+  "email": "info@nxblaodong.com.vn",
+  "dienThoai": "043 8515380",
+  "diaChi": "Tầng 12 - Số 175 Đường Giảng Võ - Phường Ô Chợ Dừa - Thành phố Hà Nội",
+  "createdAt": {
+    "$date": "2025-11-27T17:01:35.880Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:01:35.880Z"
+  },
+  "__v": 0
+}]

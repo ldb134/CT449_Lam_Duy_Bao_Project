@@ -4,7 +4,7 @@
             <h2 class="text-primary fw-bold">
                 <font-awesome-icon icon="history" class="me-2" /> Nhật Ký Hoạt Động
             </h2>
-            <button class="btn btn-outline-secondary" @click="fetchData">
+            <button class="btn btn-outline-secondary" @click="refreshData">
                 <font-awesome-icon icon="sync" /> Làm mới
             </button>
         </div>
@@ -16,7 +16,8 @@
                         <tr>
                             <th class="ps-4">Thời Gian</th>
                             <th>Nhân Viên</th>
-                            <th>Độc Giả</th> <th>Hành Động</th>
+                            <th>Độc Giả</th>
+                            <th>Hành Động</th>
                             <th>Chi Tiết / Ghi Chú</th>
                         </tr>
                     </thead>
@@ -49,8 +50,16 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer bg-white text-muted small text-center">
-                * Hiển thị 100 hoạt động gần nhất
+            
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center py-3">
+                <div class="small text-muted">
+                    Hiển thị trang {{ currentPage }} / {{ totalPages }} (Tổng {{ totalItems }} hoạt động)
+                </div>
+                <Pagination 
+                    :current-page="currentPage" 
+                    :total-pages="totalPages" 
+                    @change-page="changePage" 
+                />
             </div>
         </div>
     </div>
@@ -59,15 +68,38 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import TransactionService from '@/services/transaction.service';
+import Pagination from '@/components/Pagination.vue'; 
 
 const logs = ref([]);
+const currentPage = ref(1);
+const totalPages = ref(1);
+const totalItems = ref(0);
 
 const fetchData = async () => {
     try {
-        logs.value = await TransactionService.getAll();
+        const res = await TransactionService.getAll({
+            page: currentPage.value,
+            limit: 10
+        });
+
+        logs.value = res.logs || [];
+        totalPages.value = res.totalPages || 1;
+        currentPage.value = res.currentPage || 1;
+        totalItems.value = res.totalItems || 0;
+
     } catch (error) {
         console.error(error);
     }
+};
+
+const changePage = (page) => {
+    currentPage.value = page;
+    fetchData();
+};
+
+const refreshData = () => {
+    currentPage.value = 1;
+    fetchData();
 };
 
 const formatDateTime = (dateString) => {

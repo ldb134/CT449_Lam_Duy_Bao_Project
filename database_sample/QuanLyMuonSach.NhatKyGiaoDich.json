@@ -1,0 +1,190 @@
+[{
+  "_id": {
+    "$oid": "69315f0f86c230dc4b5f320e"
+  },
+  "phieuMuonId": {
+    "$oid": "69315f0986c230dc4b5f3207"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "DUYET",
+  "ghiChu": "Duyệt mượn sách \"Tu viện Northanger\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:39.257Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:39.257Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f1d86c230dc4b5f321b"
+  },
+  "phieuMuonId": {
+    "$oid": "69315f0486c230dc4b5f31fb"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "DUYET",
+  "ghiChu": "Duyệt mượn sách \"Người dọn phòng (The Maid)\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:53.773Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:53.773Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f2086c230dc4b5f3226"
+  },
+  "phieuMuonId": {
+    "$oid": "69315f0986c230dc4b5f3207"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TRA_SACH",
+  "ghiChu": "Trả sách \"Tu viện Northanger\" đúng hạn",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:56.982Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:56.982Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f7286c230dc4b5f323a"
+  },
+  "phieuMuonId": {
+    "$oid": "69315f0486c230dc4b5f31fb"
+  },
+  "nhanVienId": "SYSTEM",
+  "madocgia": "DG003",
+  "hanhDong": "GIA_HAN",
+  "ghiChu": "Gia hạn sách \"Người dọn phòng (The Maid)\" thêm 7 ngày",
+  "createdAt": {
+    "$date": "2025-12-04T10:16:18.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:16:18.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f9a86c230dc4b5f3255"
+  },
+  "phieuMuonId": {
+    "$oid": "69315f0486c230dc4b5f31fb"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TRA_SACH",
+  "ghiChu": "Trả sách \"Người dọn phòng (The Maid)\" đúng hạn",
+  "createdAt": {
+    "$date": "2025-12-04T10:16:58.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:16:58.098Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316074aa8275eeff9655b9"
+  },
+  "phieuMuonId": {
+    "$oid": "69316070aa8275eeff9655b2"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TU_CHOI",
+  "ghiChu": "Từ chối mượn sách \"Tu viện Northanger\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:20:36.931Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:20:36.931Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161c7bb9b91de8d6c4c48"
+  },
+  "phieuMuonId": {
+    "$oid": "693161bdbb9b91de8d6c4c3e"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TU_CHOI",
+  "ghiChu": "Từ chối mượn sách \"Câu lạc bộ số 7\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:26:15.324Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:26:15.324Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161c9bb9b91de8d6c4c4f"
+  },
+  "phieuMuonId": {
+    "$oid": "693161bdbb9b91de8d6c4c3e"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TU_CHOI",
+  "ghiChu": "Từ chối mượn sách \"Câu lạc bộ số 7\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:26:17.680Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:26:17.680Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316201bb9b91de8d6c4c80"
+  },
+  "phieuMuonId": {
+    "$oid": "693161f7bb9b91de8d6c4c77"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "DUYET",
+  "ghiChu": "Duyệt mượn sách \"Vụn vỡ từ những vì sao\"",
+  "createdAt": {
+    "$date": "2025-12-04T10:27:13.020Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:27:13.020Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316f42638870bb459b6c8a"
+  },
+  "phieuMuonId": {
+    "$oid": "693161f6bb9b91de8d6c4c72"
+  },
+  "nhanVienId": "NV002",
+  "madocgia": "DG003",
+  "hanhDong": "TU_CHOI",
+  "ghiChu": "Từ chối mượn sách \"Câu lạc bộ số 7\"",
+  "createdAt": {
+    "$date": "2025-12-04T11:23:46.968Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T11:23:46.968Z"
+  },
+  "__v": 0
+}]

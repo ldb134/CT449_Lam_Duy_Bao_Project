@@ -283,7 +283,7 @@ exports.renew = async (req, res) => {
         borrowing.soLanGiaHan += 1; 
         await borrowing.save();
 
-        const actor = (req.user && req.user.msnv) ? req.user.msnv : (req.user ? : 'SYSTEM');
+        const actor = (req.user && req.user.msnv) ? req.user.msnv : (req.user ? 'USER' : 'SYSTEM');
         
         await logTransaction(borrowing._id, actor, borrowing.madocgia, 'GIA_HAN', `Gia hạn sách "${bookName}" thêm 7 ngày`);
 

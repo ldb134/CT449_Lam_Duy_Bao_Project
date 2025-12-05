@@ -1,0 +1,714 @@
+[{
+  "_id": {
+    "$oid": "693000d99b05c1d023f44ed6"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:20:25.748Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:20:41.307Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693001b79b05c1d023f44f1b"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:24:07.370Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693001b99b05c1d023f44f24"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:24:09.202Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693001bb9b05c1d023f44f2d"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:24:11.542Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002889b05c1d023f44f7d"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:27:36.644Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930028d9b05c1d023f44f8d"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:27:41.193Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002919b05c1d023f44f9f"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Người dọn phòng (The Maid). Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:27:45.692Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002b79b05c1d023f44fd4"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:23.656Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002b99b05c1d023f44fdc"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:25.883Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002c19b05c1d023f44ff0"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:33.386Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002cf9b05c1d023f45014"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Aliss bên đám lửa. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:47.821Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002d39b05c1d023f45022"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Câu lạc bộ số 7. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:51.622Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002db9b05c1d023f45030"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Lời người man di hiện đại – Nhời đàn bà. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:28:59.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002f49b05c1d023f4505a"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:24.371Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002f59b05c1d023f45062"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:25.620Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693002f69b05c1d023f4506a"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:26.528Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930030a9b05c1d023f4509a"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:46.167Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930030c9b05c1d023f450a8"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Người dọn phòng (The Maid). Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:48.330Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930030d9b05c1d023f450b6"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:29:49.955Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930031a9b05c1d023f450cc"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:30:02.701Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693003459b05c1d023f450ec"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:30:45.608Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693003479b05c1d023f450fa"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Người dọn phòng (The Maid). Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:30:47.897Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693006b09b05c1d023f4514a"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách 80 năm Đề cương về văn hóa Việt Nam (1943 - 2023) - Khởi nguồn và động lực phát triển. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:45:20.973Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:45:32.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693007069b05c1d023f45178"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Người dọn phòng (The Maid). Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T09:46:46.118Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T11:04:33.447Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69300b9b9b05c1d023f451e2"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn Tu viện Northanger đã bị từ chối.",
+  "loai": "danger",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T10:06:19.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T11:04:33.447Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693028966721a1bdf3df66e5"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Cảnh báo trễ hạn",
+  "noiDung": "Bạn đã trả cuốn S065 trễ hạn. Số lần vi phạm hiện tại: 1/3.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-03T12:09:58.030Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T12:09:58.030Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693031761a7db9811b8bf503"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Cảnh báo trễ hạn",
+  "noiDung": "Bạn đã trả cuốn S064 trễ hạn. Số lần vi phạm: 2/3.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-03T12:47:50.031Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T12:47:50.031Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69308ae4ec689103590c657f"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Các bạn tôi ở trên ấy. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T19:09:24.102Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T19:11:39.939Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69308d0c0ece9ed925c30d33"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": true,
+  "createdAt": {
+    "$date": "2025-12-03T19:18:36.965Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T19:21:02.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693158545ae041a767401541"
+  },
+  "madocgia": "DG002",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tinh hoa dạy con. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:45:56.762Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:45:56.762Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931594c5ae041a76740157d"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao. Vui lòng đến nhận!",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:50:04.571Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:50:04.571Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693159995ae041a7674015a3"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn Các bạn tôi ở trên ấy đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:51:21.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:51:21.263Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315aa3d942897b402b9eff"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Đời vội vã càng nên sống chậm.",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:55:47.133Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:55:47.133Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315ab8d942897b402b9f21"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn Các bạn tôi ở trên ấy đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:56:08.381Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:56:08.381Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315b25d942897b402b9f4c"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Lời người man di hiện đại – Nhời đàn bà.",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T09:57:57.788Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:57:57.788Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f0f86c230dc4b5f3210"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Tu viện Northanger.",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:14:39.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:39.259Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f1d86c230dc4b5f321d"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Người dọn phòng (The Maid).",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:14:53.776Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:53.776Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316074aa8275eeff9655bb"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn \"Tu viện Northanger\" đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:20:36.936Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:20:36.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161c7bb9b91de8d6c4c4a"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn \"Câu lạc bộ số 7\" đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:26:15.327Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:26:15.327Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161c9bb9b91de8d6c4c51"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn \"Câu lạc bộ số 7\" đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:26:17.683Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:26:17.683Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316201bb9b91de8d6c4c82"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu được duyệt",
+  "noiDung": "Thủ thư đã duyệt cuốn sách Vụn vỡ từ những vì sao.",
+  "loai": "success",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T10:27:13.021Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:27:13.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69316f42638870bb459b6c8c"
+  },
+  "madocgia": "DG003",
+  "tieuDe": "Yêu cầu bị từ chối",
+  "noiDung": "Yêu cầu mượn cuốn \"Câu lạc bộ số 7\" đã bị từ chối.",
+  "loai": "danger",
+  "daXem": false,
+  "createdAt": {
+    "$date": "2025-12-04T11:23:46.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T11:23:46.975Z"
+  },
+  "__v": 0
+}]

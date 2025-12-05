@@ -1,0 +1,1340 @@
+[{
+  "_id": {
+    "$oid": "69288c0d2147d3925b2af080"
+  },
+  "masach": "S001",
+  "tenSach": "Cô bé hàng xóm và bốn viên kẹo",
+  "donGia": 115000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB001",
+  "tacGia": "Nguyễn Nhật Ánh",
+  "anh": "/uploads/1764264973669-001.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:36:13.701Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:36:13.701Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69288d192147d3925b2af090"
+  },
+  "masach": "S002",
+  "tenSach": "Xứ Đàng Trong",
+  "donGia": 150000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB001",
+  "tacGia": "Li Tana",
+  "anh": "/uploads/1764265241061-002.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:40:41.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:40:41.073Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69288d852147d3925b2af099"
+  },
+  "masach": "S003",
+  "tenSach": "Wild Cats",
+  "donGia": 135000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB001",
+  "tacGia": "Reiko Shimizu",
+  "anh": "/uploads/1764265349342-003.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:42:29.351Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:42:29.351Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69288df92147d3925b2af0a2"
+  },
+  "masach": "S004",
+  "tenSach": "Di sản Hồ Chí Minh - Con đường vạn dặm của Hồ Chí Minh",
+  "donGia": 87000,
+  "soQuyen": 20,
+  "namXuatBan": "1990",
+  "manxb": "NXB001",
+  "tacGia": "Mai Văn Bộ",
+  "anh": "/uploads/1764265465608-004.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:44:25.617Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:46:33.222Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69288f4b2147d3925b2af0ba"
+  },
+  "masach": "S005",
+  "tenSach": "Cho tôi xin một vé đi tuổi thơ",
+  "donGia": 40000,
+  "soQuyen": 20,
+  "namXuatBan": "2008",
+  "manxb": "NXB001",
+  "tacGia": "Nguyễn Nhật Ánh",
+  "anh": "/uploads/1764265803339-005.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:50:03.352Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:50:03.352Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69288f962147d3925b2af0c2"
+  },
+  "masach": "S006",
+  "tenSach": "Cánh đồng bất tận",
+  "donGia": 85000,
+  "soQuyen": 20,
+  "namXuatBan": "2019",
+  "manxb": "NXB001",
+  "tacGia": "Nguyễn Ngọc Tư",
+  "anh": "/uploads/1764265878128-006.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:51:18.135Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:51:18.135Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692890392147d3925b2af0cc"
+  },
+  "masach": "S007",
+  "tenSach": "Harry Potter và Hòn đá Phù thủy",
+  "donGia": 150000,
+  "soQuyen": 20,
+  "namXuatBan": "2022",
+  "manxb": "NXB001",
+  "tacGia": "J.K.Rowling",
+  "anh": "/uploads/1764266041965-007.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:54:01.976Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:54:01.976Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928907b2147d3925b2af0d4"
+  },
+  "masach": "S008",
+  "tenSach": "Cơn lốc quản trị",
+  "donGia": 140000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB001",
+  "tacGia": "Phan Văn Trường",
+  "anh": "/uploads/1764266107476-008.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:55:07.484Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:55:07.484Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692890e02147d3925b2af0dc"
+  },
+  "masach": "S009",
+  "tenSach": "Nỗi buồn chiến tranh",
+  "donGia": 115000,
+  "soQuyen": 20,
+  "namXuatBan": "2017",
+  "manxb": "NXB001",
+  "tacGia": "Bảo Ninh",
+  "anh": "/uploads/1764266208202-009.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T17:56:48.215Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T17:56:48.215Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6928925e2147d3925b2af10b"
+  },
+  "masach": "S010",
+  "tenSach": "Người đàn ông mang tên Ove",
+  "donGia": 130000,
+  "soQuyen": 20,
+  "namXuatBan": "2017",
+  "manxb": "NXB001",
+  "tacGia": "Fredrik Backman",
+  "anh": "/uploads/1764269237125-010.jpg",
+  "createdAt": {
+    "$date": "2025-11-27T18:03:10.704Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-27T18:47:17.142Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692912b1efa8cef2342232d9"
+  },
+  "masach": "S011",
+  "tenSach": "Dế Mèn phiêu lưu ký",
+  "donGia": 100000,
+  "soQuyen": 20,
+  "namXuatBan": "2019",
+  "manxb": "NXB002",
+  "tacGia": "Tô Hoài",
+  "anh": "/uploads/1764299441491-001.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:10:41.555Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:10:41.555Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6929139befa8cef2342232e5"
+  },
+  "masach": "S012",
+  "tenSach": "Đất rừng phương Nam",
+  "donGia": 225000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB002",
+  "tacGia": "Đoàn Giỏi",
+  "anh": "/uploads/1764299675558-002.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:14:35.568Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:14:35.568Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6929146aefa8cef2342232f0"
+  },
+  "masach": "S013",
+  "tenSach": "Tuổi thơ dữ dội",
+  "donGia": 160000,
+  "soQuyen": 20,
+  "namXuatBan": "2019",
+  "manxb": "NXB002",
+  "tacGia": "Phùng Quán",
+  "anh": "/uploads/1764299882283-003.gif",
+  "createdAt": {
+    "$date": "2025-11-28T03:18:02.288Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:18:02.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291561efa8cef234223302"
+  },
+  "masach": "S014",
+  "tenSach": "Búp sen xanh",
+  "donGia": 72000,
+  "soQuyen": 20,
+  "namXuatBan": "1982",
+  "manxb": "NXB002",
+  "tacGia": "Sơn Tùng",
+  "anh": "/uploads/1764300129241-004.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:22:09.247Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:22:09.247Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6929160fefa8cef23422330d"
+  },
+  "masach": "S015",
+  "tenSach": "Góc sân và khoảng trời",
+  "donGia": 60000,
+  "soQuyen": 20,
+  "namXuatBan": "2024",
+  "manxb": "NXB002",
+  "tacGia": "Trần Đăng Khoa",
+  "anh": "/uploads/1764300303556-005.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:25:03.562Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:25:03.562Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692916a2efa8cef234223318"
+  },
+  "masach": "S016",
+  "tenSach": "Lịch sử nước Việt bằng tranh",
+  "donGia": 140000,
+  "soQuyen": 20,
+  "namXuatBan": "2024",
+  "manxb": "NXB002",
+  "tacGia": "Dương Trung Quốc, Hiếu Minh, Huyền Trang",
+  "anh": "/uploads/1764300450973-006.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:27:30.980Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:27:30.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291793efa8cef23422332d"
+  },
+  "masach": "S017",
+  "tenSach": "Sống",
+  "donGia": 190000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB002",
+  "tacGia": "Pauline Guitton, Hải Anh",
+  "anh": "/uploads/1764300691754-007.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:31:31.761Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:31:31.761Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692919111d27593cebe59021"
+  },
+  "masach": "S018",
+  "tenSach": "Lĩnh Nam Chích Quái",
+  "donGia": 350000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB002",
+  "tacGia": "Trần Thế Pháp, Vũ Quỳnh, Kiều Phú, Đinh Gia Khánh, Nguyễn Ngọc San, Tạ Huy Long",
+  "anh": "/uploads/1764301073669-008.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:37:53.691Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:37:53.691Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291a091d27593cebe5902d"
+  },
+  "masach": "S019",
+  "tenSach": "Những ngày thơ ấu",
+  "donGia": 30000,
+  "soQuyen": 20,
+  "namXuatBan": "2024",
+  "manxb": "NXB002",
+  "tacGia": "Nguyên Hồng",
+  "anh": "/uploads/1764301321574-009.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:42:01.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:42:01.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291a951d27593cebe59037"
+  },
+  "masach": "S020",
+  "tenSach": "Văn học thiếu nhi Việt Nam đầu thế kỷ 21 - Những điều đọng lại trong con mắt nhắm",
+  "donGia": 70000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB002",
+  "tacGia": "Văn Thành Lê",
+  "anh": "/uploads/1764301460999-010.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:44:21.006Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:44:21.006Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291d381d27593cebe59045"
+  },
+  "masach": "S021",
+  "tenSach": " Địa chí văn hóa Thành phố Hồ Chí Minh (Tập 1:Lịch sử)",
+  "donGia": 435000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB003",
+  "tacGia": "Hội đồng xã hội khoa học thành phố Hồ Chí Minh",
+  "anh": "/uploads/1764302136839-001.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:55:36.845Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:57:51.726Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291d681d27593cebe5904e"
+  },
+  "masach": "S022",
+  "tenSach": "Địa chí văn hóa Thành phố Hồ Chí Minh (Tập 2: Văn học - Báo chí - Giáo dục)",
+  "donGia": 525000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB003",
+  "tacGia": "Hội đồng xã hội khoa học thành phố Hồ Chí Minh",
+  "anh": "/uploads/1764302184980-002.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:56:24.985Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:57:45.844Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291dad1d27593cebe59057"
+  },
+  "masach": "S023",
+  "tenSach": "Địa chí văn hóa Thành phố Hồ Chí Minh (Tập 3: Nghệ thuật)",
+  "donGia": 365000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB003",
+  "tacGia": "Hội đồng xã hội khoa học thành phố Hồ Chí Minh",
+  "anh": "/uploads/1764302253341-003.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:57:33.348Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:57:33.348Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291dfb1d27593cebe5906d"
+  },
+  "masach": "S024",
+  "tenSach": " Địa chí văn hóa Thành phố Hồ Chí Minh (Tập 4: Tư tưởng và Tín ngưỡng)",
+  "donGia": 395000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB003",
+  "tacGia": "Hội đồng khoa học xã hội thành phố Hồ Chí Minh",
+  "anh": "/uploads/1764302331494-004.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T03:58:51.503Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T03:58:51.503Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291e5a1d27593cebe59077"
+  },
+  "masach": "S025",
+  "tenSach": "Sài Gòn - Chợ Lớn qua những tư liệu quý trước 1945 (tái bản)",
+  "donGia": 140000,
+  "soQuyen": 20,
+  "namXuatBan": "2017",
+  "manxb": "NXB003",
+  "tacGia": "Nguyễn Đức Hiệp",
+  "anh": "/uploads/1764302426581-005.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:00:26.589Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:00:26.589Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291ecb1d27593cebe59080"
+  },
+  "masach": "S026",
+  "tenSach": "Gánh gánh ... gồng gồng ...",
+  "donGia": 160000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB003",
+  "tacGia": "Nguyễn Thị Xuân Phương",
+  "anh": "/uploads/1764302539161-006.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:02:19.168Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:02:19.168Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291f161d27593cebe5908a"
+  },
+  "masach": "S027",
+  "tenSach": "Phạm Xuân Ẩn - Tên người như cuộc đời",
+  "donGia": 120000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB003",
+  "tacGia": "Nguyễn Thị Ngọc Hải",
+  "anh": "/uploads/1764302614185-007.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:03:34.192Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:03:34.192Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291f6c1d27593cebe59093"
+  },
+  "masach": "S028",
+  "tenSach": "Kiến trúc Pháp - Đông Dương Dấu tích \"Sài Gòn - Hòn ngọc Viễn Đông\" (Sách ảnh in màu)",
+  "donGia": 350000,
+  "soQuyen": 20,
+  "namXuatBan": "2024",
+  "manxb": "NXB003",
+  "tacGia": "Biên soạn Trần Hữu Phúc Tiến",
+  "anh": "/uploads/1764302700543-008.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:05:00.551Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:05:00.551Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69291fd11d27593cebe5909d"
+  },
+  "masach": "S029",
+  "tenSach": "Lược khảo nguồn gốc địa danh Nam Bộ",
+  "donGia": 45000,
+  "soQuyen": 20,
+  "namXuatBan": "2022",
+  "manxb": "NXB003",
+  "tacGia": "Bùi Đức TỊnh",
+  "anh": "/uploads/1764303061636-009.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:06:41.124Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:11:01.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6929200d1d27593cebe590a6"
+  },
+  "masach": "S030",
+  "tenSach": "Đường về phương Nam - Nghiên cứu mới về Đờn ca tài tử và Cải lương",
+  "donGia": 85000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB003",
+  "tacGia": "Nguyễn Lệ Tuyên",
+  "anh": "/uploads/1764302861072-010.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:07:41.079Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:07:41.079Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692921cb1d27593cebe590cc"
+  },
+  "masach": "S031",
+  "tenSach": "Từ giờ thứ sáu đến giờ thứ chín",
+  "donGia": 260000,
+  "soQuyen": 20,
+  "namXuatBan": "2024",
+  "manxb": "NXB004",
+  "tacGia": "Nguyễn Một",
+  "anh": "/uploads/1764303307371-001.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:15:07.378Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:15:07.378Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692922341d27593cebe590f8"
+  },
+  "masach": "S032",
+  "tenSach": "Một mùa hè dưới bóng cây",
+  "donGia": 180000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB004",
+  "tacGia": "Nguyễn Tham Thiện Kế",
+  "anh": "/uploads/1764303412435-002.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:16:52.442Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:16:52.442Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692922f51d27593cebe59103"
+  },
+  "masach": "S033",
+  "tenSach": "Người đua diều",
+  "donGia": 129000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB004",
+  "tacGia": "Khaled Hosseini",
+  "anh": "/uploads/1764303605842-003.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:20:05.848Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:20:05.848Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692924991d27593cebe5911b"
+  },
+  "masach": "S034",
+  "tenSach": "Rừng Na Uy",
+  "donGia": 128000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB004",
+  "tacGia": "Haruki Murakami",
+  "anh": "/uploads/1764304025175-004.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:27:05.181Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:27:05.181Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6929251d1d27593cebe59125"
+  },
+  "masach": "S035",
+  "tenSach": "Phù sinh lục ký",
+  "donGia": 138000,
+  "soQuyen": 20,
+  "namXuatBan": "2018",
+  "manxb": "NXB004",
+  "tacGia": "Thẩm Phục",
+  "anh": "/uploads/1764304157162-005.png",
+  "createdAt": {
+    "$date": "2025-11-28T04:29:17.167Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:29:17.167Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692926241d27593cebe59132"
+  },
+  "masach": "S036",
+  "tenSach": "Những ngã tư và những cột đèn",
+  "donGia": 170000,
+  "soQuyen": 20,
+  "namXuatBan": "2022",
+  "manxb": "NXB004",
+  "tacGia": "Trần Dần",
+  "anh": "/uploads/1764304420781-006.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:33:40.788Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:33:40.788Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69292adf1d27593cebe5914e"
+  },
+  "masach": "S037",
+  "tenSach": "Tự Chủ Văn Chương và Sứ Mệnh Tự Do",
+  "donGia": 300000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB004",
+  "tacGia": "Phùng Ngọc Kiên, Đoàn Ánh Dương",
+  "anh": "/uploads/1764305631167-007.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:53:51.175Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:53:51.175Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69292b361d27593cebe59157"
+  },
+  "masach": "S038",
+  "tenSach": "Bắt trẻ đồng xanh",
+  "donGia": 100000,
+  "soQuyen": 20,
+  "namXuatBan": "2020",
+  "manxb": "NXB004",
+  "tacGia": "J. D. Salinger",
+  "anh": "/uploads/1764305718738-008.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:55:18.744Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:55:18.744Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69292c0f1d27593cebe59163"
+  },
+  "masach": "S039",
+  "tenSach": "Minh sư",
+  "donGia": 95000,
+  "soQuyen": 20,
+  "namXuatBan": "2010",
+  "manxb": "NXB004",
+  "tacGia": "Thái Bá Lợi",
+  "anh": "/uploads/1764305935301-009.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T04:58:55.307Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T04:58:55.307Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69292e561d27593cebe59175"
+  },
+  "masach": "S040",
+  "tenSach": "Lính bay (Hồi ký)",
+  "donGia": 230000,
+  "soQuyen": 20,
+  "namXuatBan": "2020",
+  "manxb": "NXB004",
+  "tacGia": "Phạm Phú Thái",
+  "anh": "/uploads/1764306518004-010.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T05:08:38.011Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T20:35:35.868Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293a20731d7c31202f322f"
+  },
+  "masach": "S041",
+  "tenSach": "Hồ Chí Minh Toàn Tập (Tập 1)",
+  "donGia": 410000,
+  "soQuyen": 20,
+  "namXuatBan": "2011",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764309536898-001.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T05:58:56.913Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T05:59:09.581Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293a4e731d7c31202f323f"
+  },
+  "masach": "S042",
+  "tenSach": "Hồ Chí Minh Toàn Tập (Tập 2)",
+  "donGia": 410000,
+  "soQuyen": 20,
+  "namXuatBan": "2011",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764309582177-002.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T05:59:42.183Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T05:59:42.183Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293a73731d7c31202f3249"
+  },
+  "masach": "S043",
+  "tenSach": "Hồ Chí Minh Toàn Tập (Tập 3)",
+  "donGia": 410000,
+  "soQuyen": 20,
+  "namXuatBan": "2011",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764309619150-003.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:00:19.157Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T06:00:19.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293a94731d7c31202f3251"
+  },
+  "masach": "S044",
+  "tenSach": "Hồ Chí Minh Toàn Tập (Tập 4)",
+  "donGia": 410000,
+  "soQuyen": 20,
+  "namXuatBan": "2011",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764309652592-004.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:00:52.599Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T06:00:52.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293abe731d7c31202f325b"
+  },
+  "masach": "S045",
+  "tenSach": "Hồ Chí Minh Toàn Tập (Tập 5)",
+  "donGia": 410000,
+  "soQuyen": 20,
+  "namXuatBan": "2011",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764309694791-005.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:01:34.798Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T06:01:34.798Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293b78731d7c31202f3269"
+  },
+  "masach": "S046",
+  "tenSach": "Đường Cách Mệnh",
+  "donGia": 31000,
+  "soQuyen": 20,
+  "namXuatBan": "2020",
+  "manxb": "NXB005",
+  "tacGia": "Nguyễn Ái Quốc",
+  "anh": "/uploads/1764309880703-006.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:04:40.710Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T06:11:07.430Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293c4a731d7c31202f3278"
+  },
+  "masach": "S047",
+  "tenSach": "Nhật ký trong tù",
+  "donGia": 110000,
+  "soQuyen": 20,
+  "namXuatBan": "2023",
+  "manxb": "NXB005",
+  "tacGia": "Hồ Chí Minh",
+  "anh": "/uploads/1764310090491-007.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:08:10.500Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T06:08:10.500Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293d36731d7c31202f3284"
+  },
+  "masach": "S048",
+  "tenSach": "Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam năm 2013 (sửa đổi, bổ sung năm 2025)",
+  "donGia": 36000,
+  "soQuyen": 20,
+  "namXuatBan": "2025",
+  "manxb": "NXB005",
+  "tacGia": "Quốc Hội",
+  "anh": "/uploads/1764310326827-008.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:12:06.835Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-28T06:12:06.835Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69293eea731d7c31202f3293"
+  },
+  "masach": "S049",
+  "tenSach": "80 năm Đề cương về văn hóa Việt Nam (1943 - 2023) - Khởi nguồn và động lực phát triển",
+  "donGia": 0,
+  "soQuyen": 1,
+  "namXuatBan": "2023",
+  "manxb": "NXB005",
+  "tacGia": "Ban Tuyên giáo Trung ương - Bộ Văn hóa, Thể thao và Du lịch - Học viện Chính trị quốc gia Hồ Chí Minh - Hội đồng Lý luận Trung ương",
+  "anh": "/uploads/1764310762210-009.jpg",
+  "createdAt": {
+    "$date": "2025-11-28T06:19:22.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:47:06.489Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692940cb731d7c31202f32d9"
+  },
+  "masach": "S050",
+  "tenSach": "Đổi mới và phát triển ở Việt Nam - Một số vấn đề lý luận và thực tiễn",
+  "donGia": 60000,
+  "soQuyen": 20,
+  "namXuatBan": "2006",
+  "manxb": "NXB005",
+  "tacGia": "Nguyễn Phú Trọng",
+  "anh": "/uploads/1764311243665-010.png",
+  "createdAt": {
+    "$date": "2025-11-28T06:27:23.674Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:05:27.606Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff52f9b05c1d023f44d90"
+  },
+  "masach": "S051",
+  "tenSach": "Môn sử không chán như em tưởng",
+  "donGia": 79000,
+  "soQuyen": 5,
+  "namXuatBan": "2024",
+  "manxb": "NXB006",
+  "tacGia": "Nguyễn Quốc Vương",
+  "anh": "/uploads/1764750639894-001.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:30:39.925Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:30:39.925Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff5d89b05c1d023f44d9c"
+  },
+  "masach": "S052",
+  "tenSach": "Lũ trẻ làng Ồn Ào",
+  "donGia": 54000,
+  "soQuyen": 5,
+  "namXuatBan": "2022",
+  "manxb": "NXB006",
+  "tacGia": "Astrid Lindgren",
+  "anh": "/uploads/1764750808968-002.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:33:28.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:33:28.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff6349b05c1d023f44da7"
+  },
+  "masach": "S053",
+  "tenSach": "Sát thủ Chim Én",
+  "donGia": 250000,
+  "soQuyen": 5,
+  "namXuatBan": "2024",
+  "manxb": "NXB006",
+  "tacGia": "Morgan Audic",
+  "anh": "/uploads/1764750900305-003.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:35:00.312Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:35:00.312Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff6b89b05c1d023f44db4"
+  },
+  "masach": "S054",
+  "tenSach": "Nữ quyền cho tất cả mọi người",
+  "donGia": 94000,
+  "soQuyen": 5,
+  "namXuatBan": "2022",
+  "manxb": "NXB006",
+  "tacGia": "Bell Hooks",
+  "anh": "/uploads/1764751032026-004.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:37:12.033Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:37:12.033Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff7149b05c1d023f44dbf"
+  },
+  "masach": "S055",
+  "tenSach": "Đội gạo lên chùa",
+  "donGia": 235000,
+  "soQuyen": 5,
+  "namXuatBan": "2018",
+  "manxb": "NXB006",
+  "tacGia": "Nguyễn Xuân Khánh",
+  "anh": "/uploads/1764751124173-005.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:38:44.181Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:38:44.181Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff76a9b05c1d023f44dca"
+  },
+  "masach": "S056",
+  "tenSach": "Ký Ức Đỏ",
+  "donGia": 88000,
+  "soQuyen": 5,
+  "namXuatBan": "2013",
+  "manxb": "NXB006",
+  "tacGia": "Laurie Faria Stolarz",
+  "anh": "/uploads/1764751210627-006.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:40:10.633Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:40:10.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff7d79b05c1d023f44dd5"
+  },
+  "masach": "S057",
+  "tenSach": "Thư viết từ Hà Nội – Bom đã rơi trên hè phố Thủ đô",
+  "donGia": 130000,
+  "soQuyen": 5,
+  "namXuatBan": "2022",
+  "manxb": "NXB006",
+  "tacGia": "Tô Minh Nguyệt",
+  "anh": "/uploads/1764751319081-007.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:41:59.089Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T08:41:59.089Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff8b99b05c1d023f44de3"
+  },
+  "masach": "S058",
+  "tenSach": "Các bạn tôi ở trên ấy",
+  "donGia": 139000,
+  "soQuyen": 5,
+  "namXuatBan": "2021",
+  "manxb": "NXB006",
+  "tacGia": "Nguyên Ngọc",
+  "anh": "/uploads/1764751545489-008.png",
+  "createdAt": {
+    "$date": "2025-12-03T08:45:45.509Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T19:18:31.631Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff90a9b05c1d023f44dee"
+  },
+  "masach": "S059",
+  "tenSach": "Lời người man di hiện đại – Nhời đàn bà",
+  "donGia": 69000,
+  "soQuyen": 5,
+  "namXuatBan": "2018",
+  "manxb": "NXB006",
+  "tacGia": "Nguyễn Văn Vĩnh",
+  "anh": "/uploads/1764751626213-009.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:47:06.222Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:00:24.475Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ff9819b05c1d023f44dfa"
+  },
+  "masach": "S060",
+  "tenSach": "Đời vội vã càng nên sống chậm",
+  "donGia": 108000,
+  "soQuyen": 5,
+  "namXuatBan": "2024",
+  "manxb": "NXB006",
+  "tacGia": "Hoàng Anh Tú",
+  "anh": "/uploads/1764751745532-010.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:49:05.537Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:55:54.507Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffa499b05c1d023f44e07"
+  },
+  "masach": "S061",
+  "tenSach": "Câu lạc bộ số 7",
+  "donGia": 135000,
+  "soQuyen": 5,
+  "namXuatBan": "2016",
+  "manxb": "NXB007",
+  "tacGia": "Di Li",
+  "anh": "/uploads/1764751945718-001.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:52:25.726Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:53.089Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffb539b05c1d023f44e16"
+  },
+  "masach": "S062",
+  "tenSach": "Aliss bên đám lửa",
+  "donGia": 79000,
+  "soQuyen": 5,
+  "namXuatBan": "2024",
+  "manxb": "NXB007",
+  "tacGia": "Jon Fosse",
+  "anh": "/uploads/1764752211172-002.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:56:51.179Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:50.061Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffbaf9b05c1d023f44e21"
+  },
+  "masach": "S063",
+  "tenSach": "Vụn vỡ từ những vì sao",
+  "donGia": 94000,
+  "soQuyen": 4,
+  "namXuatBan": "2024",
+  "manxb": "NXB007",
+  "tacGia": "Châu sa đáy mắt",
+  "anh": "/uploads/1764752303513-003.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:58:23.519Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:27:13.015Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffbef9b05c1d023f44e2b"
+  },
+  "masach": "S064",
+  "tenSach": "Tu viện Northanger",
+  "donGia": 176000,
+  "soQuyen": 7,
+  "namXuatBan": "2024",
+  "manxb": "NXB007",
+  "tacGia": "Jane Austen",
+  "anh": "/uploads/1764752367438-004.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T08:59:27.445Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:56.976Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffc539b05c1d023f44e37"
+  },
+  "masach": "S065",
+  "tenSach": "Tinh hoa dạy con",
+  "donGia": 360000,
+  "soQuyen": 6,
+  "namXuatBan": "2024",
+  "manxb": "NXB007",
+  "tacGia": " Lại Thị Hải Lý",
+  "anh": "/uploads/1764752467277-005.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T09:01:07.306Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:46:08.349Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692ffcc49b05c1d023f44e42"
+  },
+  "masach": "S066",
+  "tenSach": "Người dọn phòng (The Maid)",
+  "donGia": 189000,
+  "soQuyen": 5,
+  "namXuatBan": "2024",
+  "manxb": "NXB007",
+  "tacGia": "Nita Prose",
+  "anh": "/uploads/1764752580473-006.jpg",
+  "createdAt": {
+    "$date": "2025-12-03T09:03:00.480Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:16:58.086Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931668dbb9b91de8d6c4ce1"
+  },
+  "masach": "S067",
+  "tenSach": "Người Họ Tư Vũ Đều Phải Chết",
+  "donGia": 230000,
+  "soQuyen": 5,
+  "namXuatBan": "2025",
+  "manxb": "NXB004",
+  "tacGia": "Albert Tam",
+  "anh": "/uploads/1764845197504-011.jpg",
+  "createdAt": {
+    "$date": "2025-12-04T10:46:37.519Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:46:37.519Z"
+  },
+  "__v": 0
+}]

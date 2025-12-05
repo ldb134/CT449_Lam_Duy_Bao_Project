@@ -1,0 +1,1073 @@
+[{
+  "_id": {
+    "$oid": "693000cc9b05c1d023f44ecc"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-08-03T09:20:12.855Z"
+  },
+  "updatedAt": {
+    "$date": "2025-08-03T09:20:30.255Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-08-10T09:20:25.744Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-08-03T09:20:25.744Z"
+  },
+  "ngayTra": {
+    "$date": "2025-08-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693001a19b05c1d023f44efe"
+  },
+  "madocgia": "DG002",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Quá hạn",
+  "createdAt": {
+    "$date": "2025-09-03T09:23:45.690Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T12:47:50.041Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-09-10T09:24:11.540Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-09-03T09:24:11.540Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-03T12:47:50.018Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693001a59b05c1d023f44f06"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-09-03T09:23:49.838Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:27:18.723Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-09-10T09:24:09.199Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-09-03T09:24:09.199Z"
+  },
+  "ngayTra": {
+    "$date": "2025-09-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693001aa9b05c1d023f44f0e"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-09-03T09:23:54.054Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:27:16.103Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:24:07.366Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-09-03T09:24:07.366Z"
+  },
+  "ngayTra": {
+    "$date": "2025-09-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6930027f9b05c1d023f44f67"
+  },
+  "madocgia": "DG002",
+  "masach": "S066",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Quá hạn",
+  "createdAt": {
+    "$date": "2025-10-03T09:27:27.281Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:27:53.802Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-10-10T09:27:45.689Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:27:45.689Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-11T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002809b05c1d023f44f6d"
+  },
+  "madocgia": "DG002",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:27:28.836Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:27:43.604Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:27:41.191Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:27:41.191Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002839b05c1d023f44f75"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:27:31.035Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:27:38.763Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:27:36.641Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:27:36.641Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002aa9b05c1d023f44fb5"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:10.332Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:35.745Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:33.384Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:33.384Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002ad9b05c1d023f44fbe"
+  },
+  "madocgia": "DG002",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:13.703Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:30.821Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:25.881Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:25.881Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002af9b05c1d023f44fc5"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:15.688Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:28.771Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:23.652Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:23.652Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002c59b05c1d023f44fff"
+  },
+  "madocgia": "DG002",
+  "masach": "S059",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:37.880Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:01.044Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:59.225Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:59.225Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002ca9b05c1d023f45005"
+  },
+  "madocgia": "DG002",
+  "masach": "S061",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:42.148Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:53.090Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:51.619Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:51.619Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002cb9b05c1d023f4500d"
+  },
+  "madocgia": "DG002",
+  "masach": "S062",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:28:43.886Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:28:50.062Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:28:47.819Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:28:47.819Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002eb9b05c1d023f45045"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:29:15.724Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:30.193Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:29:26.526Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:26.526Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002ec9b05c1d023f4504b"
+  },
+  "madocgia": "DG002",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:29:16.877Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:29.007Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:29:25.617Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:25.617Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693002ee9b05c1d023f45051"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-10-03T09:29:18.214Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:32.901Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:29:24.369Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:24.369Z"
+  },
+  "ngayTra": {
+    "$date": "2025-10-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693003019b05c1d023f45085"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-11-03T09:29:37.648Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T12:09:58.034Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-11-10T09:29:49.952Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:49.952Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693003059b05c1d023f4508b"
+  },
+  "madocgia": "DG002",
+  "masach": "S066",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-11-03T09:29:41.064Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:49.173Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:29:48.328Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:48.328Z"
+  },
+  "ngayTra": {
+    "$date": "2025-11-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693003069b05c1d023f45091"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-11-03T09:29:42.453Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:29:47.107Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:29:46.165Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:29:46.165Z"
+  },
+  "ngayTra": {
+    "$date": "2025-11-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693003129b05c1d023f450c5"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-11-03T09:29:54.647Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:30:04.445Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:30:02.698Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:30:02.698Z"
+  },
+  "ngayTra": {
+    "$date": "2025-11-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693003399b05c1d023f450dd"
+  },
+  "madocgia": "DG002",
+  "masach": "S066",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-11-03T09:30:33.241Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:30:49.020Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:30:47.895Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:30:47.895Z"
+  },
+  "ngayTra": {
+    "$date": "2025-11-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6930033d9b05c1d023f450e3"
+  },
+  "madocgia": "DG002",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T09:30:37.274Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T09:30:46.874Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:30:45.606Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:30:45.606Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-02T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693006a89b05c1d023f45142"
+  },
+  "madocgia": "DG002",
+  "masach": "S049",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 1,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T09:45:12.876Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:47:06.492Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-17T09:45:20.971Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:45:20.971Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:47:06.491Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693007009b05c1d023f4516f"
+  },
+  "madocgia": "DG002",
+  "masach": "S066",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T09:46:40.646Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:46:11.796Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-10T09:46:46.115Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-03T09:46:46.115Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:46:11.795Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69300b8c9b05c1d023f451da"
+  },
+  "madocgia": "DG002",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-03T10:06:04.341Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T10:06:19.092Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69301fa3f03be1ace191818d"
+  },
+  "madocgia": "DG002",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T11:31:47.156Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:46:08.350Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-11T09:45:56.751Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T09:45:56.751Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:46:08.350Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69308acfec689103590c6576"
+  },
+  "madocgia": "DG003",
+  "masach": "S058",
+  "ngayHenLay": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T19:09:03.231Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T19:18:31.638Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-05T00:00:00.000Z"
+  },
+  "ngayMuon": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-03T19:18:31.636Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69308c8a0ece9ed925c30d1a"
+  },
+  "madocgia": "DG003",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-20T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-03T19:16:26.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:44:44.349Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-27T00:00:00.000Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-20T00:00:00.000Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:44:44.348Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693159445ae041a767401571"
+  },
+  "madocgia": "DG003",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-04T09:49:56.219Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:50:09.952Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-11T09:50:04.568Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T09:50:04.568Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:50:09.952Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693159915ae041a76740159b"
+  },
+  "madocgia": "DG003",
+  "masach": "S058",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T09:51:13.755Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:51:21.257Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315a9ed942897b402b9ef6"
+  },
+  "madocgia": "DG003",
+  "masach": "S060",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-04T09:55:42.992Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:55:54.509Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-11T09:55:47.125Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T09:55:47.125Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T09:55:54.508Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69315ab2d942897b402b9f16"
+  },
+  "madocgia": "DG003",
+  "masach": "S058",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T09:56:02.669Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T09:56:08.374Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315b21d942897b402b9f43"
+  },
+  "madocgia": "DG003",
+  "masach": "S059",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 1,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-04T09:57:53.254Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:00:24.479Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-18T09:57:57.784Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T09:57:57.784Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T10:00:24.478Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69315f0486c230dc4b5f31fb"
+  },
+  "madocgia": "DG003",
+  "masach": "S066",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 1,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:28.824Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:16:58.090Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-18T10:14:53.771Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T10:14:53.771Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T10:16:58.089Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69315f0786c230dc4b5f3201"
+  },
+  "madocgia": "DG003",
+  "masach": "S065",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:31.974Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:44.099Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69315f0986c230dc4b5f3207"
+  },
+  "madocgia": "DG003",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã trả",
+  "createdAt": {
+    "$date": "2025-12-04T10:14:33.426Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:14:56.978Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-11T10:14:39.253Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T10:14:39.253Z"
+  },
+  "ngayTra": {
+    "$date": "2025-12-04T10:14:56.978Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69316070aa8275eeff9655b2"
+  },
+  "madocgia": "DG003",
+  "masach": "S064",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T10:20:32.807Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:20:36.921Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161bdbb9b91de8d6c4c3e"
+  },
+  "madocgia": "DG003",
+  "masach": "S061",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T10:26:05.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:26:17.676Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161f4bb9b91de8d6c4c6c"
+  },
+  "madocgia": "DG003",
+  "masach": "S062",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Chờ duyệt",
+  "createdAt": {
+    "$date": "2025-12-04T10:27:00.671Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:27:00.671Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161f6bb9b91de8d6c4c72"
+  },
+  "madocgia": "DG003",
+  "masach": "S061",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đã hủy",
+  "createdAt": {
+    "$date": "2025-12-04T10:27:02.299Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T11:23:46.949Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693161f7bb9b91de8d6c4c77"
+  },
+  "madocgia": "DG003",
+  "masach": "S063",
+  "ngayHenLay": {
+    "$date": "2025-12-04T00:00:00.000Z"
+  },
+  "soLanGiaHan": 0,
+  "trangThai": "Đang mượn",
+  "createdAt": {
+    "$date": "2025-12-04T10:27:03.690Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T10:27:13.017Z"
+  },
+  "__v": 0,
+  "ngayHetHan": {
+    "$date": "2025-12-11T10:27:13.017Z"
+  },
+  "ngayMuon": {
+    "$date": "2025-12-04T10:27:13.017Z"
+  }
+}]

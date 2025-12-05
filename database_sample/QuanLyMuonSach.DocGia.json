@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "692fff579b05c1d023f44eae"
+  },
+  "madocgia": "DG002",
+  "hoLot": "Nguyễn Văn",
+  "ten": "An",
+  "email": "nguyenvanan@gmail.com",
+  "ngaySinh": {
+    "$date": "2003-08-06T00:00:00.000Z"
+  },
+  "phai": "Nam",
+  "diaChi": "Ninh Kiều, Cần Thơ",
+  "dienThoai": "0901234567",
+  "trangThai": "Hoạt động",
+  "soLanTreHan": 2,
+  "password": "$2b$10$qhF4XarZe3DjQEeZrri5bOGJpgIzW93WpZf3vP4Zw5TyDwv8sPBJG",
+  "createdAt": {
+    "$date": "2025-12-03T09:13:59.669Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T12:47:50.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69308aa2ec689103590c6560"
+  },
+  "madocgia": "DG003",
+  "hoLot": "Lam Duy Bao",
+  "ten": "B2205854",
+  "email": "baob2205854@student.ctu.edu.vn",
+  "ngaySinh": {
+    "$date": "2025-12-03T00:00:00.000Z"
+  },
+  "phai": "Nam",
+  "diaChi": "Sóc Trăng",
+  "trangThai": "Hoạt động",
+  "soLanTreHan": 0,
+  "createdAt": {
+    "$date": "2025-12-03T19:08:18.702Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-03T19:16:10.239Z"
+  },
+  "__v": 0,
+  "dienThoai": "0378721859",
+  "password": "$2b$10$ilBydDUBeBdkGRTU.ZDgXuBSobv.yoAvKg3Xtsoevd.7uWcBurLRK"
+}]
